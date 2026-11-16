@@ -1,9 +1,11 @@
 import { useRef, type ReactNode } from 'react'
+import { AccountCard } from '../components/Account'
 import { Icon } from '../components/Icon'
 import { BOOKS } from '../lib/books'
 import { todayKey } from '../lib/date'
 import { speak, speechSupported } from '../lib/speech'
 import { exportData, importData, resetProgress, updateSettings, useAppData } from '../lib/store'
+import { useSync } from '../lib/sync'
 import type { Settings } from '../lib/types'
 
 function Seg<T extends string | number>({ value, options, onChange }: { value: T; options: { v: T; label: string }[]; onChange: (v: T) => void }) {
@@ -32,6 +34,7 @@ function Row({ label, desc, children }: { label: string; desc?: string; children
 
 export function Me() {
   const data = useAppData()
+  const signedIn = useSync().auth === 'signedIn'
   const s = data.settings
   const fileRef = useRef<HTMLInputElement>(null)
   const set = (patch: Partial<Settings>) => updateSettings(patch)
@@ -51,7 +54,8 @@ export function Me() {
   const doImport = async (file: File | undefined) => {
     if (!file) return
     const text = await file.text()
-    if (!window.confirm('导入会覆盖当前设备上的全部学习进度，确定继续吗？')) return
+    const scope = signedIn ? '当前账号（包括云端）' : '当前设备上'
+    if (!window.confirm(`导入会覆盖${scope}的全部学习进度，确定继续吗？`)) return
     window.alert(importData(text) ? '导入成功' : '文件格式不正确，导入失败')
   }
 
@@ -65,6 +69,8 @@ export function Me() {
           <h1>我的</h1>
         </div>
       </header>
+
+      <AccountCard />
 
       <section className="card">
         <h3>学习</h3>
@@ -125,7 +131,9 @@ export function Me() {
       <section className="card">
         <h3>数据</h3>
         <p className="muted small">
-          学习进度目前保存在本设备的浏览器里。换设备前可以先导出，再在新设备上导入。
+          {signedIn
+            ? '已登录，进度会自动同步到云端。导出的文件可以作为额外备份。'
+            : '未登录时进度只保存在本设备的浏览器里。换设备前可以先导出，再在新设备上导入。'}
         </p>
         <div className="row gap-sm wrap">
           <button className="btn" onClick={doExport}>
@@ -147,15 +155,12 @@ export function Me() {
           <button
             className="btn danger"
             onClick={() => {
-              if (window.confirm('确定清空所有学习记录、生词本和错题本吗？此操作无法撤销。')) resetProgress()
+              const scope = signedIn ? '（包括云端）' : ''
+              if (window.confirm(`确定清空所有学习记录、生词本和错题本${scope}吗？此操作无法撤销。`)) resetProgress()
             }}
           >
             重置进度
           </button>
-        </div>
-        <div className="soon">
-          <Icon name="cloud" size={18} />
-          <span>账号登录与多设备同步：开发中</span>
         </div>
       </section>
 

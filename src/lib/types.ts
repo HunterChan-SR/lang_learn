@@ -62,8 +62,19 @@ export interface Settings {
   order: WordOrder
 }
 
+/** 多设备同步用的元信息 */
+export interface SyncMeta {
+  /** 最近一次重置/导入进度的时间。两份数据纪元不同时不合并，较新的一方整体生效 */
+  epoch: number
+  /** 设置的最近修改时间，合并时以较新的为准 */
+  settingsAt: number
+  /** 删除记录（墓碑）：'star:单词' / 'wrong:单词' -> 删除时间，防止被其他设备的旧数据“复活” */
+  removed: Record<string, number>
+}
+
 export interface AppData {
   version: 1
+  meta: SyncMeta
   settings: Settings
   /** 以单词为 key，四六级共用同一份记忆状态 */
   cards: Record<string, CardState>

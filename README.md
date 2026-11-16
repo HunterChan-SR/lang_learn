@@ -14,7 +14,7 @@
 - **错题本 / 生词本**：测验答错自动加入错题本，连续答对 2 次后自动移出；学习时点 ☆ 可以收藏单词
 - **发音**：美音或英音；音源可选系统语音（离线可用）或有道在线发音
 - **统计**：今日进度、连续打卡天数、最近 7 天学习量
-- **数据**：进度保存在浏览器 localStorage，支持导出和导入 JSON
+- **数据**：进度保存在浏览器 localStorage，登录后自动同步到云端；支持导出和导入 JSON
 - **体验**：响应式布局（手机底部导航，iPad/PC 侧边导航），深色模式，键盘快捷键，支持添加到主屏幕
 
 ### 快捷键（电脑 / iPad 外接键盘）
@@ -26,6 +26,48 @@
 | R | 朗读 | — |
 | S | 加入或移出生词本 | — |
 | Esc | 退出 | 退出 |
+
+## 登录与多设备同步
+
+使用 [Supabase](https://supabase.com) 免费版：**GitHub 登录**，进度存在 `progress` 表（每个用户一行），通过 RLS 保证每个人只能读写自己的数据。
+
+- 未登录时照常使用，进度只存在本机；登录后会自动合并本机和云端的进度
+- 同步时机：登录后、学习过程中（停止操作 3 秒后）、切回页面时、网络恢复时
+- 多台设备的合并规则：同一个单词以最近一次复习为准；生词本、错题本按时间合并，删除也会同步；“重置进度”和“导入进度”会整体覆盖其他设备
+- 退出登录会清空本机进度（云端保留），避免共用设备时串号
+- 只允许已开通的 GitHub 账号登录：Supabase 关闭了公开注册，陌生账号登录会被拒绝
+
+### 初始化（只需一次）
+
+1. Supabase 后台 **SQL Editor** 执行 [`supabase/schema.sql`](supabase/schema.sql)
+2. GitHub **Settings → Developer settings → OAuth Apps → New OAuth App**：
+   - Homepage URL：`https://<用户名>.github.io/<仓库名>/`
+   - Authorization callback URL：`https://<项目ref>.supabase.co/auth/v1/callback`
+3. Supabase **Authentication → Sign In / Providers → GitHub**：启用，并填入 OAuth App 的 Client ID 和 Client Secret
+4. Supabase **Authentication → URL Configuration**：
+   - Site URL：`https://<用户名>.github.io/<仓库名>/`
+   - Redirect URLs：添加 `https://<用户名>.github.io/<仓库名>/`、`http://localhost:5173/`、`http://localhost:4173/`
+5. 修改 `src/lib/supabase.ts` 中的项目地址和 publishable key（或设置环境变量 `VITE_SUPABASE_URL` / `VITE_SUPABASE_KEY`）
+
+### 开通账号
+
+Supabase 关闭公开注册后，新的 GitHub 账号无法登录。开通方法：
+
+1. 临时打开 **Authentication → Sign In / Providers → Allow new users to sign up**
+2. 让对方在网页上用 GitHub 登录一次
+3. 立即关掉注册开关
+
+查看或删除账号（需要 secret key，写在已被 git 忽略的 `.env.local` 里，**不要提交 secret key**）：
+
+```bash
+echo "SUPABASE_SECRET_KEY=sb_secret_xxx" > .env.local
+npm run users -- list                  # 查看所有账号
+npm run users -- del <GitHub用户名>    # 删除账号（云端进度一起删除）
+```
+
+### 防止免费项目被暂停
+
+Supabase 免费项目连续 7 天无活动会被暂停。`.github/workflows/keepalive.yml` 每 3 天访问一次数据库保持活跃。公开仓库 60 天没有新提交时，GitHub 会停用定时任务，到 Actions 页面重新启用即可。
 
 ## 开发
 
@@ -81,7 +123,7 @@ npm run wordlist -- ecdict.csv
 
 ## 后续计划
 
-- [ ] 账号登录与多设备同步（计划使用 Supabase：GitHub / 邮箱登录，配合 RLS 保存学习进度）
+- [x] 账号登录与多设备同步（Supabase）
 - [ ] 例句与真题语境
 - [ ] 听力、阅读、翻译、写作等专项练习
 - [ ] PWA 离线缓存

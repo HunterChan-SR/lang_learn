@@ -1,11 +1,11 @@
 import { useSyncExternalStore } from 'react'
 import { dayIndex, dayKey } from './date'
 import { schedule } from './srs'
-import type { AppData, DayLog, Grade, Settings } from './types'
+import type { AppData, DayLog, Grade, Settings, SyncMeta } from './types'
 
 /**
- * 本地存储层。目前所有进度保存在 localStorage；
- * 以后接入 Supabase 时，只需要在 persist / load 里加上云端同步即可，页面代码不用改。
+ * 本地存储层：进度保存在 localStorage。
+ * 登录后由 sync.ts 订阅这里的变化，与云端合并同步，页面代码不感知同步的存在。
  */
 const STORAGE_KEY = 'cet-words:v1'
 
@@ -18,8 +18,10 @@ export const DEFAULT_SETTINGS: Settings = {
   order: 'freq',
 }
 
+const emptyMeta = (): SyncMeta => ({ epoch: 0, settingsAt: 0, removed: {} })
+
 function emptyData(): AppData {
-  return { version: 1, settings: { ...DEFAULT_SETTINGS }, cards: {}, starred: {}, wrong: {}, days: {} }
+  return { version: 1, meta: emptyMeta(), settings: { ...DEFAULT_SETTINGS }, cards: {}, starred: {}, wrong: {}, days: {} }
 }
 
 const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v)
@@ -28,8 +30,14 @@ const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 
 export function normalize(raw: unknown): AppData | null {
   if (!isObj(raw) || raw.version !== 1) return null
   const base = emptyData()
+  const meta = isObj(raw.meta) ? (raw.meta as Partial<SyncMeta>) : {}
   return {
     version: 1,
+    meta: {
+      epoch: typeof meta.epoch === 'number' ? meta.epoch : 0,
+      settingsAt: typeof meta.settingsAt === 'number' ? meta.settingsAt : 0,
+      removed: isObj(meta.removed) ? (meta.removed as SyncMeta['removed']) : {},
+    },
     settings: { ...base.settings, ...(isObj(raw.settings) ? (raw.settings as Partial<Settings>) : {}) },
     cards: isObj(raw.cards) ? (raw.cards as AppData['cards']) : {},
     starred: isObj(raw.starred) ? (raw.starred as AppData['starred']) : {},
@@ -78,8 +86,13 @@ function setState(update: (s: AppData) => AppData) {
 
 function subscribe(cb: () => void) {
   listeners.add(cb)
-  return () => listeners.delete(cb)
+  return () => {
+    listeners.delete(cb)
+  }
 }
+
+/** 供同步模块监听本地数据变化 */
+export const subscribeData = subscribe
 
 export function getData(): AppData {
   return state
@@ -122,11 +135,18 @@ export function gradeWord(word: string, grade: Grade) {
   })
 }
 
+function tombstone(s: AppData, key: string): SyncMeta {
+  return { ...s.meta, removed: { ...s.meta.removed, [key]: Date.now() } }
+}
+
 export function toggleStar(word: string) {
   setState((s) => {
     const starred = { ...s.starred }
-    if (starred[word]) delete starred[word]
-    else starred[word] = Date.now()
+    if (starred[word]) {
+      delete starred[word]
+      return { ...s, starred, meta: tombstone(s, `star:${word}`) }
+    }
+    starred[word] = Date.now()
     return { ...s, starred }
   })
 }
@@ -136,14 +156,17 @@ export function recordAnswer(word: string, correct: boolean) {
   setState((s) => {
     const wrong = { ...s.wrong }
     const cur = wrong[word]
+    let meta = s.meta
     if (!correct) {
       wrong[word] = { n: (cur?.n ?? 0) + 1, streak: 0, last: Date.now() }
     } else if (cur) {
       // 错题连续答对 2 次后自动移出错题本
-      if (cur.streak + 1 >= 2) delete wrong[word]
-      else wrong[word] = { ...cur, streak: cur.streak + 1, last: Date.now() }
+      if (cur.streak + 1 >= 2) {
+        delete wrong[word]
+        meta = tombstone(s, `wrong:${word}`)
+      } else wrong[word] = { ...cur, streak: cur.streak + 1, last: Date.now() }
     }
-    return { ...s, wrong, days: bumpDay(s, { quiz: 1, correct: correct ? 1 : 0 }) }
+    return { ...s, wrong, meta, days: bumpDay(s, { quiz: 1, correct: correct ? 1 : 0 }) }
   })
 }
 
@@ -151,12 +174,12 @@ export function removeWrong(word: string) {
   setState((s) => {
     const wrong = { ...s.wrong }
     delete wrong[word]
-    return { ...s, wrong }
+    return { ...s, wrong, meta: tombstone(s, `wrong:${word}`) }
   })
 }
 
 export function updateSettings(patch: Partial<Settings>) {
-  setState((s) => ({ ...s, settings: { ...s.settings, ...patch } }))
+  setState((s) => ({ ...s, settings: { ...s.settings, ...patch }, meta: { ...s.meta, settingsAt: Date.now() } }))
 }
 
 export function exportData(): string {
@@ -172,13 +195,31 @@ export function importData(text: string): boolean {
   }
   const next = normalize(parsed)
   if (!next) return false
-  setState(() => next)
+  // 导入视为一次“重置”：开启新纪元，同步时整体覆盖云端，而不是与旧进度合并
+  const now = Date.now()
+  setState(() => ({ ...next, meta: { epoch: now, settingsAt: now, removed: {} } }))
   flush()
   return true
 }
 
 export function resetProgress() {
-  setState((s) => ({ ...emptyData(), settings: s.settings }))
+  const now = Date.now()
+  setState((s) => ({ ...emptyData(), settings: s.settings, meta: { epoch: now, settingsAt: s.meta.settingsAt, removed: {} } }))
+  flush()
+}
+
+/** 用同步合并后的数据替换本地数据 */
+export function replaceData(next: AppData) {
+  setState(() => next)
+  flush()
+}
+
+/**
+ * 退出登录时清空本机进度（云端已保存），避免下一个登录的人继承上一个人的记录。
+ * 纪元归零，再次登录时会直接采用云端数据。
+ */
+export function clearLocalProgress() {
+  setState((s) => ({ ...emptyData(), settings: s.settings, meta: { ...emptyMeta(), settingsAt: s.meta.settingsAt } }))
   flush()
 }
 

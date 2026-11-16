@@ -9,9 +9,11 @@
     "build": "tsc && vite build",
     "preview": "vite preview --host",
     "test": "vitest run",
-    "wordlist": "node scripts/build-wordlist.mjs"
+    "wordlist": "node scripts/build-wordlist.mjs",
+    "users": "node scripts/users.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },

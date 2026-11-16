@@ -84,6 +84,7 @@ const words: Word[] = Array.from({ length: 30 }, (_, i) => ({
 function data(cards: AppData['cards'] = {}, dailyNew = 5): AppData {
   return {
     version: 1,
+    meta: { epoch: 0, settingsAt: 0, removed: {} },
     settings: { book: 'cet4', dailyNew, accent: 'us', voice: 'system', autoPlay: false, order: 'freq' },
     cards,
     starred: {},

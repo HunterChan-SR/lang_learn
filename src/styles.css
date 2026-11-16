@@ -1640,16 +1640,100 @@ kbd {
   flex-direction: column;
 }
 
-.soon {
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+}
+
+.account {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.account-head {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px dashed var(--border);
-  color: var(--muted);
-  font-size: 14px;
+  gap: 12px;
+  min-width: 0;
+}
+
+.btn.github {
+  background: #1f2328;
+  border-color: transparent;
+  color: #fff;
+}
+
+.btn.github:hover:not(:disabled) {
+  background: #32383f;
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn.github {
+    background: #f0f3f6;
+    color: #1f2328;
+  }
+
+  .btn.github:hover:not(:disabled) {
+    background: #d8dee4;
+  }
+}
+
+.avatar {
+  object-fit: cover;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sync-status {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--good);
+}
+
+.sync-status svg {
+  flex: none;
+  margin-top: 3px;
+}
+
+.sync-status.syncing {
+  color: var(--primary);
+}
+
+.sync-status.syncing svg {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sync-status.offline {
+  color: var(--warn);
+}
+
+.sync-status.error {
+  color: var(--bad);
 }
 
 .card p + .row {
