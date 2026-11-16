@@ -85,3 +85,9 @@ npm run wordlist -- ecdict.csv
 - [ ] 例句与真题语境
 - [ ] 听力、阅读、翻译、写作等专项练习
 - [ ] PWA 离线缓存
+
+## 开源协议
+
+本项目代码以 [MIT 协议](LICENSE) 开源。
+
+词库数据来自 [ECDICT](https://github.com/skywind3000/ECDICT)，同样采用 MIT 协议，版权声明见 `public/data/ECDICT-LICENSE.txt`。
