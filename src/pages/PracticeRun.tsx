@@ -49,25 +49,38 @@ function Loader({ kind, id }: { kind: PracticeKind; id: string }) {
   return <Runner set={set} />
 }
 
-/** 运行一套题；“重做”时换 key 重新挂载 */
-function Runner({ set }: { set: PracticeSet }) {
+/**
+ * 运行一套题；“重做”时换 key 重新挂载。
+ * 模拟考试中传入 onResult（汇总成绩）和 onNext（进入下一部分）。
+ */
+export function Runner({
+  set,
+  onResult,
+  onNext,
+}: {
+  set: PracticeSet
+  onResult?: (score: number | null, total: number) => void
+  onNext?: () => void
+}) {
   const [round, setRound] = useState(0)
   const retry = () => {
     setRound((r) => r + 1)
     window.scrollTo(0, 0)
   }
-  const save = (score: number, total: number, secs: number) =>
+  const save = (score: number, total: number, secs: number) => {
     recordPractice({ kind: set.kind, level: set.level, set: set.id, title: set.title, score, total, at: Date.now(), secs })
+    onResult?.(total ? score : null, totalOf(set))
+  }
 
   switch (set.kind) {
     case 'reading':
-      return <ReadingRun key={round} set={set} onSubmit={save} onRetry={retry} />
+      return <ReadingRun key={round} set={set} onSubmit={save} onRetry={retry} onNext={onNext} />
     case 'banked':
-      return <BankedRun key={round} set={set} onSubmit={save} onRetry={retry} />
+      return <BankedRun key={round} set={set} onSubmit={save} onRetry={retry} onNext={onNext} />
     case 'matching':
-      return <MatchingRun key={round} set={set} onSubmit={save} onRetry={retry} />
+      return <MatchingRun key={round} set={set} onSubmit={save} onRetry={retry} onNext={onNext} />
     case 'listening':
-      return <ListeningRun key={round} set={set} onSubmit={save} onRetry={retry} />
+      return <ListeningRun key={round} set={set} onSubmit={save} onRetry={retry} onNext={onNext} />
     case 'translation':
     case 'writing':
       return (
@@ -76,6 +89,7 @@ function Runner({ set }: { set: PracticeSet }) {
           set={set}
           onSubmit={(score, secs) => save(score ?? 0, score === null ? 0 : totalOf(set), secs)}
           onRetry={retry}
+          onNext={onNext}
         />
       )
   }

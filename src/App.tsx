@@ -5,6 +5,7 @@ import { useRoute } from './lib/router'
 import { useSettings } from './lib/store'
 import { Home } from './pages/Home'
 import { Me } from './pages/Me'
+import { Mock } from './pages/Mock'
 import { Practice } from './pages/Practice'
 import { PracticeRun } from './pages/PracticeRun'
 import { Quiz } from './pages/Quiz'
@@ -20,7 +21,7 @@ export function App() {
   const scrollKey = path === '/practice/run' ? `${path}?${query.toString()}` : path
   useEffect(() => window.scrollTo(0, 0), [scrollKey])
 
-  const focus = path === '/study' || (path === '/quiz' && query.get('run') === '1') || path === '/practice/run'
+  const focus = path === '/study' || (path === '/quiz' && query.get('run') === '1') || path === '/practice/run' || path === '/practice/mock'
 
   let page
   switch (path) {
@@ -32,6 +33,9 @@ export function App() {
       break
     case '/practice':
       page = <Practice />
+      break
+    case '/practice/mock':
+      page = <Mock key={query.toString()} query={query} />
       break
     case '/practice/run':
       page = <PracticeRun query={query} />

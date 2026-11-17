@@ -69,6 +69,7 @@ export function Practice() {
   )
   const weakest = KINDS.filter((k) => stats[k.kind].rate !== null).sort((a, b) => stats[a.kind].rate! - stats[b.kind].rate!)[0]
   const recent = [...records].sort((a, b) => b.at - a.at).slice(0, 8)
+  const mocks = records.filter((r) => r.kind === 'mock' && r.level === level).sort((a, b) => b.at - a.at)
   const myAISets = aiSets.filter((s) => s.level === level)
 
   const open = (s: PracticeSet) => navigate(`/practice/run?kind=${s.kind}&id=${s.id}`)
@@ -113,6 +114,30 @@ export function Practice() {
               : '每做完一套题都会记录成绩，这里会显示你的薄弱题型。'}
           {!aiReady && ' 翻译和写作需要配置 AI 才能自动打分。'}
         </p>
+      </section>
+
+      <section className="card mock-card">
+        <div className="kind-head">
+          <span className="kind-icon mock">
+            <Icon name="clock" size={20} />
+          </span>
+          <div>
+            <strong>模拟整卷</strong>
+            <span className="muted small">写作 → 听力 → 阅读 → 翻译 · 约 125 分钟 · 710 分制</span>
+          </div>
+        </div>
+        {mocks.length > 0 && (
+          <p className="small">
+            最近一次 <strong>{mocks[0].total === 710 ? mocks[0].score : Math.round((mocks[0].score / mocks[0].total) * 710)}</strong> 分
+            {mocks.length > 1 && <span className="muted"> · 共考过 {mocks.length} 次</span>}
+            {mocks[0].total !== 710 && <span className="muted">（按已评分部分估算）</span>}
+          </p>
+        )}
+        <div className="row gap-sm wrap">
+          <button type="button" className="btn sm primary" onClick={() => navigate(`/practice/mock?level=${level}`)}>
+            开始模拟考试
+          </button>
+        </div>
       </section>
 
       {bankError && <p className="error small">{bankError}</p>}
@@ -213,10 +238,10 @@ export function Practice() {
             {recent.map((r) => (
               <li key={`${r.at}-${r.set}`}>
                 <div className="record-main">
-                  <span className="tag review">{kindMeta(r.kind as PracticeKind)?.name ?? r.kind}</span>
+                  <span className="tag review">{r.kind === 'mock' ? '模考' : (KINDS.find((k) => k.kind === r.kind)?.name ?? r.kind)}</span>
                   <span className="ellipsis">{r.title}</span>
                   <span className="muted small nowrap">
-                    {r.total ? `${r.score}/${r.total}` : '已完成'} · {formatDate(r.at)}
+                    {r.kind === 'mock' ? `${r.score} 分` : r.total ? `${r.score}/${r.total}` : '已完成'} · {formatDate(r.at)}
                   </span>
                 </div>
               </li>

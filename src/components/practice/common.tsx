@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react'
+import { createContext, Fragment, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { isReady, useAIConfig } from '../../lib/ai'
 import { useLookup } from '../../lib/lookup'
 import { kindMeta, LETTERS, type MCQ, type PracticeSet } from '../../lib/practice'
@@ -8,6 +8,10 @@ import type { Word } from '../../lib/types'
 import { Icon } from '../Icon'
 import { Markdown } from '../Markdown'
 import { WordSheet } from '../WordSheet'
+
+/** 模拟考试进度：在考试中渲染各部分时提供 */
+export const ExamContext = createContext<{ step: number; total: number } | null>(null)
+export const useExam = () => useContext(ExamContext)
 
 /** 计时（秒），stopped 后停止计时 */
 export function useElapsed(stopped: boolean): number {
@@ -23,6 +27,7 @@ export function useElapsed(stopped: boolean): number {
 export const fmtTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 
 export function RunHeader({ set, secs }: { set: PracticeSet; secs: number }) {
+  const exam = useExam()
   const meta = kindMeta(set.kind)
   const over = secs > meta.minutes * 60
   return (
@@ -31,13 +36,15 @@ export function RunHeader({ set, secs }: { set: PracticeSet; secs: number }) {
         className="icon-btn"
         aria-label="退出练习"
         onClick={() => {
-          if (secs < 20 || window.confirm('退出后本次作答不会保存，确定退出吗？')) navigate('/practice')
+          if (exam ? window.confirm('退出模拟考试？已完成的部分会保留在练习记录里。') : secs < 20 || window.confirm('退出后本次作答不会保存，确定退出吗？'))
+            navigate('/practice')
         }}
       >
         <Icon name="close" />
       </button>
       <div className="run-title">
         <span className="muted small">
+          {exam && `模拟考试 ${exam.step + 1}/${exam.total} · `}
           {meta.name} · {set.level === 'cet6' ? '六级' : '四级'}
           {set.ai && ' · AI 出题'}
         </span>
@@ -186,7 +193,20 @@ function Explanation({ q, picked, context }: { q: MCQ; picked: number | null; co
 }
 
 /** 交卷后的成绩条 */
-export function ScoreBar({ score, total, secs, onRetry }: { score: number; total: number; secs: number; onRetry?: () => void }) {
+export function ScoreBar({
+  score,
+  total,
+  secs,
+  onRetry,
+  onNext,
+}: {
+  score: number
+  total: number
+  secs: number
+  onRetry?: () => void
+  /** 模拟考试中：进入下一部分 */
+  onNext?: () => void
+}) {
   const rate = total ? score / total : 0
   return (
     <div className={`score-bar ${rate >= 0.8 ? 'good' : rate >= 0.6 ? 'ok' : 'low'}`}>
@@ -199,13 +219,13 @@ export function ScoreBar({ score, total, secs, onRetry }: { score: number; total
         </span>
       </div>
       <div className="row gap-sm">
-        {onRetry && (
+        {onRetry && !onNext && (
           <button type="button" className="btn sm" onClick={onRetry}>
             重做
           </button>
         )}
-        <button type="button" className="btn sm primary" onClick={() => navigate('/practice')}>
-          完成
+        <button type="button" className="btn sm primary" onClick={onNext ?? (() => navigate('/practice'))}>
+          {onNext ? '下一部分' : '完成'}
         </button>
       </div>
     </div>

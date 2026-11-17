@@ -18,6 +18,8 @@ export interface RunProps<T> {
   /** 交卷：答对数、总数、用时 */
   onSubmit: (score: number, total: number, secs: number) => void
   onRetry: () => void
+  /** 模拟考试中：进入下一部分 */
+  onNext?: () => void
 }
 
 function confirmSubmit(unanswered: number): boolean {
@@ -38,7 +40,7 @@ function useSubmit(total: number, onSubmit: RunProps<unknown>['onSubmit']) {
 
 // ---------------- 仔细阅读 ----------------
 
-export function ReadingRun({ set, onSubmit, onRetry }: RunProps<ReadingSet>) {
+export function ReadingRun({ set, onSubmit, onRetry, onNext }: RunProps<ReadingSet>) {
   const [picks, setPicks] = useState<(number | null)[]>(() => set.questions.map(() => null))
   const { result, secs, submit } = useSubmit(set.questions.length, onSubmit)
   const [onWord, popup] = useWordPopup()
@@ -47,7 +49,7 @@ export function ReadingRun({ set, onSubmit, onRetry }: RunProps<ReadingSet>) {
   return (
     <div className="run">
       <RunHeader set={set} secs={secs} />
-      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} />}
+      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} onNext={onNext} />}
       <div className="run-body split">
         <section className="run-passage card" onClick={onWord}>
           <p className="muted small run-hint">点击文中单词可以查看释义</p>
@@ -79,7 +81,7 @@ export function ReadingRun({ set, onSubmit, onRetry }: RunProps<ReadingSet>) {
 
 // ---------------- 选词填空 ----------------
 
-export function BankedRun({ set, onSubmit, onRetry }: RunProps<BankedSet>) {
+export function BankedRun({ set, onSubmit, onRetry, onNext }: RunProps<BankedSet>) {
   const [fills, setFills] = useState<(number | null)[]>(() => set.answers.map(() => null))
   const [active, setActive] = useState<number | null>(0)
   const { result, secs, submit } = useSubmit(set.answers.length, onSubmit)
@@ -117,7 +119,7 @@ export function BankedRun({ set, onSubmit, onRetry }: RunProps<BankedSet>) {
   return (
     <div className="run">
       <RunHeader set={set} secs={secs} />
-      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} />}
+      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} onNext={onNext} />}
       <div className="run-body split">
         <section className="run-passage card" onClick={onWord}>
           <p className="muted small run-hint">先点空格，再点下方的单词填入；再点一次已填的空格可以清空</p>
@@ -191,7 +193,7 @@ export function BankedRun({ set, onSubmit, onRetry }: RunProps<BankedSet>) {
 
 // ---------------- 长篇阅读（段落匹配） ----------------
 
-export function MatchingRun({ set, onSubmit, onRetry }: RunProps<MatchingSet>) {
+export function MatchingRun({ set, onSubmit, onRetry, onNext }: RunProps<MatchingSet>) {
   const [picks, setPicks] = useState<(number | null)[]>(() => set.statements.map(() => null))
   const { result, secs, submit } = useSubmit(set.statements.length, onSubmit)
   const [onWord, popup] = useWordPopup()
@@ -200,7 +202,7 @@ export function MatchingRun({ set, onSubmit, onRetry }: RunProps<MatchingSet>) {
   return (
     <div className="run">
       <RunHeader set={set} secs={secs} />
-      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} />}
+      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} onNext={onNext} />}
       <div className="run-body split">
         <section className="run-passage card" onClick={onWord}>
           <p className="muted small run-hint">每个句子对应一个段落；有的段落可能对应多个句子，也可能不对应</p>
@@ -252,7 +254,7 @@ export function MatchingRun({ set, onSubmit, onRetry }: RunProps<MatchingSet>) {
 
 const SPEAKER = { M: '男', W: '女', N: '' } as const
 
-export function ListeningRun({ set, onSubmit, onRetry }: RunProps<ListeningSet>) {
+export function ListeningRun({ set, onSubmit, onRetry, onNext }: RunProps<ListeningSet>) {
   const settings = useSettings()
   const [picks, setPicks] = useState<(number | null)[]>(() => set.questions.map(() => null))
   const { result, secs, submit } = useSubmit(set.questions.length, onSubmit)
@@ -272,7 +274,7 @@ export function ListeningRun({ set, onSubmit, onRetry }: RunProps<ListeningSet>)
   return (
     <div className="run">
       <RunHeader set={set} secs={secs} />
-      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} />}
+      {result && <ScoreBar score={result.filter(Boolean).length} total={result.length} secs={secs} onRetry={onRetry} onNext={onNext} />}
       <div className="run-body split">
         <section className="run-passage card">
           <div className="player">

@@ -30,6 +30,7 @@ interface Props {
   /** 提交：AI 评分（满分 15），未评分时 score 为 null */
   onSubmit: (score: number | null, secs: number) => void
   onRetry: () => void
+  onNext?: () => void
 }
 
 type State =
@@ -39,7 +40,7 @@ type State =
   | { kind: 'self' }
   | { kind: 'error'; message: string }
 
-export function CompositionRun({ set, onSubmit, onRetry }: Props) {
+export function CompositionRun({ set, onSubmit, onRetry, onNext }: Props) {
   const cfg = useAIConfig()
   const [text, setText] = useState(() => loadDraft(set.id))
   const [state, setState] = useState<State>({ kind: 'editing' })
@@ -206,11 +207,13 @@ export function CompositionRun({ set, onSubmit, onRetry }: Props) {
               )}
               {state.kind === 'self' && <p className="muted small">对照参考答案自查：意思是否完整、用词是否准确、语法是否正确。</p>}
               <div className="row gap-sm">
-                <button type="button" className="btn" onClick={onRetry}>
-                  重写一遍
-                </button>
-                <button type="button" className="btn primary grow" onClick={() => navigate('/practice')}>
-                  完成
+                {!onNext && (
+                  <button type="button" className="btn" onClick={onRetry}>
+                    重写一遍
+                  </button>
+                )}
+                <button type="button" className="btn primary grow" onClick={onNext ?? (() => navigate('/practice'))}>
+                  {onNext ? '下一部分' : '完成'}
                 </button>
               </div>
             </>
