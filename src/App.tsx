@@ -19,7 +19,9 @@ export function App() {
 
   // 切换页面时回到顶部；做题页换一套题也回到顶部
   const scrollKey = path === '/practice/run' ? `${path}?${query.toString()}` : path
-  useEffect(() => window.scrollTo(0, 0), [scrollKey])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [scrollKey])
 
   const focus = path === '/study' || (path === '/quiz' && query.get('run') === '1') || path === '/practice/run' || path === '/practice/mock'
 

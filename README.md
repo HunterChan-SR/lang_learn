@@ -1,6 +1,9 @@
 # 四六级单词
 
-面向大学英语四六级（CET-4 / CET-6）的背单词 H5 应用，适配手机、iPad 和电脑，纯静态页面，可以直接部署到 GitHub Pages。
+面向大学英语四六级（CET-4 / CET-6）的英语学习应用：背单词、题型练习、AI 助记与批改。
+
+- **网页版**：适配手机、iPad 和电脑，纯静态页面，部署在 GitHub Pages：<https://hunterchan-sr.github.io/lang_learn/>
+- **桌面版**：macOS / Windows，在 [Releases](https://github.com/HunterChan-SR/lang_learn/releases/latest) 下载
 
 ## 功能
 
@@ -45,6 +48,35 @@
 - 可以一键获取服务商的模型列表，并测试连接
 - 浏览器直接调用服务商接口，不经过任何中转服务器；API Key 只保存在当前设备的 localStorage，不会同步到云端，也不会随进度导出
 - Kimi、智谱 GLM、Gemini 的官方接口不允许网页跨域调用，可以通过 OpenRouter 或硅基流动使用这些模型
+
+## 桌面版
+
+桌面版用 [Electron](https://www.electronjs.org/) 打包，和网页版是同一套代码（`desktop/` 下是桌面端特有的部分），另外：
+
+- 网页文件打包在应用里，离线可用
+- AI 请求由应用转发，不受浏览器跨域限制，Kimi、智谱 GLM、Gemini 的官方接口也能直接用
+- GitHub 登录在系统浏览器中完成，授权后通过 `cet-words://auth-callback` 回到应用
+- 启动时检查 GitHub Releases，有新版本会提示下载
+
+安装包没有代码签名证书，首次打开时：macOS 到 **系统设置 → 隐私与安全性** 点 **仍要打开**（提示“已损坏”时运行 `xattr -cr /Applications/四六级单词.app`）；Windows 在 SmartScreen 提示里点 **更多信息 → 仍要运行**。
+
+**登录需要一次性配置**：在 Supabase 后台 **Authentication → URL Configuration → Redirect URLs** 中添加 `cet-words://auth-callback`。
+
+### 开发与发版
+
+```bash
+npm run desktop        # 构建网页并用 Electron 打开
+npm run desktop:dist   # 打包当前系统的安装包到 release/
+```
+
+推送 `v*` 标签时，GitHub Actions（`.github/workflows/release.yml`）会在 macOS 和 Windows 上打包，并自动创建 Release：
+
+```bash
+npm version patch      # 或 minor / major：修改 package.json 版本并打上 v 开头的标签
+git push --follow-tags
+```
+
+产物：`CET-Words-<版本>-mac-arm64.dmg`（Apple 芯片）、`CET-Words-<版本>-mac-x64.dmg`（Intel）、`CET-Words-<版本>-win-x64-setup.exe`。
 
 ## 登录与多设备同步
 
@@ -118,6 +150,8 @@ src/
     router.ts     hash 路由
   components/   # 通用组件
   pages/        # 首页、学习、测验、练习、词库、我的
+desktop/        # 桌面版（Electron）主进程和预加载脚本
+build/          # 桌面版图标
 public/data/    # 词库 JSON；x/ 下是按首字母分片的单词增强资料；practice/ 下是内置练习题
 scripts/        # 数据生成脚本
 ```
@@ -165,6 +199,7 @@ npm run extras -- --ecdict ecdict.csv --roots wordroot.txt --resemble resemble.t
 - [x] 账号登录与多设备同步（Supabase）
 - [x] 例句、词根、辨析等单词增强资料，AI 助记
 - [x] 听力、阅读、翻译、写作等专项练习
+- [x] 桌面版（macOS / Windows），推送标签自动发布
 - [ ] PWA 离线缓存
 
 ## 开源协议

@@ -1,9 +1,13 @@
 {
   "name": "cet-words",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "四六级英语学习：背单词、题型练习、AI 助记与批改",
+  "author": "HunterChan",
+  "homepage": "https://hunterchan-sr.github.io/lang_learn/",
   "license": "MIT",
   "type": "module",
+  "main": "desktop/main.cjs",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
@@ -11,19 +15,21 @@
     "test": "vitest run",
     "wordlist": "node scripts/build-wordlist.mjs",
     "extras": "node scripts/build-extras.mjs",
-    "users": "node scripts/users.mjs"
-  },
-  "dependencies": {
-    "@anthropic-ai/sdk": "^1.9.0",
-    "@supabase/supabase-js": "^2.119.0",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "users": "node scripts/users.mjs",
+    "desktop": "npm run build && electron .",
+    "desktop:dist": "npm run build && electron-builder --publish never"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^1.9.0",
+    "@supabase/supabase-js": "^2.119.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "electron": "^45.3.3",
+    "electron-builder": "^26.18.0",
     "opencc-js": "^1.4.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "typescript": "^7.0.2",
     "vite": "^8.3.8",
     "vitest": "^5.1.0"

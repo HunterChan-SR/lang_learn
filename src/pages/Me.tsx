@@ -4,6 +4,7 @@ import { AISettings } from '../components/AISettings'
 import { Icon } from '../components/Icon'
 import { BOOKS } from '../lib/books'
 import { todayKey } from '../lib/date'
+import { desktop } from '../lib/desktop'
 import { speak, speechSupported } from '../lib/speech'
 import { exportData, importData, resetProgress, updateSettings, useAppData } from '../lib/store'
 import { useSync } from '../lib/sync'
@@ -184,6 +185,21 @@ export function Me({ query }: { query: URLSearchParams }) {
           整理。
         </p>
         <p>快捷键：空格 查看释义 · 1–4 评分 · R 朗读 · S 收藏 · Esc 退出</p>
+        {desktop ? (
+          <p>
+            桌面版 {desktop.version} ·{' '}
+            <button type="button" className="link" onClick={() => void desktop?.checkUpdate()}>
+              检查更新
+            </button>
+          </p>
+        ) : (
+          <p>
+            <a href="https://github.com/HunterChan-SR/lang_learn/releases/latest" target="_blank" rel="noreferrer">
+              下载桌面版（macOS / Windows）
+            </a>
+            ，离线可用，AI 服务不受浏览器跨域限制。
+          </p>
+        )}
       </section>
     </div>
   )

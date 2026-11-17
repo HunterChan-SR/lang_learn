@@ -3,3 +3,6 @@ dist
 .DS_Store
 *.local
 /vendor
+
+# 桌面版打包输出
+release

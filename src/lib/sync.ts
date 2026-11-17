@@ -1,5 +1,6 @@
 import type { Session } from '@supabase/supabase-js'
 import { useSyncExternalStore } from 'react'
+import { desktop, DESKTOP_AUTH_CALLBACK } from './desktop'
 import { mergeData, stableStringify } from './merge'
 import { clearLocalProgress, getData, normalize, replaceData, subscribeData } from './store'
 import { getSupabase } from './supabase'
@@ -59,17 +60,51 @@ let pushTimer: ReturnType<typeof setTimeout> | undefined
 /** 跳转 GitHub 授权前记下当前页面，回来后恢复 */
 const RETURN_KEY = 'cet-words:return'
 
-/** GitHub 授权失败时，Supabase 会带着 ?error=... 跳回来；读出错误并清理地址栏 */
-function takeOAuthError(): string | null {
-  const url = new URL(window.location.href)
-  const desc = url.searchParams.get('error_description')
-  const code = url.searchParams.get('error_code') ?? url.searchParams.get('error')
+function describeOAuthError(params: URLSearchParams): string | null {
+  const desc = params.get('error_description')
+  const code = params.get('error_code') ?? params.get('error')
   if (!desc && !code) return null
-  for (const k of ['error', 'error_code', 'error_description']) url.searchParams.delete(k)
-  window.history.replaceState(window.history.state, '', url.toString())
   if (/signups? not allowed/i.test(desc ?? '') || code === 'signup_disabled') return '这个 GitHub 账号没有使用权限'
   if (code === 'access_denied') return '已取消 GitHub 授权'
   return desc || code
+}
+
+/** GitHub 授权失败时，Supabase 会带着 ?error=... 跳回来；读出错误并清理地址栏 */
+function takeOAuthError(): string | null {
+  const url = new URL(window.location.href)
+  const err = describeOAuthError(url.searchParams)
+  if (!err) return null
+  for (const k of ['error', 'error_code', 'error_description']) url.searchParams.delete(k)
+  window.history.replaceState(window.history.state, '', url.toString())
+  return err
+}
+
+/**
+ * 桌面版：GitHub 授权在系统浏览器里完成，Supabase 回调 cet-words://auth-callback?code=…，
+ * 主进程把链接转过来，这里用 code 换取登录状态（PKCE 校验码在发起登录时已存在本机）。
+ */
+async function handleDesktopCallback(link: string) {
+  let params: URLSearchParams
+  try {
+    const u = new URL(link)
+    params = new URLSearchParams(u.search || u.hash.replace(/^#/, ''))
+  } catch {
+    return
+  }
+  const err = describeOAuthError(params)
+  if (err) {
+    set({ error: err })
+    return
+  }
+  const code = params.get('code')
+  if (!code) return
+  try {
+    const sb = await getSupabase()
+    const { error } = await sb.auth.exchangeCodeForSession(code)
+    if (error) throw error
+  } catch (e) {
+    set({ error: describeError(e) })
+  }
 }
 
 function restoreReturnRoute() {
@@ -103,6 +138,7 @@ export function initSync() {
     }
   })()
   subscribeData(onLocalChange)
+  desktop?.onAuthCallback((link) => void handleDesktopCallback(link))
   window.addEventListener('online', () => void syncNow())
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') void syncNow()
@@ -204,10 +240,21 @@ async function syncOnce() {
   }
 }
 
-/** 跳转到 GitHub 授权页；成功时页面会离开，失败返回错误信息 */
+/** 跳转到 GitHub 授权页；成功时页面会离开（桌面版为打开系统浏览器），失败返回错误信息 */
 export async function signInWithGitHub(): Promise<string | null> {
   try {
     const sb = await getSupabase()
+    if (desktop) {
+      const { data, error } = await sb.auth.signInWithOAuth({
+        provider: 'github',
+        options: { redirectTo: DESKTOP_AUTH_CALLBACK, skipBrowserRedirect: true },
+      })
+      if (error) return describeError(error)
+      if (!data.url) return '无法获取登录地址'
+      set({ error: null })
+      await desktop.openExternal(data.url)
+      return null
+    }
     try {
       sessionStorage.setItem(RETURN_KEY, window.location.hash || '#/me')
     } catch {

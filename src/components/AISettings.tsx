@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { AI_PRESETS, isReady, listModels, presetOf, saveAIConfig, testAI, useAIConfig, type AIConfig } from '../lib/ai'
+import { desktop } from '../lib/desktop'
+import { isReady, VISIBLE_PRESETS, listModels, presetOf, saveAIConfig, testAI, useAIConfig, type AIConfig } from '../lib/ai'
 import { Icon } from './Icon'
 
 function fromPreset(id: string, keep?: AIConfig | null): AIConfig {
@@ -90,7 +91,7 @@ export function AISettings({ highlight = false }: { highlight?: boolean }) {
       <label className="field">
         <span>服务商</span>
         <select value={form.preset} onChange={(e) => choosePreset(e.target.value)}>
-          {AI_PRESETS.map((p) => (
+          {VISIBLE_PRESETS.map((p) => (
             <option key={p.id} value={p.id}>
               {p.name}
             </option>
@@ -190,7 +191,9 @@ export function AISettings({ highlight = false }: { highlight?: boolean }) {
         )}
       </div>
       <p className="muted small">
-        Kimi、智谱 GLM、Gemini 的官方接口不允许网页直接调用，可以通过 OpenRouter 或硅基流动使用这些模型。
+        {desktop
+          ? '桌面版通过应用转发请求，所有服务都可以直接使用。'
+          : 'Kimi、智谱 GLM、Gemini 的官方接口不允许网页直接调用，可以通过 OpenRouter 或硅基流动使用，或者改用桌面版。'}
       </p>
     </section>
   )

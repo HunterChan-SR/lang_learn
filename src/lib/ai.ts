@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+import { desktop, netFetch } from './desktop'
 
 /**
  * 大模型接入：用户自己填写服务商、地址、API Key 和模型名，浏览器直接调用。
@@ -22,6 +23,8 @@ export interface AIPreset {
   keyUrl?: string
   note?: string
   modelHint?: string
+  /** 官方接口不允许网页跨域调用，只在桌面版显示 */
+  desktopOnly?: boolean
 }
 
 export const AI_PRESETS: AIPreset[] = [
@@ -88,12 +91,39 @@ export const AI_PRESETS: AIPreset[] = [
     keyUrl: 'https://platform.claude.com/settings/keys',
   },
   {
+    id: 'kimi',
+    name: 'Kimi（月之暗面）',
+    protocol: 'openai',
+    baseUrl: 'https://api.moonshot.cn/v1',
+    models: [],
+    keyUrl: 'https://platform.moonshot.cn/console/api-keys',
+    desktopOnly: true,
+  },
+  {
+    id: 'zhipu',
+    name: '智谱 GLM',
+    protocol: 'openai',
+    baseUrl: 'https://open.bigmodel.cn/api/paas/v4',
+    models: [],
+    keyUrl: 'https://open.bigmodel.cn/usercenter/apikeys',
+    desktopOnly: true,
+  },
+  {
+    id: 'gemini',
+    name: 'Google Gemini',
+    protocol: 'openai',
+    baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai',
+    models: [],
+    keyUrl: 'https://aistudio.google.com/apikey',
+    desktopOnly: true,
+  },
+  {
     id: 'ollama',
     name: '本机 Ollama',
     protocol: 'openai',
     baseUrl: 'http://localhost:11434/v1',
     models: [],
-    note: '需先设置环境变量 OLLAMA_ORIGINS=* 再启动 Ollama；仅电脑上可用',
+    note: desktop ? '在本机运行 Ollama 即可' : '需先设置环境变量 OLLAMA_ORIGINS=* 再启动 Ollama；仅电脑上可用',
     modelHint: '如 qwen3:8b，需先用 ollama pull 下载',
   },
   {
@@ -105,6 +135,9 @@ export const AI_PRESETS: AIPreset[] = [
     note: '填写服务商提供的 OpenAI 兼容接口地址，一般以 /v1 结尾',
   },
 ]
+
+/** 当前环境可用的预设 */
+export const VISIBLE_PRESETS = AI_PRESETS.filter((p) => !p.desktopOnly || desktop)
 
 export function presetOf(id: string): AIPreset {
   return AI_PRESETS.find((p) => p.id === id) ?? AI_PRESETS[AI_PRESETS.length - 1]
@@ -239,7 +272,7 @@ export async function chat(opts: ChatOptions): Promise<string> {
 
 async function chatOpenAI(cfg: AIConfig, opts: ChatOptions): Promise<string> {
   const messages = [...(opts.system ? [{ role: 'system', content: opts.system }] : []), ...opts.messages]
-  const res = await fetch(`${normalizeBase(cfg.baseUrl)}/chat/completions`, {
+  const res = await netFetch(`${normalizeBase(cfg.baseUrl)}/chat/completions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -312,6 +345,7 @@ async function chatAnthropic(cfg: AIConfig, opts: ChatOptions): Promise<string> 
     // 用户在自己的浏览器里使用自己的 Key
     dangerouslyAllowBrowser: true,
     maxRetries: 1,
+    fetch: netFetch,
   })
   const model = cfg.model.trim()
   const params = {
@@ -380,7 +414,12 @@ async function toAIError(e: unknown, signal?: AbortSignal): Promise<AIError> {
   if (typeof err?.status === 'number') return statusError(err.status, err.error?.error?.message ?? '')
   if (err?.name === 'APIUserAbortError') return new AIError('已停止', 'aborted')
   if (err?.name === 'APIConnectionError' || err?.name === 'APIConnectionTimeoutError' || e instanceof TypeError) {
-    return new AIError('无法连接到服务：请检查网络和接口地址；部分服务（如 Kimi、智谱、Gemini 官方接口）不允许网页直接调用', 'network')
+    return new AIError(
+      desktop
+        ? '无法连接到服务：请检查网络和接口地址'
+        : '无法连接到服务：请检查网络和接口地址；部分服务（如 Kimi、智谱、Gemini 官方接口）不允许网页直接调用，可以改用桌面版',
+      'network',
+    )
   }
   return new AIError(err?.message || '未知错误', 'other')
 }
@@ -428,12 +467,13 @@ export async function listModels(cfg: AIConfig, signal?: AbortSignal): Promise<s
         baseURL: normalizeBase(cfg.baseUrl) || undefined,
         dangerouslyAllowBrowser: true,
         maxRetries: 1,
+        fetch: netFetch,
       })
       const ids: string[] = []
       for await (const m of client.models.list({ limit: 100 }, { signal })) ids.push(m.id)
       return ids
     }
-    const res = await fetch(`${normalizeBase(cfg.baseUrl)}/models`, {
+    const res = await netFetch(`${normalizeBase(cfg.baseUrl)}/models`, {
       headers: cfg.apiKey.trim() ? { Authorization: `Bearer ${cfg.apiKey.trim()}` } : {},
       signal,
     })

@@ -60,7 +60,9 @@ export function Words({ book, query }: { book: BookState; query: URLSearchParams
     return base.filter((w) => (isEn ? w.w.toLowerCase().startsWith(q) : w.t.some((t) => t.includes(q))))
   }, [filter, ordered, data, all, q])
 
-  useEffect(() => setLimit(PAGE), [filter, q])
+  useEffect(() => {
+    setLimit(PAGE)
+  }, [filter, q])
 
   // 滚动到底部时自动加载更多，避免一次渲染几千行
   useEffect(() => {
