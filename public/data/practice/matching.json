@@ -1,0 +1,114 @@
+[
+  {
+    "id": "matching-4-1",
+    "level": "cet4",
+    "title": "年轻人为何重拾修理技能",
+    "topic": "repair culture, sustainability, practical skills",
+    "paragraphs": [
+      "When the screen of Chen Yu's laptop began to flicker last spring, her first thought was to replace it. The second-year economics student was already comparing prices online when a classmate mentioned a free repair event held every month in the university library. Two hours later, with the help of a volunteer and a tiny screwdriver, she found that the problem was nothing more than a loose cable. \"I felt a little silly at first,\" she admits, \"but mostly I felt proud. I had no idea I was capable of fixing anything.\"",
+      "Chen is one of a growing number of young people who are rediscovering the old habit of mending things instead of throwing them away. Repair events like the one she attended have been appearing in cities and college towns around the world. They are usually organized by volunteers and held in community centers, libraries or cafés. Visitors bring broken lamps, torn jackets, bicycles with flat tires and phones that refuse to charge, and they sit down beside someone who knows how to fix them.",
+      "Not long ago, such skills were simply part of everyday life. Many of today's grandparents grew up darning socks, replacing the soles of their shoes and taking apart radios on the kitchen table. Things were expensive compared with wages, so people made them last. As factories began to produce goods more cheaply, however, buying something new often became easier than repairing the old one. Over a few decades, a culture of fixing gave way to a culture of replacing.",
+      "Manufacturers have also made repair harder. Many modern devices are held together with glue rather than screws, or with unusual screws that ordinary tools cannot turn. Batteries are often sealed inside, and spare parts can be difficult or impossible to buy. Some companies do not publish repair manuals at all, which means that even a skilled person may have to guess how a machine is put together. \"Sometimes the hardest part is just getting the case open,\" says one volunteer who has fixed electronics for more than twenty years.",
+      "Supporters of the repair movement argue that this throwaway habit has a heavy environmental cost. Every phone, kettle and washing machine requires metals, plastics and energy to produce, and most of that is lost when the product ends up in a landfill. Electronic waste is especially worrying because it can contain substances that harm soil and water if they are not handled properly. Keeping a device in use for even one or two extra years, they say, means fewer new ones need to be made.",
+      "For many students, though, the most immediate reason to learn repair is money. Living on a tight budget, they cannot afford to replace a broken phone or bicycle whenever something goes wrong. Liu Hao, a graduate student who now volunteers at a repair event in his city, says he first came because he could not pay for a new bike. \"A new chain cost me a tiny fraction of the price of a new bicycle,\" he says. \"After that, I started asking what else I could fix myself.\"",
+      "The benefits are not only practical. Many people find that solving a concrete problem with their own hands gives them a strong sense of achievement. Repairing something requires patience, careful observation and a willingness to try again after a mistake, and these are qualities that can be hard to develop in front of a screen. A number of young people say that fixing an object for the first time made them feel more confident about dealing with problems in other areas of their lives.",
+      "Repair events also bring together people who might otherwise never meet. Retired engineers and tailors sit at the same table as teenagers and university students, and the conversation often goes far beyond the broken object. \"The older volunteers have so much knowledge, and they love sharing it,\" says Chen, who now helps out at the library event herself. For some elderly volunteers, the events offer a welcome chance to feel useful and to stay connected with their neighborhood.",
+      "Of course, many young people learn their first repair skills not from a person but from the internet. Online videos show how to replace a cracked screen or sew on a button, step by step. Yet volunteers point out that videos have limits. They cannot see your particular machine, warn you when you are about to damage something, or answer the question you did not know to ask. That is why many beginners use online tutorials to prepare and then bring their questions to a repair event.",
+      "There are signs that businesses and governments are beginning to respond. In some places, new rules require manufacturers to make spare parts available for a number of years after a product is sold. A few companies have started selling repair kits and publishing guides for their customers, partly because they have noticed that buyers increasingly care about how long a product will last. Some schools, too, have brought back basic repair lessons as part of their practical education courses.",
+      "Not everyone is convinced that repair is always the right choice. Some critics point out that an old appliance may use far more electricity than a new, efficient model, so keeping it running is not necessarily better for the environment. Others warn that opening certain devices, especially those with large batteries, can be dangerous without proper training. And for busy people, spending an afternoon fixing a cheap item may simply not seem worth the time.",
+      "Even so, those involved in the movement believe that something important is changing. Chen Yu says the biggest difference is in how she looks at the things she owns. \"Before, when something broke, I thought it was finished,\" she says. \"Now my first question is: can this be saved?\" For a generation that grew up surrounded by cheap and easily replaced goods, that small question may turn out to be a big step."
+    ],
+    "statements": [
+      "Some elderly people who volunteer at repair events appreciate the chance to remain useful and in touch with their local community.",
+      "Without instructions from the producer, even an experienced repairer may have to work out how a device is assembled.",
+      "A student who had planned to replace her laptop discovered that its fault was only a minor one.",
+      "Keeping an old appliance running is not always the greener choice, as it may consume much more power than a newer one.",
+      "When a product is thrown away, most of the materials and energy that went into making it are wasted.",
+      "Fixing things can help young people build qualities such as patience and persistence, which are not easily developed through screen-based activities.",
+      "Over time, the falling cost of manufactured goods led people to replace things rather than mend them.",
+      "Online repair videos cannot respond to the particular problems of the individual viewer.",
+      "Some manufacturers have begun helping customers fix their products, partly because buyers pay more attention to durability.",
+      "Certain devices are hard to open because their makers use glue or special screws instead of ordinary ones."
+    ],
+    "answers": [
+      7,
+      3,
+      0,
+      10,
+      4,
+      6,
+      2,
+      8,
+      9,
+      3
+    ],
+    "explanations": [
+      "定位H段末句：For some elderly volunteers, the events offer a welcome chance to feel useful and to stay connected with their neighborhood。elderly people who volunteer 对应 elderly volunteers，remain useful and in touch with their local community 对应 feel useful and stay connected with their neighborhood。",
+      "定位D段：Some companies do not publish repair manuals at all, which means that even a skilled person may have to guess how a machine is put together。without instructions from the producer 对应 do not publish repair manuals，experienced repairer 对应 skilled person，work out how a device is assembled 对应 guess how a machine is put together。",
+      "定位A段：陈雨起初想直接换新电脑（her first thought was to replace it），后来发现 the problem was nothing more than a loose cable。fault was only a minor one 对应 nothing more than a loose cable。",
+      "定位K段首句：an old appliance may use far more electricity than a new, efficient model, so keeping it running is not necessarily better for the environment。consume much more power 对应 use far more electricity，not always the greener choice 对应 not necessarily better for the environment。",
+      "定位E段：Every phone, kettle and washing machine requires metals, plastics and energy to produce, and most of that is lost when the product ends up in a landfill。materials and energy 对应 metals, plastics and energy，wasted 对应 lost，thrown away 对应 ends up in a landfill。",
+      "定位G段：Repairing something requires patience, careful observation and a willingness to try again after a mistake, and these are qualities that can be hard to develop in front of a screen。persistence 概括 a willingness to try again after a mistake，screen-based activities 对应 in front of a screen。",
+      "定位C段：As factories began to produce goods more cheaply... a culture of fixing gave way to a culture of replacing。falling cost of manufactured goods 对应 produce goods more cheaply，replace things rather than mend them 对应 culture of replacing 取代 culture of fixing。",
+      "定位I段：They cannot see your particular machine, warn you when you are about to damage something, or answer the question you did not know to ask。题干 cannot respond to the particular problems of the individual viewer 概括了视频看不到具体机器、无法提醒、无法答疑这三点局限。",
+      "定位J段：A few companies have started selling repair kits and publishing guides for their customers, partly because they have noticed that buyers increasingly care about how long a product will last。helping customers fix their products 对应 selling repair kits and publishing guides，durability 对应 how long a product will last。",
+      "定位D段前两句：Many modern devices are held together with glue rather than screws, or with unusual screws that ordinary tools cannot turn。glue or special screws 对应 glue / unusual screws，hard to open 呼应段末 the hardest part is just getting the case open。"
+    ]
+  },
+  {
+    "id": "matching-6-1",
+    "level": "cet6",
+    "title": "让被掩埋的城市河流重见天日",
+    "topic": "urban rivers, daylighting, environment, city planning",
+    "paragraphs": [
+      "For most of the past century, residents of one old district in a large Asian city had no idea there was a river beneath their feet. A four-lane road and a row of parking lots covered the channel, and the only sign of the water was a faint smell that rose from the drains on hot summer evenings. Today the road is gone. In its place is a narrow, shallow stream lined with reeds and stepping stones, where office workers eat lunch and children chase small fish. The transformation took nearly ten years, and it was far from simple.",
+      "The story of how the stream disappeared is a common one. During the rapid growth of industrial cities in the nineteenth and early twentieth centuries, small rivers were often treated as little more than open sewers. They carried household waste and factory runoff, they smelled terrible, and they were blamed, sometimes correctly, for outbreaks of disease. Covering them over seemed an obvious solution. It removed an unpleasant sight and created valuable flat land for roads, railways and buildings at a time when space in city centers was increasingly scarce.",
+      "What engineers of that era could not fully foresee were the long-term costs. A river forced into a pipe or concrete tunnel can carry only a fixed amount of water. When heavy storms arrive, as they do with growing frequency in many regions, these underground channels can overflow, flooding streets and basements. The tunnels themselves also age. Many that were built a hundred years ago are now crumbling, and repairing or replacing them can cost city governments enormous sums, often for infrastructure that no one ever sees.",
+      "Against this background, a growing number of cities have begun to consider what planners call \"daylighting\": removing the covering from a buried waterway and allowing it to flow in the open once again. The term covers a wide range of projects. At one end are ambitious restorations that try to recreate a natural riverbed, with curving banks, gravel and native plants. At the other are more modest designs in which water runs through a stone or concrete channel that is clearly artificial but at least visible to the public.",
+      "Ecologists are among the strongest supporters of the idea. A stream that sits in permanent darkness supports very little life, but once it is exposed to sunlight, algae and water plants begin to grow, and these in turn attract insects, fish and birds. In several reopened streams, species that had not been recorded in the area for decades have reappeared within a few years. Even a narrow strip of open water, researchers note, can serve as a corridor that allows wildlife to move between parks that would otherwise be isolated from one another.",
+      "There are climate benefits as well. Cities tend to be noticeably warmer than the surrounding countryside, because concrete and asphalt absorb heat during the day and release it slowly at night. Open water and the vegetation that grows beside it can lower temperatures in the immediate area, especially on the hottest days of summer. For residents of crowded neighborhoods with few trees, the difference can be more than a matter of comfort; during heat waves, it may reduce health risks for elderly people and young children.",
+      "The economic effects are more complicated. Reopened streams often become popular places to walk, and the streets around them can attract new cafés, shops and visitors. Property values nearby frequently rise. For homeowners, this is welcome news, but for tenants it can mean higher rents. In some cities, long-time residents and small businesses have been gradually pushed out of the very neighborhoods that were improved, a process critics describe as \"green gentrification.\" Planners increasingly argue that daylighting projects should be paired with policies that protect affordable housing.",
+      "The practical obstacles are considerable too. Beneath most city streets lies a dense tangle of water pipes, gas lines and electrical cables, all of which may have to be moved before a stream can be uncovered. The land above a buried river is frequently owned by many different parties, and negotiating with each of them takes time. Water quality is another concern: if sewage still leaks into the channel, opening it up may simply expose the public to the very problems that led to its burial in the first place.",
+      "Some critics question whether the money is well spent. They point out that the same budget could build several new schools or improve public transport, which might benefit far more people. Others complain that certain projects are more about appearance than ecology. In some cases, the \"river\" that visitors admire is largely pumped in from elsewhere and treated with chemicals, making it closer to a long fountain than a living stream. Such projects, critics argue, risk giving daylighting a reputation it does not deserve.",
+      "Where daylighting has worked best, local communities have usually been involved from the beginning. In one mid-sized European city, residents spent several years debating the design of their reopened stream at public meetings before construction began. Afterwards, volunteer groups took responsibility for clearing litter and planting along the banks, while local schools adopted sections of the stream for science lessons, with pupils regularly testing the water and recording the animals they found. Such involvement, organizers say, gives people a sense of ownership that makes a project far more likely to last.",
+      "Researchers have also become interested in the effect that urban water has on people's minds. Being near water, whether it is the sea, a lake or a small stream, appears to help many people feel calmer, and the gentle sound of moving water can mask some of the noise of traffic. In surveys, residents living close to reopened streams often say they spend more time outdoors and talk more with their neighbors. While such findings do not prove that the streams themselves are the cause, they suggest that the benefits may extend well beyond the environment.",
+      "None of this means that every buried river should be brought back to the surface. In some places the costs are simply too high, and in others there is no realistic way to move the roads and buildings that now sit on top of the water. But the growing interest in daylighting reflects a broader shift in how cities think about nature. For generations, urban rivers were seen as problems to be hidden away. Increasingly, they are being seen as assets: features that can make cities cooler, greener and more pleasant places to live."
+    ],
+    "statements": [
+      "Uncovering a stream that is still contaminated by sewage could bring back the very problems that caused it to be buried.",
+      "Small urban rivers were once regarded as little more than a means of carrying away waste.",
+      "People who rent their homes may be forced to move when a restored stream makes the surrounding area more desirable.",
+      "The water in some reopened streams is largely supplied by pumps, making them resemble a decorative fountain more than a natural river.",
+      "Even a narrow restored waterway can give animals a route between green spaces that would otherwise be cut off from each other.",
+      "Projects tend to be more durable when local people take part from the earliest stages.",
+      "Many century-old underground channels are falling apart, and fixing them places a heavy financial burden on cities.",
+      "Studies suggesting that people living near reopened streams socialize more cannot prove that the streams are responsible.",
+      "Critics argue that the funds used for daylighting might benefit more people if spent on education or transport.",
+      "Paved surfaces in cities take in heat during the daytime and give it off gradually after dark."
+    ],
+    "answers": [
+      7,
+      1,
+      6,
+      8,
+      4,
+      9,
+      2,
+      10,
+      8,
+      5
+    ],
+    "explanations": [
+      "定位H段末句：if sewage still leaks into the channel, opening it up may simply expose the public to the very problems that led to its burial in the first place。contaminated by sewage 对应 sewage still leaks into the channel，bring back the very problems that caused it to be buried 对应 expose the public to the very problems that led to its burial。",
+      "定位B段：small rivers were often treated as little more than open sewers。regarded as 对应 treated as，a means of carrying away waste 是对 open sewers 的改写，并呼应下一句 They carried household waste and factory runoff。",
+      "定位G段：Property values nearby frequently rise... for tenants it can mean higher rents... long-time residents and small businesses have been gradually pushed out。people who rent their homes 对应 tenants，forced to move 对应 pushed out，more desirable 对应房价上涨、吸引新商铺和游客。",
+      "定位I段：the \"river\" that visitors admire is largely pumped in from elsewhere and treated with chemicals, making it closer to a long fountain than a living stream。supplied by pumps 对应 pumped in，decorative fountain 对应 long fountain。注意D段的 clearly artificial 指河道是人工修建的，与水源无关。",
+      "定位E段末句：Even a narrow strip of open water... can serve as a corridor that allows wildlife to move between parks that would otherwise be isolated from one another。route 对应 corridor，animals 对应 wildlife，green spaces 对应 parks，cut off from each other 对应 isolated from one another。",
+      "定位J段：local communities have usually been involved from the beginning... gives people a sense of ownership that makes a project far more likely to last。from the earliest stages 对应 from the beginning，more durable 对应 more likely to last。",
+      "定位C段：Many that were built a hundred years ago are now crumbling, and repairing or replacing them can cost city governments enormous sums。century-old 对应 built a hundred years ago，falling apart 对应 crumbling，heavy financial burden 对应 enormous sums。",
+      "定位K段末两句：residents living close to reopened streams often say they... talk more with their neighbors. While such findings do not prove that the streams themselves are the cause...。socialize more 对应 talk more with their neighbors，cannot prove that the streams are responsible 对应 do not prove that the streams themselves are the cause。",
+      "定位I段前两句：Some critics question whether the money is well spent... the same budget could build several new schools or improve public transport, which might benefit far more people。funds 对应 budget，education or transport 对应 schools / public transport。",
+      "定位F段：concrete and asphalt absorb heat during the day and release it slowly at night。paved surfaces 对应 concrete and asphalt，take in 对应 absorb，give it off gradually after dark 对应 release it slowly at night。"
+    ]
+  }
+]

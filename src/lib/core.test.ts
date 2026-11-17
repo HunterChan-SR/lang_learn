@@ -90,6 +90,7 @@ function data(cards: AppData['cards'] = {}, dailyNew = 5): AppData {
     starred: {},
     wrong: {},
     days: {},
+    practice: {},
   }
 }
 

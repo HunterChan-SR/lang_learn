@@ -1,0 +1,386 @@
+[
+  {
+    "id": "reading-4-1",
+    "level": "cet4",
+    "title": "手写笔记与电脑笔记",
+    "topic": "note-taking, handwriting, laptops, learning",
+    "passage": "For many university students, a laptop has become as essential in the lecture hall as a pen once was. Typing is fast, notes are easy to search, and nothing gets lost in a pile of paper. It seems obvious that technology has made note-taking better. Yet a growing body of classroom research suggests that the old-fashioned method may still have an advantage.\n\nIn a number of experiments, students were asked to watch short lectures and take notes either by hand or on a laptop. Those who typed usually recorded far more words, and some copied down whole sentences almost exactly as the speaker said them. Students who wrote by hand, by contrast, could not keep up, so they were forced to choose what mattered and put ideas into their own words. When the groups were tested afterwards, they remembered simple facts about equally well. On questions that required understanding and applying concepts, however, the handwriting group often did better. Not every later study has found such a clear gap.\n\nResearchers believe the key lies not in the pen itself but in the mental effort it demands. Because writing is slow, it pushes learners to listen, think and summarize at the same time. This kind of active processing helps information settle into long-term memory. Typing, on the other hand, allows students to act almost like recording machines, taking in words without really digesting them.\n\nNone of this means that laptops should be banned from classrooms. Digital notes have real benefits: they can be shared with classmates, organized into folders and combined with slides or links. For students with certain disabilities, a keyboard may be the only practical choice. What matters, experts say, is how the tool is used. A student who types brief summaries in their own words may gain just as much as one who writes by hand.\n\nThere is also the problem of distraction. A laptop connected to the internet offers endless temptations, from chat messages to shopping websites. Students who keep switching between tasks during a lecture not only learn less themselves but may also distract classmates nearby who can see their screens.\n\nThe lesson for students, then, is fairly simple: speed is not the same as learning. Whether they choose paper or a screen, they should resist the urge to capture every word and focus instead on making sense of what they hear. The best notes are not the longest ones, but the ones that show real thinking.",
+    "questions": [
+      {
+        "q": "What does the author say many people take for granted?",
+        "options": [
+          "Handwritten notes are easier to organize than digital ones.",
+          "Technology has improved the way students take notes.",
+          "Laptops distract students more than any other device.",
+          "Students who type remember lectures more accurately."
+        ],
+        "answer": 1,
+        "explanation": "定位第一段 “It seems obvious that technology has made note-taking better”，B 是同义改写。A 与原文相反（电子笔记更易检索整理）；C 第一段未提及；D 原文从未说打字者记得更准确。"
+      },
+      {
+        "q": "Why did students who took notes by hand have to select key points?",
+        "options": [
+          "They were told to write only short summaries.",
+          "They found the lectures too difficult to follow.",
+          "They wanted to save time for the test afterwards.",
+          "They were unable to write as fast as the speaker talked."
+        ],
+        "answer": 3,
+        "explanation": "定位第二段 “could not keep up, so they were forced to choose what mattered”，跟不上语速才被迫取舍，D 正确。A 实验并无此要求；B 原文说的是写字速度跟不上，而非听不懂；C 无依据。"
+      },
+      {
+        "q": "What does the word 'digesting' (Para. 3) most probably mean?",
+        "options": [
+          "Understanding and absorbing.",
+          "Recording word for word.",
+          "Listening attentively.",
+          "Checking for errors."
+        ],
+        "answer": 0,
+        "explanation": "第三段将打字者比作 “recording machines”，只是 “taking in words without really digesting them”，与前文 “active processing” 相对，故 digesting 指“理解、消化吸收”，选 A。B 恰恰是打字者在做的事；C、D 与语境无关。"
+      },
+      {
+        "q": "What is the author's view on the use of laptops in class?",
+        "options": [
+          "They should be replaced by pen and paper.",
+          "They are useful only for students with disabilities.",
+          "Their value depends largely on how students use them.",
+          "They help students understand concepts more deeply."
+        ],
+        "answer": 2,
+        "explanation": "定位第四段 “What matters, experts say, is how the tool is used”，C 正确。A 与首句 “None of this means that laptops should be banned” 相反；B 以偏概全，残障学生只是举例；D 与第二段结论相反。"
+      },
+      {
+        "q": "What is the main advice the author gives to students?",
+        "options": [
+          "Take notes on paper whenever possible.",
+          "Focus on understanding rather than recording everything.",
+          "Turn off the internet before every lecture.",
+          "Write longer notes so as to remember more details."
+        ],
+        "answer": 1,
+        "explanation": "末段 “resist the urge to capture every word and focus instead on making sense of what they hear”，B 正确。A 与 “Whether they choose paper or a screen” 不符；C 只是第五段提到的问题，并非作者的建议；D 与 “The best notes are not the longest ones” 相反。"
+      }
+    ]
+  },
+  {
+    "id": "reading-4-2",
+    "level": "cet4",
+    "title": "城市绿地与心理健康",
+    "topic": "green space, cities, mental health, urban planning",
+    "passage": "City life has many attractions: jobs, entertainment and convenient public services. But it also brings noise, crowds and a fast pace that can wear people down. In recent years, researchers have begun asking a simple question: can a little more nature in the city make people feel better?\n\nThe answer appears to be yes. Surveys in several countries have found that people who live near parks or tree-lined streets report lower levels of stress than those surrounded mainly by concrete. In one experiment, volunteers who spent less than an hour walking through a green area showed less anxiety and better short-term memory afterwards than volunteers who walked the same distance along a busy road. Even a view may help: some studies suggest that hospital patients whose windows face trees recover slightly faster than those looking at a brick wall.\n\nWhy should greenery have such an effect? One explanation is that natural scenes hold our attention gently. Unlike traffic or advertisements, which demand constant focus, leaves moving in the wind or a stretch of grass allows the mind to rest and recover. Green spaces also encourage exercise and social contact, both of which are known to improve mood. A park is a place where neighbors meet, children play and elderly residents take their daily walks.\n\nHowever, access to nature is not shared equally. In many cities, wealthier neighborhoods enjoy large parks while poorer districts have little more than a few trees along the road. As a result, the people who face the most daily pressure are often the ones with the fewest places to escape it. Some urban planners therefore argue that green space should be treated as basic public infrastructure, like water pipes or bus lines, rather than as a luxury.\n\nBuilding new parks in crowded cities is not easy, since land is expensive and limited. Yet small changes can make a difference. Rooftop gardens, street trees and 'pocket parks' built on empty lots between buildings cost relatively little and can be spread throughout a city. Some schools have replaced paved playgrounds with gardens, and teachers report that pupils seem calmer after breaks.\n\nOf course, a walk in the park cannot cure serious mental illness, and it is no substitute for professional treatment. But as more of the world's population moves into cities, making room for nature may prove to be one of the cheapest ways to keep urban residents healthy.",
+    "questions": [
+      {
+        "q": "What did the experiment mentioned in Paragraph 2 find?",
+        "options": [
+          "Walking along a busy road improved volunteers' memory.",
+          "Volunteers preferred walking in groups to walking alone.",
+          "A walk in a green area reduced anxiety and helped memory.",
+          "Short walks were more relaxing than long ones."
+        ],
+        "answer": 2,
+        "explanation": "定位第二段 “volunteers who spent less than an hour walking through a green area showed less anxiety and better short-term memory”，C 正确。A 张冠李戴，走马路的是对照组；B、D 原文均未比较。"
+      },
+      {
+        "q": "According to the passage, why do natural scenes help the mind recover?",
+        "options": [
+          "They do not require intense concentration.",
+          "They remind people of their childhood.",
+          "They are completely free from noise.",
+          "They help people think about their work."
+        ],
+        "answer": 0,
+        "explanation": "定位第三段 “natural scenes hold our attention gently. Unlike traffic or advertisements, which demand constant focus”，自然景象不需要高度集中注意力，A 正确。B、D 无依据；C 原文没说绿地完全没有声音。"
+      },
+      {
+        "q": "What problem does the author point out in Paragraph 4?",
+        "options": [
+          "Many parks are poorly maintained by city governments.",
+          "Wealthy residents rarely use the parks near their homes.",
+          "Building water pipes and bus lines costs too much money.",
+          "People under the greatest stress often have the least access to green space."
+        ],
+        "answer": 3,
+        "explanation": "定位第四段 “the people who face the most daily pressure are often the ones with the fewest places to escape it”，D 正确。A、B 原文未提；C 中水管和公交只是类比，并非作者讨论的问题。"
+      },
+      {
+        "q": "What do the examples in Paragraph 5 show?",
+        "options": [
+          "Schools should spend more money on playground equipment.",
+          "Cities can add greenery without large-scale projects.",
+          "Rooftop gardens are more effective than large parks.",
+          "Pupils prefer gardens to sports fields."
+        ],
+        "answer": 1,
+        "explanation": "第五段先说建新公园不易，再说 “Yet small changes can make a difference”，屋顶花园、口袋公园等例子说明不必大兴土木也能增加绿化，B 正确。A 与学校把操场改成花园的例子不符；C 无比较；D 过度推断。"
+      },
+      {
+        "q": "What is the author's attitude toward the role of green space?",
+        "options": [
+          "Positive but aware of its limits.",
+          "Doubtful about its real benefits.",
+          "Enthusiastic without reservation.",
+          "Largely indifferent."
+        ],
+        "answer": 0,
+        "explanation": "末段先让步 “cannot cure serious mental illness... no substitute for professional treatment”，再肯定 “one of the cheapest ways to keep urban residents healthy”，态度积极而理性，A 正确。B、D 与全文肯定基调不符；C 忽略了作者的保留。"
+      }
+    ]
+  },
+  {
+    "id": "reading-4-3",
+    "level": "cet4",
+    "title": "年轻人的二手消费",
+    "topic": "second-hand economy, young consumers, sustainability",
+    "passage": "Not long ago, buying used goods was something most people did only when they could not afford anything new. A second-hand coat or bicycle suggested a tight budget, and few people talked about it openly. Today the picture is changing fast. Across many countries, young consumers are turning to second-hand platforms not out of necessity but by choice, and many of them are proud to say so.\n\nSeveral factors lie behind this shift. The first is convenience. Mobile apps have made it easy to list an unwanted item in minutes and to search thousands of goods from the sofa at home. Buyers can check a seller's ratings, discuss the price and arrange delivery without ever meeting face to face. What was once a slow and uncertain process now feels almost as smooth as ordinary online shopping.\n\nThe second factor is value. Young people starting their careers often face high rents and modest salaries. Buying a nearly new phone or a designer bag at half the original price lets them enjoy quality products while keeping their spending under control. Some even treat second-hand trading as a small business, buying items cheaply and reselling them for a profit.\n\nEnvironmental concern also plays a part. Many young buyers are aware that producing clothes, electronics and furniture consumes large amounts of water, energy and raw materials. Extending the life of an object, they argue, is one of the easiest ways for an ordinary person to reduce waste. For them, a used jacket is not a sign of poverty but a statement of values.\n\nNot everyone is convinced that the trend is entirely positive. Some critics point out that cheap second-hand goods may actually encourage people to buy more, since they know they can always sell things later. In this view, the resale market can become just another form of fast consumption rather than a cure for it. Others worry about fake products and dishonest sellers, problems that platforms have not fully solved.\n\nStill, the growth of the second-hand economy reflects a deeper change in attitudes. For a generation that values flexibility and experience over ownership, things are no longer meant to be kept forever; they pass from hand to hand. Whether this will truly lead to more sustainable lifestyles depends less on the platforms themselves than on how thoughtfully people choose to use them.",
+    "questions": [
+      {
+        "q": "What was buying used goods often associated with in the past?",
+        "options": [
+          "A lack of money.",
+          "A love of fashion.",
+          "Concern for the environment.",
+          "A desire to start a business."
+        ],
+        "answer": 0,
+        "explanation": "定位第一段 “only when they could not afford anything new” 和 “suggested a tight budget”，过去买二手意味着手头拮据，A 正确。B、C、D 都是现在年轻人买二手的理由或现象，不是过去的看法。"
+      },
+      {
+        "q": "What has made second-hand trading more convenient?",
+        "options": [
+          "The opening of more second-hand shops in city centers.",
+          "Lower delivery fees charged by postal services.",
+          "Mobile apps that make listing, searching and dealing much easier.",
+          "Face-to-face meetings that build trust between traders."
+        ],
+        "answer": 2,
+        "explanation": "定位第二段 “Mobile apps have made it easy to list an unwanted item... search thousands of goods... arrange delivery”，C 正确。A、B 原文未提；D 与 “without ever meeting face to face” 相反。"
+      },
+      {
+        "q": "Why do some young buyers regard a used jacket as 'a statement of values'?",
+        "options": [
+          "It shows they can tell real products from fake ones.",
+          "It reflects their wish to reduce waste and protect the environment.",
+          "It proves they have a good sense of fashion.",
+          "It helps them save money to pay their rent."
+        ],
+        "answer": 1,
+        "explanation": "该句位于讲 “Environmental concern” 的第四段，前文说延长物品寿命是普通人减少浪费的简单方式，故“价值观的表达”指环保理念，B 正确。D 是第三段“省钱”的理由，与此句无关；A、C 无依据。"
+      },
+      {
+        "q": "What concern do some critics have about the resale market?",
+        "options": [
+          "It may drive traditional shops out of business.",
+          "It makes brand-new products more expensive.",
+          "It discourages people from selling unwanted items.",
+          "It may encourage people to buy even more."
+        ],
+        "answer": 3,
+        "explanation": "定位第五段 “cheap second-hand goods may actually encourage people to buy more”，D 正确。A、B 原文未提；C 与 “they can always sell things later” 的逻辑相反。"
+      },
+      {
+        "q": "What does the author suggest in the last paragraph?",
+        "options": [
+          "Second-hand platforms will soon replace ordinary online shopping.",
+          "Young people are no longer willing to own anything.",
+          "Whether the trend benefits the environment depends on consumers' choices.",
+          "Platforms should take full responsibility for sustainable lifestyles."
+        ],
+        "answer": 2,
+        "explanation": "末句 “depends less on the platforms themselves than on how thoughtfully people choose to use them”，C 正确。A 无依据；B 过度引申，原文只说更看重灵活和体验；D 与“取决于用户而非平台”相反。"
+      }
+    ]
+  },
+  {
+    "id": "reading-6-1",
+    "level": "cet6",
+    "title": "无聊的价值",
+    "topic": "boredom, attention, creativity, psychology",
+    "passage": "Boredom has a poor reputation. We tend to regard it as an empty, slightly shameful state, something to be eliminated as quickly as possible, and modern technology has made elimination almost effortless. A queue at the bank, a delayed train, a pause between meetings: each can now be filled instantly by the glowing screen in our pocket. Yet a number of psychologists have begun to suggest that in banishing boredom so efficiently, we may be depriving ourselves of something valuable.\n\nTheir argument rests on a distinction between the experience of boredom and the response it provokes. Boredom, in this account, is not merely the absence of stimulation; it is a signal, an uncomfortable message that our current activity has ceased to be meaningful or engaging. Like hunger or pain, it is unpleasant precisely because it is meant to push us toward change. When we answer that signal by reaching for a phone, we silence the alarm without addressing what triggered it.\n\nSome laboratory studies lend weight to this view. In one frequently discussed experiment, participants who had first completed a deliberately tedious task, such as copying long lists of numbers by hand, subsequently produced more original ideas on a creative-thinking test than those who had not. The researchers speculated that a bored mind, deprived of external interest, turns inward and begins to wander, forming unexpected connections between ideas. Such findings are suggestive rather than conclusive, since the effects are modest and laboratory tasks differ greatly from ordinary life, but they are consistent with a long tradition of writers and scientists who credit idle moments with their best insights.\n\nNone of this amounts to a romantic celebration of boredom. Chronic boredom, the kind experienced by people trapped in monotonous jobs or isolated circumstances, is associated with poorer mental health and with impulsive, sometimes risky, behavior. The distinction that matters is between brief, occasional boredom, which may stimulate reflection, and persistent boredom, which signals a deeper lack of purpose that no amount of daydreaming can cure.\n\nWhat, then, should we do with the restless minutes of ordinary life? The answer is not to seek out tedium deliberately, nor to renounce our devices altogether. It is, rather, to tolerate a degree of unoccupied time without rushing to fill it. Parents who resist the impulse to entertain their children at every moment may find that the children eventually invent their own games. Adults who walk without headphones may notice thoughts that would otherwise have been drowned out.\n\nIn an economy that competes fiercely for every second of our attention, the capacity to sit with boredom may turn out to be a quietly subversive skill, one that returns to us some control over where our minds go.",
+    "questions": [
+      {
+        "q": "What does the author say about boredom in modern life?",
+        "options": [
+          "It has become far more common because people have more free time.",
+          "It is now mainly caused by the excessive use of digital devices.",
+          "It is increasingly seen by the public as a source of creativity.",
+          "It is generally viewed as something to escape, which technology makes easy."
+        ],
+        "answer": 3,
+        "explanation": "定位第一段 “something to be eliminated as quickly as possible, and modern technology has made elimination almost effortless”，D 正确。A、B 原文未提；C 与 “Boredom has a poor reputation” 相反，认为无聊有价值的只是部分心理学家。"
+      },
+      {
+        "q": "Why does the author compare boredom to hunger or pain?",
+        "options": [
+          "To show that boredom can cause physical harm.",
+          "To illustrate that its discomfort serves to prompt change.",
+          "To argue that boredom should be treated by doctors.",
+          "To suggest that boredom is impossible to ignore."
+        ],
+        "answer": 1,
+        "explanation": "定位第二段 “it is unpleasant precisely because it is meant to push us toward change”，类比说明无聊的不适感是促使人改变的信号，B 正确。A、C 曲解类比；D 与下句“拿起手机就能让警报静音”矛盾。"
+      },
+      {
+        "q": "What does the author say about the experiment described in Paragraph 3?",
+        "options": [
+          "It proves that tedious tasks always make people more creative.",
+          "It shows that copying numbers improves people's memory.",
+          "Its results support the psychologists' view but are not decisive.",
+          "Its findings contradict what many writers have claimed."
+        ],
+        "answer": 2,
+        "explanation": "定位第三段首句 “lend weight to this view” 及 “suggestive rather than conclusive”，结果支持该观点但尚无定论，C 正确。A 的 proves、always 过于绝对；B 实验测的是创造力而非记忆力；D 与 “consistent with a long tradition of writers” 相反。"
+      },
+      {
+        "q": "What distinction does the author draw in Paragraph 4?",
+        "options": [
+          "Occasional boredom may be useful, while persistent boredom is harmful.",
+          "Boredom at work is more damaging than boredom at home.",
+          "Daydreaming is more productive than deliberate reflection.",
+          "Isolated people are less likely to feel bored than others."
+        ],
+        "answer": 0,
+        "explanation": "定位第四段 “between brief, occasional boredom, which may stimulate reflection, and persistent boredom, which signals a deeper lack of purpose”，A 正确。B、C 原文未作此比较；D 与 “isolated circumstances” 导致长期无聊相反。"
+      },
+      {
+        "q": "What does the word 'subversive' (Para. 6) most probably mean?",
+        "options": [
+          "Harmful to one's physical health.",
+          "Popular among young people.",
+          "Difficult to learn and master.",
+          "Undermining a dominant force."
+        ],
+        "answer": 3,
+        "explanation": "末段语境是“一个激烈争夺我们每一秒注意力的经济体系”，而忍受无聊的能力能让我们“夺回对思绪的控制”，即悄然对抗这种强势力量，subversive 意为“颠覆性的”，D 正确。A、B、C 均与语境无关。"
+      }
+    ]
+  },
+  {
+    "id": "reading-6-2",
+    "level": "cet6",
+    "title": "远程办公与城市未来",
+    "topic": "remote work, cities, urban economy, inequality",
+    "passage": "When offices emptied almost overnight during the pandemic, many commentators predicted the decline of the great city. If knowledge workers could do their jobs from a spare bedroom, why would they continue to pay enormous rents to live near crowded business districts? Several years on, the forecast looks partly right but largely premature, and the reasons reveal a good deal about what cities actually provide.\n\nIt is true that the geography of work has shifted. Many employers now accept hybrid arrangements in which staff come in two or three days a week, and a minority of workers have moved permanently to smaller towns where housing is cheaper and the pace of life slower. Commercial property in some downtown areas has suffered as a result, with vacant office floors and struggling lunchtime cafes serving as visible reminders of the change.\n\nYet the predicted mass exodus has not materialized. One reason is that cities were never merely places to work. They concentrate restaurants, theaters, universities, hospitals and, crucially, other people. Young professionals in particular continue to value the chance to build networks, meet potential partners and switch jobs easily, advantages that a remote village cannot readily replicate. Economists have long argued that cities generate innovation through dense, often accidental interactions, and there is little evidence that video calls have rendered this effect obsolete.\n\nThe more interesting question, then, is not whether cities will survive but how they will adapt. Some planners see the surplus of office space as an opportunity rather than a crisis. Converting underused office towers into apartments could ease housing shortages, although such conversions are often technically difficult and expensive, because office buildings tend to have deep floors with limited natural light. Others propose redesigning business districts as mixed neighborhoods where people live, work and spend their leisure time, rather than zones that come alive only between nine and five.\n\nRemote work has also exposed inequalities that are easy to overlook. The ability to work from home is concentrated among well-paid, highly educated employees; cleaners, nurses, delivery drivers and shop assistants must still travel to their jobs. Policies that assume a uniformly flexible workforce risk benefiting those who are already advantaged while neglecting the people on whom the city's daily functioning depends.\n\nUltimately, the pandemic did not abolish the city so much as remove some of the reasons people tolerated its drawbacks. Commuting for hours to sit at a desk one could occupy anywhere now seems harder to justify. If cities wish to retain their appeal, they must offer something that cannot be delivered through a screen: a rich, varied and affordable public life.",
+    "questions": [
+      {
+        "q": "How does the author view the prediction about the decline of cities?",
+        "options": [
+          "It has proved only partly accurate so far.",
+          "It has been fully confirmed by recent events.",
+          "It was based on reliable economic data.",
+          "It failed to notice the shift toward hybrid work."
+        ],
+        "answer": 0,
+        "explanation": "定位第一段末句 “the forecast looks partly right but largely premature”，A 正确。B 与 largely premature 矛盾；C 原文未提；D 第二段恰恰承认工作方式已向混合办公转变，并非预测忽视了这一点。"
+      },
+      {
+        "q": "Why do many young professionals still choose to live in cities?",
+        "options": [
+          "Remote villages offer few affordable houses.",
+          "Their employers require them to be in the office every day.",
+          "Cities give them better chances to build networks and change jobs.",
+          "Video calls are not widely available in smaller towns."
+        ],
+        "answer": 2,
+        "explanation": "定位第三段 “Young professionals in particular continue to value the chance to build networks, meet potential partners and switch jobs easily”，C 正确。A 与第二段“小镇住房更便宜”相反；B 与混合办公普及不符；D 无依据。"
+      },
+      {
+        "q": "What does the author say about turning office towers into apartments?",
+        "options": [
+          "It has already solved housing shortages in many cities.",
+          "It is opposed by most urban planners.",
+          "It costs less than constructing new housing.",
+          "It is appealing in principle but often hard to carry out."
+        ],
+        "answer": 3,
+        "explanation": "定位第四段 “could ease housing shortages, although such conversions are often technically difficult and expensive”，D 正确。A 原文用 could，仅为可能；B 与 “Some planners see... an opportunity” 不符；C 与 expensive 相矛盾。"
+      },
+      {
+        "q": "What concern does the author raise in Paragraph 5?",
+        "options": [
+          "Well-paid employees are reluctant to return to the office.",
+          "Policies built around flexible work may overlook essential workers.",
+          "Delivery drivers are increasingly being replaced by technology.",
+          "Nurses and cleaners would rather work from home."
+        ],
+        "answer": 1,
+        "explanation": "定位第五段末句 “risk benefiting those who are already advantaged while neglecting the people on whom the city's daily functioning depends”，B 正确。A、C 原文未提；D 原文只说他们必须到岗，未提其意愿。"
+      },
+      {
+        "q": "What is the author's main conclusion?",
+        "options": [
+          "Remote work will eventually make cities unnecessary.",
+          "Governments should require employees to return to offices.",
+          "Long commutes remain the price of a successful career.",
+          "To stay attractive, cities must offer a public life that screens cannot provide."
+        ],
+        "answer": 3,
+        "explanation": "末段末句 “they must offer something that cannot be delivered through a screen: a rich, varied and affordable public life”，D 正确。A 与 “did not abolish the city” 相反；B 无依据；C 与“长时间通勤越来越难以说得通”相反。"
+      }
+    ]
+  },
+  {
+    "id": "reading-6-3",
+    "level": "cet6",
+    "title": "推荐算法与文化多样性",
+    "topic": "recommendation algorithms, streaming, cultural diversity",
+    "passage": "Streaming platforms promised a cultural revolution. With millions of songs, films and books available at the touch of a button, audiences would no longer be confined to whatever happened to be popular or in stock at the local shop. Niche artists would find their listeners; forgotten works would be rediscovered. In principle, the internet's endless shelf should have produced the most diverse cultural diet in history. Whether it has done so is a question that has generated surprisingly heated debate.\n\nAt the center of the controversy are recommendation algorithms, the systems that decide what each user is shown next. These systems learn from past behavior: what we click, finish, skip or replay. Their designers argue that they are simply tools of discovery, guiding users through an otherwise overwhelming abundance. Critics contend that by repeatedly offering more of what we already like, algorithms create a feedback loop that narrows taste over time, rewarding the familiar and burying the unconventional.\n\nThe evidence is more complicated than either side tends to admit. Studies of listening data suggest that individual users often explore a wider range of material than they would have encountered through radio or physical stores. At the same time, attention across the whole audience appears to have become more concentrated: a small number of hits capture an enormous share of streams, while the vast majority of available works are rarely played at all. In other words, personal diversity and collective diversity can move in opposite directions, a paradox that simple claims about 'filter bubbles' fail to capture.\n\nPart of the explanation lies in how popularity feeds itself. Algorithms trained to maximize engagement have good reason to promote items that many people have already enjoyed, since these are statistically safe bets. Creators, aware of this, may in turn shape their work to suit the system, writing shorter songs with immediate hooks, for instance, or designing images calculated to attract clicks. The result is not censorship in any obvious sense, but a subtle pressure toward conformity.\n\nNone of this implies that the pre-digital world was a golden age of cultural variety. Radio playlists and bookshop shelves were themselves controlled by a handful of gatekeepers whose tastes were hardly neutral. The difference is that those gatekeepers were visible and could be criticized by name, whereas algorithmic influence is diffuse and largely hidden from the people it affects.\n\nSeveral remedies have been proposed: giving users greater control over how recommendations are generated, deliberately introducing an element of randomness, or requiring platforms to disclose the principles behind their rankings. Yet the most effective safeguard may be the oldest one. Listeners and readers who occasionally ignore the suggestions in front of them, and seek out something unfamiliar on their own initiative, remain the best guarantee that culture does not quietly shrink to fit the machine.",
+    "questions": [
+      {
+        "q": "What were streaming platforms expected to bring about?",
+        "options": [
+          "Lower prices for films, music and books.",
+          "The disappearance of local shops.",
+          "A richer variety of cultural consumption.",
+          "Greater profits for popular artists."
+        ],
+        "answer": 2,
+        "explanation": "定位第一段 “the internet's endless shelf should have produced the most diverse cultural diet in history”，C 正确。A、B 原文未提；D 与 “Niche artists would find their listeners” 的方向相反。"
+      },
+      {
+        "q": "What do critics claim about recommendation algorithms?",
+        "options": [
+          "They narrow users' tastes by repeatedly offering familiar content.",
+          "They are deliberately designed to censor unconventional works.",
+          "They cannot cope with the huge volume of available material.",
+          "They pay little attention to what users have clicked or skipped."
+        ],
+        "answer": 0,
+        "explanation": "定位第二段 “by repeatedly offering more of what we already like, algorithms create a feedback loop that narrows taste over time”，A 正确。B 与第四段 “not censorship in any obvious sense” 矛盾；C 无依据；D 与 “learn from past behavior” 相反。"
+      },
+      {
+        "q": "What does the author imply about simple claims about 'filter bubbles'?",
+        "options": [
+          "They are supported by most of the listening data.",
+          "They fail to reflect the complexity of the evidence.",
+          "They were first put forward by streaming companies.",
+          "They apply only to people who listen to the radio."
+        ],
+        "answer": 1,
+        "explanation": "第三段指出个人多样性与整体多样性可能反向变化，这一悖论是 “simple claims about 'filter bubbles' fail to capture” 的，可见作者认为这类说法把问题简单化了，B 正确。A 与“证据比双方承认的更复杂”不符；C、D 无依据。"
+      },
+      {
+        "q": "How did pre-digital gatekeepers differ from algorithms, according to the author?",
+        "options": [
+          "They had more neutral and balanced tastes.",
+          "They offered audiences a far greater range of works.",
+          "They were chosen by the public through open procedures.",
+          "Their influence was visible and could be openly criticized."
+        ],
+        "answer": 3,
+        "explanation": "定位第五段 “those gatekeepers were visible and could be criticized by name, whereas algorithmic influence is diffuse and largely hidden”，D 正确。A 与 “hardly neutral” 相反；B 与 “None of this implies that the pre-digital world was a golden age” 矛盾；C 无依据。"
+      },
+      {
+        "q": "What does the author consider the most effective safeguard of cultural diversity?",
+        "options": [
+          "Audiences actively seeking out unfamiliar works themselves.",
+          "Laws forcing platforms to publish their ranking principles.",
+          "Algorithms that recommend content entirely at random.",
+          "A return to radio playlists and physical bookshops."
+        ],
+        "answer": 0,
+        "explanation": "末段 “Yet the most effective safeguard may be the oldest one”，即听众和读者 “seek out something unfamiliar on their own initiative”，A 正确。B、C 是 Yet 之前列举的其他方案，且原文只说引入“一定的随机性”；D 与第五段对前数字时代的评价不符。"
+      }
+    ]
+  }
+]

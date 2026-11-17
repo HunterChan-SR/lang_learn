@@ -1,4 +1,4 @@
-import type { AppData, CardState, DayLog, WrongEntry } from './types'
+import type { AppData, CardState, DayLog, PracticeRecord, WrongEntry } from './types'
 
 /** 删除记录保留 90 天，过期后清理 */
 const TOMBSTONE_TTL = 90 * 86_400_000
@@ -9,6 +9,7 @@ const TOMBSTONE_TTL = 90 * 86_400_000
  * - 单词记忆状态：取最近复习过的那份
  * - 生词本/错题本：按时间戳合并，删除记录比添加时间新则视为已删除
  * - 每日统计：各字段取较大值（避免重复同步导致翻倍）
+ * - 练习记录：按记录 id 取并集
  * - 设置：取最近修改的一方
  */
 export function mergeData(a: AppData, b: AppData, now = Date.now()): AppData {
@@ -54,6 +55,9 @@ export function mergeData(a: AppData, b: AppData, now = Date.now()): AppData {
           }
   }
 
+  // 练习记录只增不改，按 id 取并集
+  const practice: Record<string, PracticeRecord> = trimPractice({ ...a.practice, ...b.practice })
+
   const newerSettings = b.meta.settingsAt > a.meta.settingsAt ? b : a
   return {
     version: 1,
@@ -63,7 +67,19 @@ export function mergeData(a: AppData, b: AppData, now = Date.now()): AppData {
     starred,
     wrong,
     days,
+    practice,
   }
+}
+
+/** 最多保留的练习记录数 */
+export const MAX_PRACTICE = 400
+
+/** 练习记录超出上限时保留最新的（时间相同按 id 排序，保证合并结果与顺序无关） */
+export function trimPractice(p: AppData['practice']): AppData['practice'] {
+  const entries = Object.entries(p)
+  if (entries.length <= MAX_PRACTICE) return p
+  entries.sort((a, b) => b[1].at - a[1].at || (a[0] < b[0] ? -1 : 1))
+  return Object.fromEntries(entries.slice(0, MAX_PRACTICE))
 }
 
 function keys(...objs: Record<string, unknown>[]): Set<string> {

@@ -1,7 +1,8 @@
 import { useSyncExternalStore } from 'react'
 import { dayIndex, dayKey } from './date'
+import { trimPractice } from './merge'
 import { schedule } from './srs'
-import type { AppData, DayLog, Grade, Settings, SyncMeta } from './types'
+import type { AppData, DayLog, Grade, PracticeRecord, Settings, SyncMeta } from './types'
 
 /**
  * 本地存储层：进度保存在 localStorage。
@@ -21,7 +22,7 @@ export const DEFAULT_SETTINGS: Settings = {
 const emptyMeta = (): SyncMeta => ({ epoch: 0, settingsAt: 0, removed: {} })
 
 function emptyData(): AppData {
-  return { version: 1, meta: emptyMeta(), settings: { ...DEFAULT_SETTINGS }, cards: {}, starred: {}, wrong: {}, days: {} }
+  return { version: 1, meta: emptyMeta(), settings: { ...DEFAULT_SETTINGS }, cards: {}, starred: {}, wrong: {}, days: {}, practice: {} }
 }
 
 const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v)
@@ -43,6 +44,7 @@ export function normalize(raw: unknown): AppData | null {
     starred: isObj(raw.starred) ? (raw.starred as AppData['starred']) : {},
     wrong: isObj(raw.wrong) ? (raw.wrong as AppData['wrong']) : {},
     days: isObj(raw.days) ? (raw.days as AppData['days']) : {},
+    practice: isObj(raw.practice) ? (raw.practice as AppData['practice']) : {},
   }
 }
 
@@ -168,6 +170,11 @@ export function recordAnswer(word: string, correct: boolean) {
     }
     return { ...s, wrong, meta, days: bumpDay(s, { quiz: 1, correct: correct ? 1 : 0 }) }
   })
+}
+
+export function recordPractice(rec: PracticeRecord) {
+  const id = `${rec.at.toString(36)}${Math.random().toString(36).slice(2, 6)}`
+  setState((s) => ({ ...s, practice: trimPractice({ ...s.practice, [id]: rec }) }))
 }
 
 export function removeWrong(word: string) {

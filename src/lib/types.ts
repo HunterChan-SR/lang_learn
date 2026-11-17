@@ -72,6 +72,21 @@ export interface SyncMeta {
   removed: Record<string, number>
 }
 
+/** 一次题型练习的成绩（客观题为答对题数，翻译/写作为 AI 评分，满分 15） */
+export interface PracticeRecord {
+  kind: string
+  level: BookId
+  /** 题目 id */
+  set: string
+  title: string
+  score: number
+  /** 满分；为 0 表示没有评分（如未配置 AI 时的翻译/写作） */
+  total: number
+  at: number
+  /** 用时（秒） */
+  secs?: number
+}
+
 export interface AppData {
   version: 1
   meta: SyncMeta
@@ -84,4 +99,6 @@ export interface AppData {
   wrong: Record<string, WrongEntry>
   /** 每日记录：YYYY-MM-DD -> 统计 */
   days: Record<string, DayLog>
+  /** 题型练习记录：记录 id -> 成绩 */
+  practice: Record<string, PracticeRecord>
 }

@@ -15,6 +15,7 @@ function base(patch: Partial<AppData> = {}): AppData {
     starred: {},
     wrong: {},
     days: {},
+    practice: {},
     ...patch,
   }
 }
@@ -22,6 +23,13 @@ function base(patch: Partial<AppData> = {}): AppData {
 const card = (last: number, seen = 1) => ({ ...schedule(undefined, 2, T, last), seen })
 
 describe('mergeData', () => {
+  it('练习记录取并集', () => {
+    const rec = (at: number) => ({ kind: 'reading', level: 'cet4' as const, set: 'r1', title: 't', score: 3, total: 5, at })
+    const a = base({ practice: { x1: rec(NOW - 10) } })
+    const b = base({ practice: { x2: rec(NOW - 5) } })
+    expect(Object.keys(mergeData(a, b, NOW).practice).sort()).toEqual(['x1', 'x2'])
+  })
+
   it('合并结果与参数顺序无关', () => {
     const a = base({ cards: { apple: card(NOW - 10), book: card(NOW - 5) }, starred: { apple: NOW - 100 } })
     const b = base({ cards: { apple: card(NOW - 1), cat: card(NOW - 3) }, starred: { cat: NOW - 50 } })

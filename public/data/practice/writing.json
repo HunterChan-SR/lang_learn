@@ -1,0 +1,98 @@
+[
+  {
+    "id": "writing-4-1",
+    "level": "cet4",
+    "title": "数字时代的阅读",
+    "topic": "reading habit in the digital age",
+    "type": "essay",
+    "directions": "For this part, you are allowed 30 minutes to write an essay on the importance of keeping a reading habit in the digital age. You should write at least 120 words but no more than 180 words.",
+    "minWords": 120,
+    "maxWords": 180,
+    "outline": [
+      "开头：指出数字时代人们读书越来越少的现象，表明观点——阅读习惯比以往更重要",
+      "主体：从培养深度思考、开阔视野、获得心灵慰藉等方面说明阅读的意义",
+      "结尾：提出在忙碌生活中坚持阅读的具体做法"
+    ],
+    "sample": "In the digital age, we are surrounded by short videos, social media posts and instant messages. As a result, many people, especially young students, spend less and less time reading books. In my view, however, keeping a reading habit is more important than ever.\n\nTo begin with, reading helps us think deeply. Unlike fragmented information online, a good book presents ideas in a complete and logical way, which trains us to concentrate and reflect. Moreover, reading broadens our horizons. Through books, we can learn about different cultures and understand people whose lives are very different from ours. Finally, reading is a reliable source of comfort. When we feel stressed or lonely, a good book can calm us down.\n\nTherefore, we should make room for reading in our busy lives. For example, we can set aside half an hour before bed, join a reading club, or simply put down our phones on the subway. Small steps like these can turn reading into a lifelong habit."
+  },
+  {
+    "id": "writing-4-2",
+    "level": "cet4",
+    "title": "给外国朋友的建议信",
+    "topic": "letter of advice on adapting to campus life",
+    "type": "letter",
+    "directions": "For this part, you are allowed 30 minutes to write a letter to your foreign friend Tom, who is coming to study at your university next semester. In your letter, you should give him some advice on how to adapt to campus life in China. You should write at least 120 words but no more than 180 words. Do not sign your own name. Use \"Li Ming\" instead.",
+    "minWords": 120,
+    "maxWords": 180,
+    "outline": [
+      "开头：对朋友来华留学表示高兴，说明写信目的",
+      "主体：分条给出建议，如提前学点中文、参加社团、遇到困难及时求助",
+      "结尾：表达祝愿，并主动提出提供帮助（如接机）"
+    ],
+    "sample": "Dear Tom,\n\nI am delighted to hear that you will be studying at my university next semester. Since campus life here may feel a little unfamiliar to you at first, I would like to offer you some suggestions.\n\nFirst, it would be a good idea to learn some basic Chinese before you come. Even simple expressions like greetings and numbers will make shopping and ordering food much easier. Second, I suggest that you join one or two student clubs as soon as you arrive. Clubs are a great way to make friends and practice your Chinese. Third, don't hesitate to ask for help when you run into difficulties. Our international student office is very helpful, and of course you can always turn to me.\n\nI believe you will soon get used to life here and enjoy your time in China. Please let me know when you will arrive, and I will meet you at the airport.\n\nYours,\nLi Ming"
+  },
+  {
+    "id": "writing-4-3",
+    "level": "cet4",
+    "title": "千里之行，始于足下",
+    "topic": "a journey of a thousand miles begins with a single step",
+    "type": "essay",
+    "directions": "For this part, you are allowed 30 minutes to write an essay based on the Chinese saying \"A journey of a thousand miles begins with a single step.\" You can cite examples to illustrate your point and then explain how to follow this advice. You should write at least 120 words but no more than 180 words.",
+    "minWords": 120,
+    "maxWords": 180,
+    "outline": [
+      "开头：引出谚语，解释其含义——伟大的成就源于点滴的行动",
+      "主体：举例说明（如学英语背单词、运动员日常训练）",
+      "结尾：说明如何践行——把大目标分解成小任务、立即行动并坚持下去"
+    ],
+    "sample": "As an old Chinese saying goes, \"A journey of a thousand miles begins with a single step.\" It reminds us that any great achievement starts with small actions and steady effort.\n\nThe saying is easy to understand but hard to follow. Many of us set ambitious goals, such as passing an exam with high marks or becoming fluent in English, but we often feel overwhelmed and keep putting off taking action. Take learning English as an example. Memorizing thousands of words seems impossible at first, yet if we learn twenty words a day, we will know thousands within a year. Similarly, every successful athlete becomes great through years of daily training.\n\nTo follow this advice, we should break big goals into small, achievable tasks and start working on them right away. More importantly, we must keep going even when progress seems slow. After all, it is the small steps we take every day that eventually lead us to our destination."
+  },
+  {
+    "id": "writing-6-1",
+    "level": "cet6",
+    "title": "善用人工智能辅助学习",
+    "topic": "making good use of AI tools in learning",
+    "type": "essay",
+    "directions": "For this part, you are allowed 30 minutes to write an essay on how college students should make good use of artificial intelligence tools in their studies. You should write at least 150 words but no more than 200 words.",
+    "minWords": 150,
+    "maxWords": 200,
+    "outline": [
+      "开头：描述人工智能工具在大学生学习中日益普及的现状，引出如何善用的问题",
+      "主体：辩证分析——AI 能高效答疑、即时反馈，但过度依赖会削弱独立思考，且内容未必准确",
+      "结尾：提出观点——把 AI 当作工具而非替代品，先独立思考、再批判性地使用，并遵守学术规范"
+    ],
+    "sample": "With the rapid development of artificial intelligence, AI tools that can answer questions, polish essays and even write code have become part of many college students' daily study. While these tools offer unprecedented convenience, how to use them wisely has become a question worth serious consideration.\n\nUndoubtedly, AI can be a powerful learning assistant. It explains difficult concepts patiently, gives instant feedback on assignments and helps students find information far more efficiently than before. However, if students rely on it to complete every task, they may lose the chance to think independently and develop essential skills. Worse still, AI-generated content is not always accurate, and copying it blindly may lead to errors or even academic dishonesty.\n\nIn my opinion, the key lies in treating AI as a tool rather than a substitute for our own minds. We should first try to solve problems by ourselves and then turn to AI for inspiration or verification. Meanwhile, we must examine its answers critically and observe academic rules. Only in this way can we enjoy the benefits of technology while truly improving ourselves."
+  },
+  {
+    "id": "writing-6-2",
+    "level": "cet6",
+    "title": "年轻人青睐中小城市",
+    "topic": "young people choosing to work in smaller cities",
+    "type": "essay",
+    "directions": "For this part, you are allowed 30 minutes to write an essay on the phenomenon that more and more young people choose to start their careers in small and medium-sized cities rather than big cities. You should explain the possible reasons for this phenomenon and give your own view. You should write at least 150 words but no more than 200 words.",
+    "minWords": 150,
+    "maxWords": 200,
+    "outline": [
+      "开头：对比过去与现在，描述越来越多年轻人选择去中小城市就业的现象",
+      "主体：分析原因——大城市生活压力大；中小城市快速发展、生活成本低；互联网缩小了城市间差距",
+      "结尾：表明态度——这是理性选择，也有利于人才的合理分布；关键在于找到能实现自我价值的地方"
+    ],
+    "sample": "In the past, big cities such as Beijing and Shanghai were the first choice for most college graduates. Recently, however, a growing number of young people have chosen to start their careers in small and medium-sized cities. This shift is the result of several factors.\n\nFor one thing, life in big cities has become increasingly stressful. High housing prices, long commutes and fierce competition leave many young people with little time or energy to enjoy life. For another, small and medium-sized cities are developing fast. With improved transportation, better public services and more job opportunities, they can now offer a comfortable lifestyle at a much lower cost. In addition, thanks to the Internet, people in smaller cities can enjoy almost the same information and online services as those in big ones.\n\nIn my view, this trend is a positive sign. It shows that young people are making more rational decisions about their lives, and it also brings talent to places that need it. After all, wherever we choose to work, what matters most is finding a place where we can realize our potential and lead a fulfilling life."
+  },
+  {
+    "id": "writing-6-3",
+    "level": "cet6",
+    "title": "减少校园食物浪费倡议书",
+    "topic": "proposal on reducing food waste on campus",
+    "type": "proposal",
+    "directions": "For this part, you are allowed 30 minutes to write a proposal on reducing food waste on campus. You should state the problem, suggest specific measures and call on your fellow students to take action. You should write at least 150 words but no more than 200 words.",
+    "minWords": 150,
+    "maxWords": 200,
+    "outline": [
+      "开头：描述校园食堂中食物浪费的现象及其危害，提出倡议",
+      "主体：提出具体措施——按需点餐；食堂提供小份菜并收集反馈；学生组织开展“光盘行动”等宣传活动",
+      "结尾：升华意义，号召同学们从下一餐做起，共建绿色校园"
+    ],
+    "sample": "Dear fellow students,\n\nEvery day in our dining halls, a considerable amount of food ends up in the trash. Half-eaten meals, untouched side dishes and leftover rice are common sights. Such waste not only squanders the hard work of farmers and cooks, but also adds to the burden on our environment. Therefore, I propose that we take the following measures to reduce food waste.\n\nFirst of all, we should order only as much as we can eat. If you are not sure about your appetite, ask for a smaller portion and get more later if necessary. Secondly, the dining halls could offer half portions and set up a feedback board, so that the menu can better meet students' needs. Finally, student associations could organize campaigns such as a \"Clean Plate Week\" to raise awareness and encourage good habits.\n\nSaving food may seem a small act, but it reflects our respect for labor and our sense of responsibility. Let's start with our next meal and work together to build a greener campus.\n\nThe Student Union"
+  }
+]

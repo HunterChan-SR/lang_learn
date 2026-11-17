@@ -1,0 +1,509 @@
+[
+  {
+    "id": "listening-4-news",
+    "level": "cet4",
+    "title": "老少互教的技能课堂",
+    "topic": "skill exchange, elderly, smartphones, traditional crafts",
+    "type": "news",
+    "script": [
+      {
+        "speaker": "N",
+        "text": "In a city in eastern China, an unusual kind of classroom has become popular with both young and old. Every Saturday morning, about thirty university students and retired residents meet at a community center to teach each other new skills."
+      },
+      {
+        "speaker": "N",
+        "text": "The idea came from a second-year student named Zhang Lei. He noticed that his grandmother often had trouble using her smartphone to pay bills or make video calls. At the same time, he realized that she knew how to do paper cutting and make traditional cloth shoes, skills that he and his friends had never learned. He put up a notice in the neighborhood, and within two weeks, more than fifty people had signed up."
+      },
+      {
+        "speaker": "N",
+        "text": "Now, in the first hour of each class, students help older people with apps for shopping, booking hospital appointments and chatting with their families. In the second hour, the roles are reversed. Organizers say the program has done more than share skills. Many of the older participants say they feel less lonely, while students say they have gained a new respect for the older generation. The community center now plans to open two more classes next spring."
+      }
+    ],
+    "questions": [
+      {
+        "q": "What led Zhang Lei to start the program?",
+        "options": [
+          "A notice in his neighborhood.",
+          "Things he noticed about his grandmother.",
+          "A course at his university.",
+          "A request from the community center."
+        ],
+        "answer": 1,
+        "explanation": "原文：He noticed that his grandmother often had trouble using her smartphone... he realized that she knew how to do paper cutting... 他是从奶奶身上得到启发的。A项的通知是他后来自己张贴的。"
+      },
+      {
+        "q": "What happens in the second hour of each class?",
+        "options": [
+          "Students teach the use of shopping apps.",
+          "Older people make video calls to their families.",
+          "Older people teach traditional skills.",
+          "Students help book hospital appointments."
+        ],
+        "answer": 2,
+        "explanation": "原文：In the second hour, the roles are reversed. 第二个小时角色互换，由老人教学生剪纸、做布鞋等传统手艺。A、D两项是第一个小时的内容。"
+      },
+      {
+        "q": "What does the community center plan to do?",
+        "options": [
+          "Open two more classes.",
+          "Move to a larger building.",
+          "Invite professional teachers.",
+          "Hold classes every evening."
+        ],
+        "answer": 0,
+        "explanation": "原文最后一句：The community center now plans to open two more classes next spring."
+      }
+    ]
+  },
+  {
+    "id": "listening-4-conversation",
+    "level": "cet4",
+    "title": "小组作业的烦恼",
+    "topic": "group project, teamwork, campus life",
+    "type": "conversation",
+    "script": [
+      {
+        "speaker": "W",
+        "text": "Hi, Tom. You look exhausted. Were you up late again?"
+      },
+      {
+        "speaker": "M",
+        "text": "Yeah, I was working on our marketing project until almost two in the morning. It's due next Friday, and it counts for thirty percent of our final grade. The problem is, I'm doing most of it by myself."
+      },
+      {
+        "speaker": "W",
+        "text": "By yourself? I thought there were four people in your group."
+      },
+      {
+        "speaker": "M",
+        "text": "There are, but so far only Lisa and I have done anything. The other two keep saying they're busy with their part-time jobs. They didn't even show up to our last meeting."
+      },
+      {
+        "speaker": "W",
+        "text": "That sounds really frustrating. Have you talked to them about it?"
+      },
+      {
+        "speaker": "M",
+        "text": "Not really. I sent a message in our group chat, but nobody replied. I don't want to seem bossy, you know?"
+      },
+      {
+        "speaker": "W",
+        "text": "I understand, but a message is easy to ignore. It isn't the same as a real conversation. I had a similar problem last term in my statistics course, and I almost gave up on my group."
+      },
+      {
+        "speaker": "M",
+        "text": "Really? What did you do?"
+      },
+      {
+        "speaker": "W",
+        "text": "We all sat down together and made a clear plan. Everyone chose a specific task, and we wrote down a deadline for each one. Once people knew exactly what they were responsible for, they actually started working."
+      },
+      {
+        "speaker": "M",
+        "text": "That's a good idea. Right now our tasks are pretty vague. Everyone's just supposed to help with the research, so I guess it's easy for people to assume someone else will do it."
+      },
+      {
+        "speaker": "W",
+        "text": "Exactly. When everyone is responsible for everything, nobody feels responsible for anything. And if that still doesn't work, you could talk to your professor."
+      },
+      {
+        "speaker": "M",
+        "text": "I'd rather not. It feels like complaining."
+      },
+      {
+        "speaker": "W",
+        "text": "Well, professors usually want to know early if a group is having trouble. That's much better than telling them the day before the deadline."
+      },
+      {
+        "speaker": "M",
+        "text": "You're right. Okay, I'll ask everyone to meet tomorrow after class, and we'll divide up the work properly."
+      },
+      {
+        "speaker": "W",
+        "text": "Good luck. And try to get some sleep tonight!"
+      },
+      {
+        "speaker": "M",
+        "text": "I'll try. Thanks for the advice."
+      }
+    ],
+    "questions": [
+      {
+        "q": "Why did the man stay up late last night?",
+        "options": [
+          "He was preparing for an exam.",
+          "He was working at his part-time job.",
+          "He was chatting with his group online.",
+          "He was doing a group assignment."
+        ],
+        "answer": 3,
+        "explanation": "原文：I was working on our marketing project until almost two in the morning. 他熬夜是在做小组的市场营销作业。"
+      },
+      {
+        "q": "What problem does the man have with his group?",
+        "options": [
+          "They can't agree on a topic.",
+          "Two members aren't doing their share.",
+          "The deadline has been moved forward.",
+          "Lisa wants to leave the group."
+        ],
+        "answer": 1,
+        "explanation": "原文：so far only Lisa and I have done anything. The other two keep saying they're busy with their part-time jobs. 另外两名组员没有出力。"
+      },
+      {
+        "q": "What did the woman's group do to solve a similar problem?",
+        "options": [
+          "They gave each member a clear task.",
+          "They reported it to their professor.",
+          "They found new group members.",
+          "They met every day after class."
+        ],
+        "answer": 0,
+        "explanation": "原文：Everyone chose a specific task, and we wrote down a deadline for each one. 每人认领具体任务并定好截止时间。"
+      },
+      {
+        "q": "What will the man probably do next?",
+        "options": [
+          "Write to his professor.",
+          "Finish the project by himself.",
+          "Arrange a meeting with his group.",
+          "Send another group message."
+        ],
+        "answer": 2,
+        "explanation": "原文：I'll ask everyone to meet tomorrow after class, and we'll divide up the work properly. 他打算召集组员开会分工。他明确表示不想找教授（I'd rather not）。"
+      }
+    ]
+  },
+  {
+    "id": "listening-4-passage",
+    "level": "cet4",
+    "title": "为什么总记不住别人的名字",
+    "topic": "memory, names, everyday psychology",
+    "type": "passage",
+    "script": [
+      {
+        "speaker": "N",
+        "text": "Have you ever been introduced to someone at a party, only to realize a minute later that you've already forgotten their name? If so, you're not alone. Forgetting names is one of the most common memory complaints, and it happens to people of all ages."
+      },
+      {
+        "speaker": "N",
+        "text": "One reason is that a name, on its own, carries very little meaning. If someone tells you she's a teacher who loves mountain climbing, your brain can connect that information to many things you already know. But a name like Smith or Wang tells you nothing about the person, so there's nothing for your memory to hold on to."
+      },
+      {
+        "speaker": "N",
+        "text": "Another reason is that we often aren't really paying attention when we hear a name. During an introduction, we're usually busy thinking about how we look, what we'll say next, or whether our handshake is too weak. By the time we're ready to listen, the name has already gone."
+      },
+      {
+        "speaker": "N",
+        "text": "The good news is that there are simple ways to improve. First, when you hear a new name, say it out loud. Saying something like \"Nice to meet you, Anna\" gives your brain a second chance to store it. Second, try to link the name to something meaningful. If you meet a man called Rich who works in a bank, the connection is easy. For most names you'll need a little more imagination, but even a silly picture in your mind can help. Finally, use the name once more before the conversation ends."
+      },
+      {
+        "speaker": "N",
+        "text": "None of these tricks will give you a perfect memory. But with a little practice, the next time someone asks, \"You remember me, don't you?\" you may actually be able to say yes."
+      }
+    ],
+    "questions": [
+      {
+        "q": "According to the speaker, why are names hard to remember?",
+        "options": [
+          "They carry little meaning by themselves.",
+          "They are often hard to pronounce.",
+          "People hear too many at one time.",
+          "Many names sound alike."
+        ],
+        "answer": 0,
+        "explanation": "原文：One reason is that a name, on its own, carries very little meaning. 名字本身几乎不携带意义，记忆无处依附。"
+      },
+      {
+        "q": "What are people often doing when they are being introduced to someone?",
+        "options": [
+          "Repeating the other person's name.",
+          "Asking about the other person's job.",
+          "Trying to recall other names.",
+          "Thinking about themselves."
+        ],
+        "answer": 3,
+        "explanation": "原文：we're usually busy thinking about how we look, what we'll say next, or whether our handshake is too weak. 人们在想自己的形象和表现，没有注意听名字。"
+      },
+      {
+        "q": "What is the first tip the speaker gives?",
+        "options": [
+          "Write the name down.",
+          "Ask how the name is spelled.",
+          "Say the name out loud.",
+          "Think of a friend with that name."
+        ],
+        "answer": 2,
+        "explanation": "原文：First, when you hear a new name, say it out loud. 第一条建议是把名字大声说出来。"
+      },
+      {
+        "q": "What does the speaker say about the tips?",
+        "options": [
+          "They take a long time to learn.",
+          "They won't give you a perfect memory.",
+          "They work best for young people.",
+          "They must be used together."
+        ],
+        "answer": 1,
+        "explanation": "原文：None of these tricks will give you a perfect memory. 这些技巧不能让人拥有完美的记忆力，但多练习会有帮助。"
+      }
+    ]
+  },
+  {
+    "id": "listening-6-conversation",
+    "level": "cet6",
+    "title": "从会计转行用户体验设计",
+    "topic": "job interview, career change, user experience design",
+    "type": "conversation",
+    "script": [
+      {
+        "speaker": "M",
+        "text": "Good morning, and thanks for coming in. I see from your application that you worked as an accountant for six years. What made you want to move into user experience design?"
+      },
+      {
+        "speaker": "W",
+        "text": "Well, it actually started at my old job. Our firm brought in new accounting software, and it was so confusing that half the staff kept making the same mistakes. I ended up writing a simple guide and sending suggestions to the software company. When they adopted some of my ideas, I realized I enjoyed that far more than the accounting itself."
+      },
+      {
+        "speaker": "M",
+        "text": "So how did you go about retraining?"
+      },
+      {
+        "speaker": "W",
+        "text": "I took an evening course for about a year while I was still working full time. It was exhausting, but it meant I could find out whether I really liked the field before giving up a steady income. After that, I did a three-month internship at a small tech company."
+      },
+      {
+        "speaker": "M",
+        "text": "Some people might say that six years in accounting isn't very relevant to design. How would you respond to that?"
+      },
+      {
+        "speaker": "W",
+        "text": "I'd actually argue the opposite. Accountants spend a lot of time spotting small details that don't add up, and that's exactly what you need when you're watching users struggle with a product. I'm also comfortable with numbers, so I enjoy analyzing user data, which I understand is a big part of this role."
+      },
+      {
+        "speaker": "M",
+        "text": "It is. We're constantly testing different versions of our app. This position also involves working closely with engineers. Have you had any experience with that?"
+      },
+      {
+        "speaker": "W",
+        "text": "Yes, during my internship I sat right next to the development team. At first I kept designing features that were really hard to build. Eventually I learned to bring the engineers in early, before my designs were finished, and that saved everyone a lot of time and frustration."
+      },
+      {
+        "speaker": "M",
+        "text": "That's good to hear. Do you have any questions for me?"
+      },
+      {
+        "speaker": "W",
+        "text": "Just one. How does your team decide whether a new feature has been successful?"
+      },
+      {
+        "speaker": "M",
+        "text": "Good question. We look at the numbers, of course, but we also interview real users every month. You'd be involved in both."
+      },
+      {
+        "speaker": "W",
+        "text": "That sounds great. I'd really enjoy that combination."
+      }
+    ],
+    "questions": [
+      {
+        "q": "What first got the woman interested in user experience design?",
+        "options": [
+          "An evening course she attended.",
+          "Advice from a former colleague.",
+          "A job offer from a software company.",
+          "Confusing software at her former firm."
+        ],
+        "answer": 3,
+        "explanation": "原文：Our firm brought in new accounting software, and it was so confusing that half the staff kept making the same mistakes. 她的兴趣源于原公司引进的难用的会计软件。"
+      },
+      {
+        "q": "Why did the woman keep her job while she was retraining?",
+        "options": [
+          "Her employer paid for the course.",
+          "She couldn't find a full-time course.",
+          "She wanted to be sure before giving up her income.",
+          "She hoped to be promoted at her firm."
+        ],
+        "answer": 2,
+        "explanation": "原文：it meant I could find out whether I really liked the field before giving up a steady income. 她想先确认自己真的喜欢这一领域，再放弃稳定收入。"
+      },
+      {
+        "q": "What does the woman say her accounting experience has given her?",
+        "options": [
+          "Skills in managing a team.",
+          "An eye for small details.",
+          "Knowledge of programming.",
+          "Experience in serving customers."
+        ],
+        "answer": 1,
+        "explanation": "原文：Accountants spend a lot of time spotting small details that don't add up. 会计工作培养了她发现细节问题的能力。"
+      },
+      {
+        "q": "What did the woman learn from working with engineers?",
+        "options": [
+          "To involve them before her designs are complete.",
+          "To let them make the final decisions.",
+          "To test her designs on users first.",
+          "To work separately from them."
+        ],
+        "answer": 0,
+        "explanation": "原文：Eventually I learned to bring the engineers in early, before my designs were finished. 她学会了在设计完成前就让工程师参与进来。"
+      }
+    ]
+  },
+  {
+    "id": "listening-6-passage",
+    "level": "cet6",
+    "title": "计划谬误：为什么事情总比预想的慢",
+    "topic": "planning fallacy, psychology, time management",
+    "type": "passage",
+    "script": [
+      {
+        "speaker": "N",
+        "text": "Why do so many projects take longer than expected? Whether it's a student writing an essay, a family redecorating a kitchen, or a city building a new bridge, the same pattern appears again and again: people consistently underestimate how much time a task will require. Psychologists call this tendency the planning fallacy."
+      },
+      {
+        "speaker": "N",
+        "text": "What makes the planning fallacy especially puzzling is that it persists even when people have plenty of relevant experience. A student who has handed in every previous paper late will still predict, with complete confidence, that the next one will be finished early. When asked why, people usually say that this time is different: they're better organized now, or the task is simpler, or there will be fewer distractions."
+      },
+      {
+        "speaker": "N",
+        "text": "Researchers believe the main problem lies in the way we imagine the future. When we plan, we picture the steps of a task going smoothly, one after another. We rarely picture the unexpected phone call, the illness, or the computer that suddenly stops working. Each of these interruptions may be unlikely on its own, but taken together, it's almost certain that something will go wrong."
+      },
+      {
+        "speaker": "N",
+        "text": "Interestingly, people are much better at predicting how long other people's tasks will take. Because we don't know the details of someone else's plan, we tend to rely on general experience instead, and general experience tells us that things usually run late."
+      },
+      {
+        "speaker": "N",
+        "text": "This points to a practical solution. Before estimating how long a task will take, ask yourself how long similar tasks have actually taken in the past, and use that as your starting point. It may be a less pleasant number, but it's likely to be a far more accurate one."
+      }
+    ],
+    "questions": [
+      {
+        "q": "What is the planning fallacy?",
+        "options": [
+          "Making plans that are too detailed.",
+          "Expecting others to work faster.",
+          "Underestimating the time a task needs.",
+          "Avoiding tasks that seem difficult."
+        ],
+        "answer": 2,
+        "explanation": "原文：people consistently underestimate how much time a task will require. Psychologists call this tendency the planning fallacy."
+      },
+      {
+        "q": "What does the speaker find puzzling about the planning fallacy?",
+        "options": [
+          "It continues despite past experience.",
+          "It affects experts more than beginners.",
+          "It is more common among students.",
+          "It disappears when people work in groups."
+        ],
+        "answer": 0,
+        "explanation": "原文：What makes the planning fallacy especially puzzling is that it persists even when people have plenty of relevant experience. 即使有丰富经验，这种倾向依然存在。"
+      },
+      {
+        "q": "According to researchers, why are we poor at predicting our own tasks?",
+        "options": [
+          "We focus too much on the hardest parts.",
+          "We rely too heavily on others' advice.",
+          "We are too busy to plan properly.",
+          "We imagine everything going smoothly."
+        ],
+        "answer": 3,
+        "explanation": "原文：When we plan, we picture the steps of a task going smoothly, one after another. We rarely picture the unexpected... 我们总设想一切顺利，很少考虑意外干扰。"
+      },
+      {
+        "q": "What does the speaker suggest we do?",
+        "options": [
+          "Break a task into smaller steps.",
+          "Base estimates on similar past tasks.",
+          "Set deadlines that cannot be changed.",
+          "Ask friends to check our plans."
+        ],
+        "answer": 1,
+        "explanation": "原文：ask yourself how long similar tasks have actually taken in the past, and use that as your starting point. 以过去类似任务的实际耗时为估算起点。"
+      }
+    ]
+  },
+  {
+    "id": "listening-6-lecture",
+    "level": "cet6",
+    "title": "外来词里的历史",
+    "topic": "loanwords, language contact, history of English",
+    "type": "lecture",
+    "script": [
+      {
+        "speaker": "N",
+        "text": "Good morning, everyone. Last week we looked at how new words are created inside a language, through processes like combining existing words and adding prefixes. Today I want to turn to a different source of new vocabulary, and that's borrowing. Linguists use the term loanwords for words that one language takes from another, although, as some of you pointed out after class, the term is a little odd, since the borrowed words are never actually given back."
+      },
+      {
+        "speaker": "N",
+        "text": "English is an extreme example of a borrowing language. By some estimates, well over half of its vocabulary comes from other languages, especially French and Latin. Much of the French influence dates back to the Norman Conquest in ten sixty-six, when French-speaking rulers took control of England. For roughly three centuries afterwards, French was the language of the court, the law and the wealthy, while ordinary people went on speaking English."
+      },
+      {
+        "speaker": "N",
+        "text": "You can still see traces of that social division today. Think about the names of farm animals. Cow, pig and sheep are all native English words, because the people who raised the animals spoke English. But beef, pork and mutton come from French, because the people who could afford to eat the meat spoke French. In a sense, the dictionary keeps a record of who worked in the fields and who sat at the dinner table."
+      },
+      {
+        "speaker": "N",
+        "text": "Borrowing doesn't only happen through conquest, though. Trade has been just as important. The English word tea, for example, entered the language through Dutch merchants, who picked it up from the pronunciation used in parts of southern China. Languages that received the drink over land, such as Russian and Persian, ended up with words much closer to cha instead."
+      },
+      {
+        "speaker": "N",
+        "text": "So why does any of this matter? First, loanwords act as a kind of historical evidence. Even where written records are limited, the words a language has borrowed can tell us which peoples were in contact and what they exchanged. Second, borrowing shows that languages are not closed systems. Some people worry that foreign words will damage their language, but English has absorbed tens of thousands of them and remains very much itself."
+      },
+      {
+        "speaker": "N",
+        "text": "For next week, I'd like each of you to choose five words in your own language that were borrowed from elsewhere, and try to trace where they came from."
+      }
+    ],
+    "questions": [
+      {
+        "q": "What does the speaker say about the term loanwords?",
+        "options": [
+          "It was invented quite recently.",
+          "It is not quite accurate.",
+          "It is used mainly by French scholars.",
+          "It refers only to words from Latin."
+        ],
+        "answer": 1,
+        "explanation": "原文：the term is a little odd, since the borrowed words are never actually given back. “借”来的词从不归还，所以这个说法并不准确。"
+      },
+      {
+        "q": "Why do the English words for meat such as beef and pork come from French?",
+        "options": [
+          "French farmers raised most of the animals.",
+          "English had no words for food at that time.",
+          "The people who ate the meat spoke French.",
+          "Cooking was taught by French chefs."
+        ],
+        "answer": 2,
+        "explanation": "原文：beef, pork and mutton come from French, because the people who could afford to eat the meat spoke French. 吃得起肉的上层阶级说法语。"
+      },
+      {
+        "q": "How did the word tea enter the English language?",
+        "options": [
+          "Through Dutch merchants.",
+          "Through Russian travelers.",
+          "Through Persian scholars.",
+          "Through overland trade routes."
+        ],
+        "answer": 0,
+        "explanation": "原文：The English word tea... entered the language through Dutch merchants. 经陆路传入的是俄语、波斯语中接近cha的说法，故D错。"
+      },
+      {
+        "q": "What point does the speaker make about borrowing foreign words?",
+        "options": [
+          "It should be kept to a minimum.",
+          "It often replaces native words.",
+          "It mainly happens through conquest.",
+          "It doesn't destroy a language's identity."
+        ],
+        "answer": 3,
+        "explanation": "原文：English has absorbed tens of thousands of them and remains very much itself. 吸收大量外来词并未让英语失去自身特点。C项与原文Borrowing doesn't only happen through conquest相悖。"
+      }
+    ]
+  }
+]

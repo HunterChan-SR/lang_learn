@@ -39,3 +39,12 @@ export function formatDue(due: number, today = dayIndex()): string {
   if (diff === 1) return '明天'
   return `${formatInterval(diff)}后`
 }
+
+/** 时间戳 -> “今天 14:30 / 昨天 / 11月17日” */
+export function formatDate(ts: number, now = Date.now()): string {
+  const diff = dayIndex(now) - dayIndex(ts)
+  const d = new Date(ts)
+  if (diff === 0) return `今天 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+  if (diff === 1) return '昨天'
+  return `${d.getMonth() + 1}月${d.getDate()}日`
+}

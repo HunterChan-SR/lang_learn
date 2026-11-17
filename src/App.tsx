@@ -5,6 +5,8 @@ import { useRoute } from './lib/router'
 import { useSettings } from './lib/store'
 import { Home } from './pages/Home'
 import { Me } from './pages/Me'
+import { Practice } from './pages/Practice'
+import { PracticeRun } from './pages/PracticeRun'
 import { Quiz } from './pages/Quiz'
 import { Study } from './pages/Study'
 import { Words } from './pages/Words'
@@ -14,10 +16,11 @@ export function App() {
   const settings = useSettings()
   const book = useBook(settings.book)
 
-  // 切换页面时回到顶部
-  useEffect(() => window.scrollTo(0, 0), [path])
+  // 切换页面时回到顶部；做题页换一套题也回到顶部
+  const scrollKey = path === '/practice/run' ? `${path}?${query.toString()}` : path
+  useEffect(() => window.scrollTo(0, 0), [scrollKey])
 
-  const focus = path === '/study' || (path === '/quiz' && query.get('run') === '1')
+  const focus = path === '/study' || (path === '/quiz' && query.get('run') === '1') || path === '/practice/run'
 
   let page
   switch (path) {
@@ -26,6 +29,12 @@ export function App() {
       break
     case '/quiz':
       page = <Quiz book={book} query={query} />
+      break
+    case '/practice':
+      page = <Practice />
+      break
+    case '/practice/run':
+      page = <PracticeRun query={query} />
       break
     case '/words':
       page = <Words book={book} query={query} />

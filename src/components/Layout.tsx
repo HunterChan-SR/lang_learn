@@ -5,6 +5,7 @@ const TABS: { path: string; label: string; icon: IconName }[] = [
   { path: '/', label: '首页', icon: 'home' },
   { path: '/words', label: '词库', icon: 'book' },
   { path: '/quiz', label: '测验', icon: 'quiz' },
+  { path: '/practice', label: '练习', icon: 'pen' },
   { path: '/me', label: '我的', icon: 'user' },
 ]
 
