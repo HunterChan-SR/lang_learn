@@ -1,0 +1,3 @@
+本目录数据由 scripts/build-extras.mjs 生成：
+- 英英释义、短语、词根词缀、近义词辨析：ECDICT (https://github.com/skywind3000/ECDICT)，MIT 协议，见 ../ECDICT-LICENSE.txt
+- 例句：Tatoeba (https://tatoeba.org) 中英句对，经 manythings.org 整理，CC-BY 2.0 FR 协议；繁体译文已转换为简体

@@ -10,9 +10,11 @@
     "preview": "vite preview --host",
     "test": "vitest run",
     "wordlist": "node scripts/build-wordlist.mjs",
+    "extras": "node scripts/build-extras.mjs",
     "users": "node scripts/users.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.9.0",
     "@supabase/supabase-js": "^2.119.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
@@ -21,6 +23,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "opencc-js": "^1.4.2",
     "typescript": "^7.0.2",
     "vite": "^8.3.8",
     "vitest": "^5.1.0"

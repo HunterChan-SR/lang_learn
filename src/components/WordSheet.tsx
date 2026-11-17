@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 import { dayIndex, formatDue, formatInterval } from '../lib/date'
+import { useWordExtra } from '../lib/extras'
 import { wordStatus } from '../lib/srs'
 import { removeWrong, useAppData } from '../lib/store'
 import type { Word } from '../lib/types'
+import { AIButton, AIPanel } from './AICoach'
 import { Icon } from './Icon'
+import { Badges, WordExtras } from './WordExtras'
 import { Exchange, Meanings, Phonetic, SpeakButton, StarButton } from './WordParts'
 
 const STATUS_TEXT = { new: '未学习', learning: '学习中', mastered: '已掌握' } as const
@@ -14,6 +17,7 @@ export function WordSheet({ word, onClose }: { word: Word; onClose: () => void }
   const card = data.cards[word.w]
   const wrong = data.wrong[word.w]
   const status = wordStatus(card)
+  const { extra, error } = useWordExtra(word.w)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
@@ -33,9 +37,10 @@ export function WordSheet({ word, onClose }: { word: Word; onClose: () => void }
         <div className="sheet-head">
           <div>
             <h2 className="sheet-word">{word.w}</h2>
-            <div className="row gap-sm">
+            <div className="row gap-sm wrap">
               <Phonetic p={word.p} />
               <SpeakButton text={word.w} />
+              <AIButton word={word} />
             </div>
           </div>
           <div className="row">
@@ -45,8 +50,12 @@ export function WordSheet({ word, onClose }: { word: Word; onClose: () => void }
             </button>
           </div>
         </div>
+        <Badges extra={extra} />
         <Meanings word={word} />
         <Exchange word={word} />
+        <AIPanel word={word} />
+        <WordExtras word={word} extra={extra} />
+        {error && <p className="muted small">{error}</p>}
         <div className="sheet-stats">
           <div>
             <span className={`dot ${status}`} />

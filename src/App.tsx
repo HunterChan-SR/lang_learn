@@ -31,7 +31,7 @@ export function App() {
       page = <Words book={book} query={query} />
       break
     case '/me':
-      page = <Me />
+      page = <Me query={query} />
       break
     default:
       page = <Home book={book} />

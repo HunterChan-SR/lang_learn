@@ -1,5 +1,6 @@
 import { useRef, type ReactNode } from 'react'
 import { AccountCard } from '../components/Account'
+import { AISettings } from '../components/AISettings'
 import { Icon } from '../components/Icon'
 import { BOOKS } from '../lib/books'
 import { todayKey } from '../lib/date'
@@ -32,7 +33,7 @@ function Row({ label, desc, children }: { label: string; desc?: string; children
   )
 }
 
-export function Me() {
+export function Me({ query }: { query: URLSearchParams }) {
   const data = useAppData()
   const signedIn = useSync().auth === 'signedIn'
   const s = data.settings
@@ -71,6 +72,8 @@ export function Me() {
       </header>
 
       <AccountCard />
+
+      <AISettings highlight={query.get('ai') === '1'} />
 
       <section className="card">
         <h3>学习</h3>
@@ -170,7 +173,15 @@ export function Me() {
           <a href="https://github.com/skywind3000/ECDICT" target="_blank" rel="noreferrer">
             ECDICT
           </a>
-          （MIT 协议），按 COCA/BNC 词频排序。
+          （MIT 协议），按 COCA/BNC 词频排序；例句来自{' '}
+          <a href="https://tatoeba.org" target="_blank" rel="noreferrer">
+            Tatoeba
+          </a>
+          （CC-BY 2.0 FR），经{' '}
+          <a href="https://www.manythings.org/anki/" target="_blank" rel="noreferrer">
+            manythings.org
+          </a>{' '}
+          整理。
         </p>
         <p>快捷键：空格 查看释义 · 1–4 评分 · R 朗读 · S 收藏 · Esc 退出</p>
       </section>

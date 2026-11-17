@@ -2,15 +2,17 @@
 
 面向大学英语四六级（CET-4 / CET-6）的背单词 H5 应用，适配手机、iPad 和电脑，纯静态页面，可以直接部署到 GitHub Pages。
 
-## 功能（v0.1）
+## 功能
 
 - **今日学习**：每天按目标学习新词，并按记忆曲线安排复习（简化版 SM-2 间隔重复）
   - 卡片先显示单词，回想后查看释义，再按“忘记了 / 模糊 / 认识 / 太简单”评分
   - 选“忘记了”的词会在几张卡片之后再出现一次
   - 间隔达到 21 天算作“已掌握”
 - **词库**：四级 3846 词，六级新增 1956 词（不含四级词），按词频排序，常用词在前
-  - 支持搜索英文或中文、按状态筛选、查看单词详情和词形变化
-- **测验**：看词选义、看义选词、拼写三种题型，题目可以来自今日单词、已学单词、错题本、生词本或整个词库
+  - 支持搜索英文或中文、按状态筛选
+- **单词卡**：释义、词形变化之外，还有真实例句（目标词高亮，点击朗读）、常用短语、词根词缀与同根词、近义词辨析、英英释义、柯林斯星级和牛津核心词标记
+- **AI 助记**：单词旁边的「AI 助记」按钮，让大模型生成助记方法、四六级难度例句、常用搭配、近义辨析、词族和考点；已有内容时再点一次会重新生成。结果缓存在本机
+- **测验**：看词选义、看义选词、例句填空、看义拼写、听音拼写五种题型，题目可以来自今日单词、已学单词、错题本、生词本或整个词库
 - **错题本 / 生词本**：测验答错自动加入错题本，连续答对 2 次后自动移出；学习时点 ☆ 可以收藏单词
 - **发音**：美音或英音；音源可选系统语音（离线可用）或有道在线发音
 - **统计**：今日进度、连续打卡天数、最近 7 天学习量
@@ -26,6 +28,15 @@
 | R | 朗读 | — |
 | S | 加入或移出生词本 | — |
 | Esc | 退出 | 退出 |
+
+## AI 助手
+
+在「我的 → AI 助手」里填写大模型服务商、API Key 和模型名即可使用，不配置也不影响其他功能。
+
+- 内置预设：DeepSeek、通义千问、豆包（火山方舟）、硅基流动、OpenRouter、OpenAI、Claude、本机 Ollama，也可以填任意 OpenAI 兼容接口
+- 可以一键获取服务商的模型列表，并测试连接
+- 浏览器直接调用服务商接口，不经过任何中转服务器；API Key 只保存在当前设备的 localStorage，不会同步到云端，也不会随进度导出
+- Kimi、智谱 GLM、Gemini 的官方接口不允许网页跨域调用，可以通过 OpenRouter 或硅基流动使用这些模型
 
 ## 登录与多设备同步
 
@@ -74,7 +85,7 @@ Supabase 免费项目连续 7 天无活动会被暂停。`.github/workflows/keep
 ```bash
 npm install
 npm run dev        # 本地开发，--host 已开启，同一局域网的手机/iPad 可以直接访问
-npm test           # 单元测试（记忆算法、出题、队列）
+npm test           # 单元测试（记忆算法、出题、队列、同步合并）
 npm run build      # 类型检查并构建到 dist/
 npm run preview    # 预览构建结果
 ```
@@ -90,11 +101,14 @@ src/
     store.ts      数据存储（localStorage），以后接入云同步只需要改这里
     books.ts      词库加载和文本处理
     speech.ts     发音
+    extras.ts     单词卡增强资料（例句、短语、词根、辨析）
+    ai.ts         大模型接入（OpenAI 兼容 / Anthropic）
+    aiNotes.ts    AI 助记
     router.ts     hash 路由
   components/   # 通用组件
   pages/        # 首页、学习、测验、词库、我的
-public/data/    # 词库 JSON
-scripts/        # 词库生成脚本
+public/data/    # 词库 JSON；x/ 下是按首字母分片的单词增强资料
+scripts/        # 数据生成脚本
 ```
 
 ## 部署到 GitHub Pages
@@ -121,10 +135,24 @@ npm run wordlist -- ecdict.csv
 
 词库 JSON 的格式是 `[单词, 音标, 释义(多行用 \n 分隔), 词形变化?]`，替换成其他来源的数据时保持这个格式即可。
 
+单词卡的增强资料（`public/data/x/`）由 `scripts/build-extras.mjs` 生成：
+
+- 例句：[Tatoeba](https://tatoeba.org) 中英句对（CC-BY 2.0 FR），经 [manythings.org](https://www.manythings.org/anki/) 整理，繁体译文用 OpenCC 转为简体；按句子长度挑选，每词最多 3 句
+- 常用短语：ECDICT 中的短语词条，按在例句库中的出现次数筛选
+- 词根词缀、近义词辨析：ECDICT 仓库附带的 `wordroot.txt` 和 `resemble.txt`
+- 英英释义、柯林斯星级、牛津核心词：ECDICT
+
+```bash
+curl -L -O https://www.manythings.org/anki/cmn-eng.zip && unzip cmn-eng.zip cmn.txt
+curl -L -O https://raw.githubusercontent.com/skywind3000/ECDICT/master/wordroot.txt
+curl -L -O https://raw.githubusercontent.com/skywind3000/ECDICT/master/resemble.txt
+npm run extras -- --ecdict ecdict.csv --roots wordroot.txt --resemble resemble.txt --tatoeba cmn.txt
+```
+
 ## 后续计划
 
 - [x] 账号登录与多设备同步（Supabase）
-- [ ] 例句与真题语境
+- [x] 例句、词根、辨析等单词增强资料，AI 助记
 - [ ] 听力、阅读、翻译、写作等专项练习
 - [ ] PWA 离线缓存
 
@@ -132,4 +160,4 @@ npm run wordlist -- ecdict.csv
 
 本项目代码以 [MIT 协议](LICENSE) 开源。
 
-词库数据来自 [ECDICT](https://github.com/skywind3000/ECDICT)，同样采用 MIT 协议，版权声明见 `public/data/ECDICT-LICENSE.txt`。
+词库数据来自 [ECDICT](https://github.com/skywind3000/ECDICT)，同样采用 MIT 协议，版权声明见 `public/data/ECDICT-LICENSE.txt`。例句来自 [Tatoeba](https://tatoeba.org)，采用 [CC-BY 2.0 FR](https://creativecommons.org/licenses/by/2.0/fr/) 协议。

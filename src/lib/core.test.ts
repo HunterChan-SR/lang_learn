@@ -119,11 +119,22 @@ describe('quiz', () => {
     const qs = buildQuiz(words.slice(0, 10), words, 10, ['en2zh', 'zh2en'])
     expect(qs).toHaveLength(10)
     for (const q of qs) {
-      if (q.type === 'spell') continue
+      if (!('options' in q)) continue
       expect(q.options).toHaveLength(4)
       expect(new Set(q.options).size).toBe(4)
       expect(q.options[q.answer]).toBe(q.type === 'en2zh' ? q.word.t[0] : q.word.w)
     }
+  })
+
+  it('例句填空：挖掉目标词（含变化形式），没有例句时改出看词选义', () => {
+    const target: Word = { w: 'abandon', p: '', t: ['v. 放弃'], x: 'p:abandoned/d:abandoned' }
+    const examples = new Map<string, [string, string][]>([['abandon', [['They abandoned the plan.', '他们放弃了计划。']]]])
+    const [q] = buildQuiz([target], [target, ...words], 1, ['cloze'], Math.random, examples)
+    expect(q.type).toBe('cloze')
+    if (q.type !== 'cloze') return
+    expect(q.parts.filter(([, blank]) => blank).map(([t]) => t)).toEqual(['abandoned'])
+    expect(q.options[q.answer]).toBe('abandon')
+    expect(buildQuiz([words[0]], words, 1, ['cloze'], Math.random, examples)[0].type).toBe('en2zh')
   })
 
   it('拼写忽略大小写和首尾空格', () => {

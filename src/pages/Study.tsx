@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { AIButton, AIPanel } from '../components/AICoach'
 import { Icon } from '../components/Icon'
+import { StudyExtras } from '../components/WordExtras'
 import { Exchange, Meanings, Phonetic, SpeakButton, StarButton } from '../components/WordParts'
 import type { BookState } from '../lib/books'
 import { dayIndex, formatInterval, todayKey } from '../lib/date'
@@ -189,15 +191,18 @@ export function Study({ book, extra }: { book: BookState; extra: number }) {
               <h1 className="big-word" lang="en">
                 {item.word.w}
               </h1>
-              <div className="row gap-sm center">
+              <div className="row gap-sm center wrap">
                 <Phonetic p={item.word.p} />
                 <SpeakButton text={item.word.w} size="lg" />
+                <AIButton word={item.word} onActivate={reveal} />
               </div>
             </div>
             {revealed ? (
               <div className="reveal">
                 <Meanings word={item.word} />
                 <Exchange word={item.word} />
+                <StudyExtras key={item.word.w} word={item.word} />
+                <AIPanel word={item.word} />
               </div>
             ) : (
               <p className="hint">先在心里回想它的意思，再点击查看</p>
