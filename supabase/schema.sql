@@ -1,4 +1,4 @@
--- 四六级单词：云端学习进度
+-- langLearn：云端学习进度
 -- 在 Supabase 后台 SQL Editor 中执行（可以重复执行）
 
 -- 每个用户一行，data 存整份学习进度（前端的 AppData）

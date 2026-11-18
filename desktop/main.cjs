@@ -22,6 +22,10 @@ const REPO = 'HunterChan-SR/lang_learn'
 const WEBSITE = 'https://hunterchan-sr.github.io/lang_learn/'
 const DIST = path.join(__dirname, '..', 'dist')
 
+// 数据目录固定沿用 0.2.0 的 cet-words（localStorage、窗口位置都在里面），改应用名不影响已有数据
+app.setPath('userData', path.join(app.getPath('appData'), 'cet-words'))
+app.setName('langLearn')
+
 protocol.registerSchemesAsPrivileged([
   { scheme: SCHEME, privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true, stream: true } },
 ])
@@ -165,7 +169,7 @@ function createWindow() {
     y: saved?.y,
     minWidth: 380,
     minHeight: 560,
-    title: '四六级单词',
+    title: 'langLearn',
     backgroundColor: nativeTheme.shouldUseDarkColors ? '#101217' : '#f4f5f9',
     show: false,
     webPreferences: {
@@ -309,7 +313,7 @@ const skipFile = () => path.join(app.getPath('userData'), 'skip-version.txt')
 async function checkUpdate(manual) {
   try {
     const res = await net.fetch(`https://api.github.com/repos/${REPO}/releases/latest`, {
-      headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'cet-words-desktop' },
+      headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'langLearn-desktop' },
     })
     if (!res.ok) throw new Error(`GitHub 返回 ${res.status}`)
     const rel = await res.json()

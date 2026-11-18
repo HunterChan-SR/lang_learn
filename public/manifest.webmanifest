@@ -1,6 +1,6 @@
 {
-  "name": "四六级单词",
-  "short_name": "四六级单词",
+  "name": "langLearn",
+  "short_name": "langLearn",
   "description": "面向大学英语四六级的背单词应用",
   "lang": "zh-CN",
   "start_url": "./",

@@ -91,16 +91,16 @@ jobs:
 
             | 系统 | 安装包 |
             |---|---|
-            | macOS（Apple 芯片：M1/M2/M3/M4…） | `CET-Words-${{ steps.ver.outputs.version }}-mac-arm64.dmg` |
-            | macOS（Intel 芯片） | `CET-Words-${{ steps.ver.outputs.version }}-mac-x64.dmg` |
-            | Windows 10 / 11（64 位） | `CET-Words-${{ steps.ver.outputs.version }}-win-x64-setup.exe` |
+            | macOS（Apple 芯片：M1/M2/M3/M4…） | `langLearn-${{ steps.ver.outputs.version }}-mac-arm64.dmg` |
+            | macOS（Intel 芯片） | `langLearn-${{ steps.ver.outputs.version }}-mac-x64.dmg` |
+            | Windows 10 / 11（64 位） | `langLearn-${{ steps.ver.outputs.version }}-win-x64-setup.exe` |
 
             ## 首次打开
 
             安装包没有购买苹果和微软的代码签名证书，系统会提示无法验证开发者，按下面操作一次即可：
 
             - **macOS**：把应用拖进“应用程序”后打开；如果提示无法打开，到 **系统设置 → 隐私与安全性**，在页面底部点 **仍要打开**。
-              如果提示“已损坏”，在终端运行 `xattr -cr /Applications/四六级单词.app` 后再打开。
+              如果提示“已损坏”，在终端运行 `xattr -cr /Applications/langLearn.app` 后再打开。
             - **Windows**：如果出现“Windows 已保护你的电脑”，点 **更多信息 → 仍要运行**。
 
             桌面版和网页版功能相同，另外：离线可用；AI 服务不受浏览器跨域限制（Kimi、智谱、Gemini 也能直接用）；登录在系统浏览器中完成。

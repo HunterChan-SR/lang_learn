@@ -22,7 +22,7 @@ export function Layout({ path, focus, children }: { path: string; focus: boolean
       <nav className="nav" aria-label="主导航">
         <div className="nav-brand">
           <span className="brand-mark">词</span>
-          <span className="brand-text">四六级单词</span>
+          <span className="brand-text">langLearn</span>
         </div>
         {TABS.map((t) => (
           <a key={t.path} href={`#${t.path}`} className={`nav-item${active(t.path) ? ' active' : ''}`}>

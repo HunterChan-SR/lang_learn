@@ -1,4 +1,4 @@
-# 四六级单词
+# langLearn
 
 面向大学英语四六级（CET-4 / CET-6）的英语学习应用：背单词、题型练习、AI 助记与批改。
 
@@ -58,7 +58,7 @@
 - GitHub 登录在系统浏览器中完成，授权后通过 `cet-words://auth-callback` 回到应用
 - 启动时检查 GitHub Releases，有新版本会提示下载
 
-安装包没有代码签名证书，首次打开时：macOS 到 **系统设置 → 隐私与安全性** 点 **仍要打开**（提示“已损坏”时运行 `xattr -cr /Applications/四六级单词.app`）；Windows 在 SmartScreen 提示里点 **更多信息 → 仍要运行**。
+安装包没有代码签名证书，首次打开时：macOS 到 **系统设置 → 隐私与安全性** 点 **仍要打开**（提示“已损坏”时运行 `xattr -cr /Applications/langLearn.app`）；Windows 在 SmartScreen 提示里点 **更多信息 → 仍要运行**。
 
 **登录需要一次性配置**：在 Supabase 后台 **Authentication → URL Configuration → Redirect URLs** 中添加 `cet-words://auth-callback`。
 
@@ -76,7 +76,7 @@ npm version patch      # 或 minor / major：修改 package.json 版本并打上
 git push --follow-tags
 ```
 
-产物：`CET-Words-<版本>-mac-arm64.dmg`（Apple 芯片）、`CET-Words-<版本>-mac-x64.dmg`（Intel）、`CET-Words-<版本>-win-x64-setup.exe`。
+产物：`langLearn-<版本>-mac-arm64.dmg`（Apple 芯片）、`langLearn-<版本>-mac-x64.dmg`（Intel）、`langLearn-<版本>-win-x64-setup.exe`。
 
 ## 登录与多设备同步
 

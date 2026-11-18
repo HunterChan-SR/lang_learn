@@ -46,7 +46,7 @@ export function Me({ query }: { query: URLSearchParams }) {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `四六级单词-进度-${todayKey()}.json`
+    a.download = `langLearn-进度-${todayKey()}.json`
     document.body.appendChild(a)
     a.click()
     a.remove()

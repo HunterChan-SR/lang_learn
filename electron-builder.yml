@@ -1,7 +1,7 @@
 # 桌面版打包配置（electron-builder）：npm run desktop:dist
 # GitHub Actions 在推送 v* 标签时自动打包 macOS / Windows 安装包并发布到 Releases，见 .github/workflows/release.yml
 appId: io.github.hunterchan-sr.cetwords
-productName: 四六级单词
+productName: langLearn
 copyright: Copyright © 2026 HunterChan
 directories:
   output: release
@@ -13,7 +13,7 @@ files:
 # 网页代码已由 Vite 打包进 dist/，package.json 里没有运行时依赖，不会打包 node_modules
 npmRebuild: false
 protocols:
-  - name: 四六级单词登录回调
+  - name: langLearn 登录回调
     schemes:
       - cet-words
 publish: null
@@ -24,26 +24,26 @@ mac:
   target:
     - target: dmg
       arch: [arm64, x64]
-  artifactName: CET-Words-${version}-mac-${arch}.${ext}
+  artifactName: langLearn-${version}-mac-${arch}.${ext}
   # 没有 Apple 开发者证书：使用临时签名（ad-hoc），首次打开需要在“隐私与安全性”里允许
   identity: '-'
   hardenedRuntime: false
 dmg:
-  title: 四六级单词 ${version}
-  artifactName: CET-Words-${version}-mac-${arch}.${ext}
+  title: langLearn ${version}
+  artifactName: langLearn-${version}-mac-${arch}.${ext}
 
 win:
   icon: build/icon-win.png
-  executableName: CETWords
+  executableName: langLearn
   target:
     - target: nsis
       arch: [x64]
-  artifactName: CET-Words-${version}-win-${arch}-setup.${ext}
+  artifactName: langLearn-${version}-win-${arch}-setup.${ext}
 nsis:
   oneClick: false
   perMachine: false
   allowToChangeInstallationDirectory: true
-  shortcutName: 四六级单词
-  uninstallDisplayName: 四六级单词
+  shortcutName: langLearn
+  uninstallDisplayName: langLearn
   installerLanguages: [zh_CN]
   language: '2052'
