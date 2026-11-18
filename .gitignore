@@ -6,3 +6,4 @@ dist
 
 # 桌面版打包输出
 release
+*.tsbuildinfo
