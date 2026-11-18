@@ -2,7 +2,7 @@
   "name": "langlearn",
   "displayName": "langLearn",
   "description": "在编辑器里背四六级单词：界面长得像在写代码，状态栏滚动单词，一键老板键",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publisher": "hunterchan",
   "author": "HunterChan",
   "license": "MIT",
