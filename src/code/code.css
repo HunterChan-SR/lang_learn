@@ -1,0 +1,909 @@
+/* ============ 代码皮肤 ============
+ * 整个界面伪装成代码编辑器。
+ * 网页里用接近编辑器默认深色/浅色主题的配色；VS Code 插件里改用当前主题的颜色和编辑器字体。
+ */
+
+[data-skin='code'] {
+  color-scheme: dark;
+  --cx-bg: #1f1f1f;
+  --cx-bg-2: #181818;
+  --cx-fg: #cccccc;
+  --cx-border: #2b2b2b;
+  --cx-gutter: #6e7681;
+  --cx-gutter-active: #cccccc;
+  --cx-line-hl: rgba(255, 255, 255, 0.045);
+  --cx-ig: #404040;
+  --cx-lens: #999999;
+  --cx-link: #4daafc;
+  --cx-ghost: rgba(255, 255, 255, 0.36);
+  --cx-tab-fg: #9d9d9d;
+  --cx-tab-active-fg: #ffffff;
+  --cx-tab-accent: #0078d4;
+  --cx-crumb: #a9a9a9;
+  --cx-widget: #202020;
+  --cx-widget-border: #454545;
+  --cx-input: #313131;
+  --cx-input-border: #3c3c3c;
+  --cx-btn: #0078d4;
+  --cx-btn-hover: #026ec1;
+  --cx-btn-fg: #ffffff;
+  --cx-btn2: #313131;
+  --cx-btn2-fg: #cccccc;
+  --cx-sel: #264f78;
+  --cx-hit: rgba(234, 92, 0, 0.33);
+  --cx-git-add: #2ea043;
+  --cx-git-mod: #0078d4;
+  --cx-pass: #73c991;
+  --cx-fail: #f14c4c;
+  --cx-star: #e2c08d;
+  --cx-err: #f14c4c;
+  --cx-font: Menlo, Monaco, Consolas, 'Courier New', 'PingFang SC', 'Microsoft YaHei', monospace;
+  --cx-size: 13px;
+  --cx-lh: 20px;
+  --cx-ui: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  --t-k: #569cd6;
+  --t-c: #c586c0;
+  --t-s: #ce9178;
+  --t-n: #b5cea8;
+  --t-cm: #6a9955;
+  --t-f: #dcdcaa;
+  --t-v: #9cdcfe;
+  --t-t: #4ec9b0;
+  --t-ct: #4fc1ff;
+  --t-p: #cccccc;
+  --t-jk: #9cdcfe;
+
+  /* 常规组件（练习、设置、单词详情）沿用的设计变量 */
+  --bg: var(--cx-bg);
+  --surface: var(--cx-bg);
+  --surface-2: var(--cx-input);
+  --text: var(--cx-fg);
+  --muted: #9d9d9d;
+  --border: var(--cx-input-border);
+  --primary: var(--cx-link);
+  --primary-strong: var(--cx-link);
+  --primary-soft: rgba(0, 120, 212, 0.2);
+  --on-primary: #ffffff;
+  --track: #3c3c3c;
+  --good: #73c991;
+  --good-soft: rgba(115, 201, 145, 0.12);
+  --bad: #f14c4c;
+  --bad-soft: rgba(241, 76, 76, 0.12);
+  --warn: #cca700;
+  --warn-soft: rgba(204, 167, 0, 0.12);
+  --easy: #4daafc;
+  --easy-soft: rgba(77, 170, 252, 0.12);
+  --star: #e2c08d;
+  --shadow: none;
+  --radius: 4px;
+  --font: var(--cx-ui);
+  --font-word: var(--cx-font);
+}
+
+@media (prefers-color-scheme: light) {
+  [data-skin='code']:not([data-host='vscode']) {
+    color-scheme: light;
+    --cx-bg: #ffffff;
+    --cx-bg-2: #f8f8f8;
+    --cx-fg: #3b3b3b;
+    --cx-border: #e5e5e5;
+    --cx-gutter: #6e7681;
+    --cx-gutter-active: #171184;
+    --cx-line-hl: rgba(0, 0, 0, 0.04);
+    --cx-ig: #d3d3d3;
+    --cx-lens: #919191;
+    --cx-link: #005fb8;
+    --cx-ghost: rgba(0, 0, 0, 0.4);
+    --cx-tab-fg: #616161;
+    --cx-tab-active-fg: #3b3b3b;
+    --cx-tab-accent: #005fb8;
+    --cx-crumb: #616161;
+    --cx-widget: #f8f8f8;
+    --cx-widget-border: #c8c8c8;
+    --cx-input: #ffffff;
+    --cx-input-border: #cecece;
+    --cx-btn: #005fb8;
+    --cx-btn-hover: #0258a8;
+    --cx-btn2: #e5e5e5;
+    --cx-btn2-fg: #3b3b3b;
+    --cx-sel: #add6ff;
+    --cx-hit: rgba(234, 92, 0, 0.25);
+    --cx-git-mod: #005fb8;
+    --cx-pass: #388a34;
+    --cx-fail: #e51400;
+    --cx-star: #bf8803;
+    --cx-err: #e51400;
+    --t-k: #0000ff;
+    --t-c: #af00db;
+    --t-s: #a31515;
+    --t-n: #098658;
+    --t-cm: #008000;
+    --t-f: #795e26;
+    --t-v: #001080;
+    --t-t: #267f99;
+    --t-ct: #0070c1;
+    --t-p: #3b3b3b;
+    --t-jk: #0451a5;
+    --muted: #717171;
+    --track: #d4d4d4;
+    --primary-soft: rgba(0, 95, 184, 0.12);
+    --good: #388a34;
+    --bad: #e51400;
+  }
+}
+
+/* VS Code 插件：跟随当前主题（变量由 VS Code 注入，取不到时用上面的默认值） */
+[data-host='vscode'] body {
+  --cx-bg: var(--vscode-editor-background, #1f1f1f);
+  --cx-bg-2: var(--vscode-editorGroupHeader-tabsBackground, #181818);
+  --cx-fg: var(--vscode-editor-foreground, #cccccc);
+  --cx-border: var(--vscode-editorGroup-border, #2b2b2b);
+  --cx-gutter: var(--vscode-editorLineNumber-foreground, #6e7681);
+  --cx-gutter-active: var(--vscode-editorLineNumber-activeForeground, #cccccc);
+  --cx-line-hl: var(--vscode-editor-lineHighlightBackground, rgba(255, 255, 255, 0.045));
+  --cx-ig: var(--vscode-editorIndentGuide-background1, var(--vscode-editorIndentGuide-background, #404040));
+  --cx-lens: var(--vscode-editorCodeLens-foreground, #999999);
+  --cx-link: var(--vscode-textLink-foreground, #4daafc);
+  --cx-ghost: var(--vscode-editorGhostText-foreground, rgba(255, 255, 255, 0.36));
+  --cx-crumb: var(--vscode-breadcrumb-foreground, #a9a9a9);
+  --cx-widget: var(--vscode-editorHoverWidget-background, #202020);
+  --cx-widget-border: var(--vscode-editorHoverWidget-border, #454545);
+  --cx-input: var(--vscode-input-background, #313131);
+  --cx-input-border: var(--vscode-input-border, var(--vscode-widget-border, #3c3c3c));
+  --cx-btn: var(--vscode-button-background, #0078d4);
+  --cx-btn-hover: var(--vscode-button-hoverBackground, #026ec1);
+  --cx-btn-fg: var(--vscode-button-foreground, #ffffff);
+  --cx-btn2: var(--vscode-button-secondaryBackground, #313131);
+  --cx-btn2-fg: var(--vscode-button-secondaryForeground, #cccccc);
+  --cx-sel: var(--vscode-editor-selectionBackground, #264f78);
+  --cx-hit: var(--vscode-editor-findMatchHighlightBackground, rgba(234, 92, 0, 0.33));
+  --cx-git-add: var(--vscode-editorGutter-addedBackground, #2ea043);
+  --cx-git-mod: var(--vscode-editorGutter-modifiedBackground, #0078d4);
+  --cx-pass: var(--vscode-testing-iconPassed, #73c991);
+  --cx-fail: var(--vscode-testing-iconFailed, #f14c4c);
+  --cx-err: var(--vscode-editorError-foreground, #f14c4c);
+  --cx-font: var(--vscode-editor-font-family, Menlo, Monaco, Consolas, monospace), 'PingFang SC', 'Microsoft YaHei', monospace;
+  --cx-size: var(--vscode-editor-font-size, 13px);
+  --cx-lh: calc(var(--vscode-editor-font-size, 13px) * 1.5);
+  --cx-ui: var(--vscode-font-family, -apple-system, 'Segoe UI', sans-serif);
+  --t-s: var(--vscode-debugTokenExpression-string, #ce9178);
+  --t-n: var(--vscode-debugTokenExpression-number, #b5cea8);
+  --muted: var(--vscode-descriptionForeground, #9d9d9d);
+  --border: var(--cx-input-border);
+}
+
+[data-host='vscode'] body.vscode-light {
+  color-scheme: light;
+  --t-k: #0000ff;
+  --t-c: #af00db;
+  --t-s: var(--vscode-debugTokenExpression-string, #a31515);
+  --t-n: var(--vscode-debugTokenExpression-number, #098658);
+  --t-cm: #008000;
+  --t-f: #795e26;
+  --t-v: #001080;
+  --t-t: #267f99;
+  --t-ct: #0070c1;
+  --t-p: #3b3b3b;
+  --t-jk: #0451a5;
+  --cx-star: #bf8803;
+  --cx-ghost: var(--vscode-editorGhostText-foreground, rgba(0, 0, 0, 0.4));
+  --track: #d4d4d4;
+}
+
+[data-host='vscode'] body.vscode-high-contrast:not(.vscode-high-contrast-light) {
+  --t-cm: #7ca668;
+}
+
+[data-skin='code'] body {
+  background: var(--cx-bg);
+  color: var(--cx-fg);
+  font-family: var(--cx-ui);
+  font-size: 13px;
+}
+
+[data-skin='code'] ::selection {
+  background: var(--cx-sel);
+}
+
+[data-skin='code'] ::-webkit-scrollbar {
+  width: 14px;
+  height: 10px;
+}
+
+[data-skin='code'] ::-webkit-scrollbar-thumb {
+  background: rgba(121, 121, 121, 0.4);
+}
+
+[data-skin='code'] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.7);
+}
+
+[data-skin='code'] ::-webkit-scrollbar-track,
+[data-skin='code'] ::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---------- 外壳：标签栏、面包屑 ---------- */
+.cx-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--cx-bg);
+  color: var(--cx-fg);
+}
+
+.cx-top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--cx-bg);
+}
+
+.cx-tabs {
+  display: flex;
+  height: 35px;
+  background: var(--cx-bg-2);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.cx-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.cx-tab {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 35px;
+  padding: 0 6px 0 12px;
+  font: 13px/1 var(--cx-ui);
+  color: var(--cx-tab-fg);
+  background: var(--cx-bg-2);
+  border-right: 1px solid var(--cx-border);
+  border-top: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.cx-tab.active {
+  background: var(--cx-bg);
+  color: var(--cx-tab-active-fg);
+  border-top-color: var(--cx-tab-accent);
+}
+
+.cx-tab.preview .cx-tab-name {
+  font-style: italic;
+}
+
+.cx-tab-close {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0;
+}
+
+.cx-tab.active .cx-tab-close,
+.cx-tab:hover .cx-tab-close {
+  opacity: 0.85;
+}
+
+.cx-tab-close:hover {
+  background: rgba(128, 128, 128, 0.25);
+}
+
+.cx-crumbs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 12px 0 18px;
+  font: 13px/22px var(--cx-ui);
+  color: var(--cx-crumb);
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.cx-crumb button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 2px;
+  color: inherit;
+}
+
+.cx-crumb button:hover {
+  color: var(--cx-fg);
+}
+
+.cx-crumb-sep {
+  margin: 0 3px;
+  opacity: 0.8;
+}
+
+.cx-picker {
+  position: absolute;
+  top: 22px;
+  left: 18px;
+  z-index: 30;
+  min-width: 280px;
+  padding: 4px 0;
+  background: var(--cx-widget);
+  border: 1px solid var(--cx-widget-border);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.36);
+}
+
+.cx-picker button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 10px;
+  font-size: 13px;
+  color: var(--cx-fg);
+  text-align: left;
+}
+
+.cx-picker button:hover,
+.cx-picker button.on {
+  background: var(--cx-sel);
+}
+
+.cx-picker-dir {
+  margin-left: auto;
+  padding-left: 16px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* 文件图标 */
+.fi {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.fi-ts {
+  color: #519aba;
+}
+
+.fi-json {
+  color: #cbcb41;
+  font-family: Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+
+.fi-md {
+  color: #519aba;
+}
+
+.fi-gear {
+  color: var(--cx-tab-fg);
+}
+
+/* ---------- 编辑区：行号、缩进线、CodeLens ---------- */
+.cx-editor {
+  padding: 4px 0 45vh;
+  font-family: var(--cx-font);
+  font-size: var(--cx-size);
+  line-height: var(--cx-lh);
+  font-feature-settings: 'liga' 0, 'calt' 0;
+  -webkit-font-smoothing: auto;
+}
+
+.cx-code {
+  counter-reset: ln;
+}
+
+.cx-ln,
+.cx-lens {
+  display: flex;
+  align-items: stretch;
+  min-height: var(--cx-lh);
+}
+
+.cx-ln {
+  counter-increment: ln;
+}
+
+.cx-ln:hover {
+  background: var(--cx-line-hl);
+}
+
+.cx-gut {
+  position: relative;
+  flex: none;
+  display: flex;
+  width: 72px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cx-glyph {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: var(--cx-lh);
+}
+
+.cx-num {
+  flex: 1;
+  padding-right: 26px;
+  text-align: right;
+  color: var(--cx-gutter);
+}
+
+.cx-num::before {
+  content: counter(ln);
+}
+
+.cx-ln:hover .cx-num,
+.cx-ln.active .cx-num {
+  color: var(--cx-gutter-active);
+}
+
+.cx-ln[data-git] .cx-gut::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 14px;
+  width: 3px;
+  background: var(--cx-git-mod);
+}
+
+.cx-ln[data-git='add'] .cx-gut::after {
+  background: var(--cx-git-add);
+}
+
+.cx-ind {
+  flex: none;
+  display: flex;
+}
+
+.cx-ig {
+  width: 2ch;
+  box-shadow: inset 1px 0 0 var(--cx-ig);
+}
+
+.cx-src {
+  flex: 1;
+  min-width: 0;
+  padding-right: 24px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cx-ln.click {
+  cursor: pointer;
+}
+
+.cx-lens {
+  color: var(--cx-lens);
+  font-size: 0.88em;
+  line-height: var(--cx-lh);
+}
+
+.cx-lens-items {
+  white-space: pre-wrap;
+}
+
+.cx-lens-btn {
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.cx-lens-btn:hover {
+  color: var(--cx-link);
+  text-decoration: underline;
+}
+
+.cx-lens-sep {
+  opacity: 0.85;
+}
+
+/* 语法高亮 */
+.t-k {
+  color: var(--t-k);
+}
+.t-c {
+  color: var(--t-c);
+}
+.t-s {
+  color: var(--t-s);
+}
+.t-n {
+  color: var(--t-n);
+}
+.t-cm {
+  color: var(--t-cm);
+}
+.t-f {
+  color: var(--t-f);
+}
+.t-v {
+  color: var(--t-v);
+}
+.t-t {
+  color: var(--t-t);
+}
+.t-ct,
+.t-v.t-const {
+  color: var(--t-ct);
+}
+.t-p {
+  color: var(--t-p);
+}
+.t-jk {
+  color: var(--t-jk);
+}
+.t-err {
+  color: var(--cx-err);
+}
+.t-pos {
+  opacity: 0.75;
+}
+
+.cx-act {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.cx-act:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cx-act.on {
+  color: var(--cx-fg);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cx-off {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+.cx-ghost {
+  color: var(--cx-ghost);
+  font-style: italic;
+}
+
+.cx-reveal:hover .cx-ghost {
+  color: var(--cx-link);
+}
+
+.cx-strike .cx-src {
+  text-decoration: line-through;
+  text-decoration-color: var(--cx-fail);
+}
+
+.cx-hit {
+  background: var(--cx-hit);
+  color: inherit;
+  border-radius: 2px;
+}
+
+.cx-err-line {
+  background: rgba(241, 76, 76, 0.07);
+}
+
+.g-pass,
+.g-run {
+  color: var(--cx-pass);
+}
+
+.g-fail {
+  color: var(--cx-fail);
+}
+
+.g-star {
+  color: var(--cx-star);
+}
+
+.g-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e51400;
+}
+
+/* 行内输入框：拼写、搜索 */
+.cx-inline-form {
+  display: inline;
+}
+
+.cx-spell {
+  white-space: nowrap;
+}
+
+.cx-input {
+  max-width: 60vw;
+  padding: 0 1px;
+  font: inherit;
+  line-height: inherit;
+  color: var(--t-s);
+  background: transparent;
+  border: 0;
+  border-radius: 2px;
+  outline: 0;
+  caret-color: var(--cx-fg);
+}
+
+.cx-input:focus {
+  background: var(--cx-line-hl);
+  box-shadow: 0 0 0 1px var(--cx-tab-accent);
+}
+
+.cx-input::placeholder {
+  color: var(--cx-ghost);
+  font-style: italic;
+}
+
+.cx-input.bad {
+  text-decoration: underline wavy var(--cx-err);
+  text-underline-offset: 3px;
+}
+
+/* 词库行尾的操作按钮，鼠标移上去才显示 */
+.cx-inline-actions {
+  margin-left: 2ch;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.cx-ln:hover .cx-inline-actions {
+  opacity: 1;
+}
+
+.cx-inline-actions button {
+  padding: 0 4px;
+  color: var(--cx-lens);
+  font: inherit;
+}
+
+.cx-inline-actions button:hover {
+  color: var(--cx-link);
+}
+
+/* ---------- 非代码页面：练习（Markdown 预览）、设置 ---------- */
+.cx-doc {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 18px 26px 120px;
+  font-family: var(--cx-ui);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+[data-skin='code'] .page {
+  max-width: none;
+  gap: 18px;
+}
+
+[data-skin='code'] .page-head {
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--cx-border);
+}
+
+[data-skin='code'] h1 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+[data-skin='code'] h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+[data-skin='code'] h3 {
+  color: var(--cx-fg);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+[data-skin='code'] .card {
+  padding: 14px 16px;
+  border: 1px solid var(--cx-border);
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+}
+
+[data-skin='code'] .btn {
+  min-height: 26px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: var(--cx-btn2);
+  color: var(--cx-btn2-fg);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+[data-skin='code'] .btn:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+[data-skin='code'] .btn.primary {
+  background: var(--cx-btn);
+  color: var(--cx-btn-fg);
+}
+
+[data-skin='code'] .btn.primary:hover:not(:disabled) {
+  background: var(--cx-btn-hover);
+  filter: none;
+}
+
+[data-skin='code'] .btn.lg {
+  min-height: 30px;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+[data-skin='code'] .btn.sm {
+  min-height: 24px;
+  font-size: 12px;
+}
+
+[data-skin='code'] .btn.ghost {
+  background: transparent;
+  border-color: var(--cx-input-border);
+}
+
+[data-skin='code'] .btn.danger {
+  color: var(--cx-err);
+}
+
+[data-skin='code'] .btn-sub {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+[data-skin='code'] .seg {
+  padding: 0;
+  gap: 0;
+  border: 1px solid var(--cx-input-border);
+  border-radius: 2px;
+  background: var(--cx-input);
+}
+
+[data-skin='code'] .seg button {
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 0;
+  font-size: 12px;
+  color: var(--cx-fg);
+}
+
+[data-skin='code'] .seg button.on {
+  background: var(--cx-btn);
+  color: var(--cx-btn-fg);
+  box-shadow: none;
+}
+
+[data-skin='code'] .chip {
+  min-height: 26px;
+  padding: 0 10px;
+  border-radius: 2px;
+  font-size: 12px;
+  background: transparent;
+}
+
+[data-skin='code'] .chip.on {
+  border-color: var(--cx-btn);
+  background: var(--primary-soft);
+  color: var(--cx-fg);
+}
+
+[data-skin='code'] .tag {
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+[data-skin='code'] input:not(.cx-input):not([type='checkbox']):not([type='radio']),
+[data-skin='code'] select,
+[data-skin='code'] textarea {
+  border-radius: 2px;
+  border-color: var(--cx-input-border);
+  background: var(--cx-input);
+  color: var(--cx-fg);
+}
+
+[data-skin='code'] textarea {
+  font-family: var(--cx-font);
+  font-size: var(--cx-size);
+}
+
+[data-skin='code'] code {
+  font-family: var(--cx-font);
+  font-size: 0.92em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--cx-input);
+}
+
+[data-skin='code'] .switch span {
+  border-radius: 2px;
+}
+
+[data-skin='code'] .switch span::after {
+  border-radius: 1px;
+}
+
+/* 单词详情：编辑器里的悬停提示框 */
+[data-skin='code'] .sheet-backdrop {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: none;
+}
+
+[data-skin='code'] .sheet {
+  background: var(--cx-widget);
+  border: 1px solid var(--cx-widget-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  font-size: 13px;
+}
+
+[data-skin='code'] .sheet-word,
+[data-skin='code'] .big-word {
+  font-family: var(--cx-font);
+  font-weight: 600;
+}
+
+[data-skin='code'] .sheet-handle {
+  display: none;
+}
+
+[data-skin='code'] .field {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+[data-skin='code'] .field input,
+[data-skin='code'] .field select {
+  min-height: 26px;
+  height: 26px;
+  padding: 0 8px;
+  border-width: 1px;
+  font-size: 13px;
+}
+
+[data-skin='code'] .field select {
+  padding-right: 28px;
+}
+
+[data-skin='code'] .field input:focus,
+[data-skin='code'] .field select:focus,
+[data-skin='code'] .field textarea:focus,
+[data-skin='code'] .textarea:focus {
+  border-color: var(--cx-tab-accent);
+}
+
+[data-skin='code'] .ai-btn {
+  height: 26px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+[data-skin='code'] .cx-input:read-only:focus {
+  background: transparent;
+  box-shadow: none;
+}

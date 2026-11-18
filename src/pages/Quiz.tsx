@@ -1,58 +1,31 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Icon } from '../components/Icon'
 import { Meanings, Phonetic, SpeakButton } from '../components/WordParts'
 import { WordSheet } from '../components/WordSheet'
 import { bookMeta, useAllWords, type BookState } from '../lib/books'
-import { dayIndex } from '../lib/date'
-import { getExtras } from '../lib/extras'
-import { buildQuiz, checkSpelling, QUIZ_TYPE_LABELS, shuffle, type Question, type QuizType } from '../lib/quiz'
+import { QUIZ_TYPE_LABELS, type Question, type QuizType } from '../lib/quiz'
 import { navigate } from '../lib/router'
-import { speak } from '../lib/speech'
-import { getData, recordAnswer, useAppData } from '../lib/store'
-import type { AppData, Word } from '../lib/types'
-
-type Source = 'today' | 'learned' | 'starred' | 'wrong' | 'book'
-
-const SOURCES: { id: Source; label: string; desc: string }[] = [
-  { id: 'today', label: '今日单词', desc: '今天学过和复习过的' },
-  { id: 'learned', label: '已学单词', desc: '所有学过的单词' },
-  { id: 'wrong', label: '错题本', desc: '连续答对 2 次自动移出' },
-  { id: 'starred', label: '生词本', desc: '手动收藏的单词' },
-  { id: 'book', label: '整个词库', desc: '随机抽查，含未学的词' },
-]
-
-const ALL_TYPES: QuizType[] = ['en2zh', 'zh2en', 'cloze', 'spell', 'listen']
-const DEFAULT_TYPES: QuizType[] = ['en2zh', 'zh2en', 'cloze', 'spell']
-const COUNTS = [10, 20, 30]
-
-function pickPool(src: Source, data: AppData, all: Map<string, Word>, book: Word[]): Word[] {
-  const today = dayIndex()
-  const fromKeys = (keys: string[]) => keys.map((k) => all.get(k)).filter((w): w is Word => !!w)
-  switch (src) {
-    case 'today':
-      return fromKeys(Object.keys(data.cards).filter((k) => dayIndex(data.cards[k].last) === today))
-    case 'learned':
-      return fromKeys(Object.keys(data.cards))
-    case 'starred':
-      return fromKeys(Object.keys(data.starred))
-    case 'wrong':
-      return fromKeys(Object.keys(data.wrong))
-    case 'book':
-      return book
-  }
-}
-
-const isSource = (s: string | null): s is Source => SOURCES.some((x) => x.id === s)
+import { useAppData } from '../lib/store'
+import type { Word } from '../lib/types'
+import {
+  ALL_TYPES,
+  COUNTS,
+  DEFAULT_TYPES,
+  pickPool,
+  quizParams,
+  quizUrl,
+  SOURCES,
+  useQuizPlay,
+  useQuizQuestions,
+  type Source,
+} from '../lib/useQuiz'
 
 export function Quiz({ book, query }: { book: BookState; query: URLSearchParams }) {
   const all = useAllWords()
-  const src: Source = isSource(query.get('src')) ? (query.get('src') as Source) : 'learned'
-  const count = Number(query.get('n')) || 10
-  const types = (query.get('t')?.split(',').filter((t): t is QuizType => ALL_TYPES.includes(t as QuizType)) ?? DEFAULT_TYPES)
-  const run = query.get('run') === '1'
+  const { src, count, types, run } = quizParams(query)
 
   if (!all || book.loading) return <div className="page center-box muted">词库加载中…</div>
-  if (run) return <QuizRun key={query.toString()} src={src} count={count} types={types.length ? types : DEFAULT_TYPES} all={all} book={book.words} />
+  if (run) return <QuizRun key={query.toString()} src={src} count={count} types={types} all={all} book={book.words} />
   return <QuizSetup initialSrc={src} all={all} book={book} />
 }
 
@@ -69,7 +42,7 @@ function QuizSetup({ initialSrc, all, book }: { initialSrc: Source; all: Map<str
   const toggleType = (t: QuizType) =>
     setTypes((cur) => (cur.includes(t) ? (cur.length > 1 ? cur.filter((x) => x !== t) : cur) : [...cur, t]))
 
-  const start = () => navigate(`/quiz?run=1&src=${src}&n=${count}&t=${types.join(',')}`)
+  const start = () => navigate(quizUrl(src, count, types))
 
   return (
     <div className="page">
@@ -128,11 +101,6 @@ function QuizSetup({ initialSrc, all, book }: { initialSrc: Source; all: Map<str
   )
 }
 
-interface Answer {
-  word: Word
-  correct: boolean
-}
-
 interface RunProps {
   src: Source
   count: number
@@ -141,110 +109,16 @@ interface RunProps {
   book: Word[]
 }
 
-/** 题目只在进入时生成一次；干扰项从当前词库里挑。例句填空需要先加载例句 */
 function QuizRun(props: RunProps) {
-  const { src, count, types, all, book } = props
-  const [questions, setQuestions] = useState<Question[] | null>(null)
-  useEffect(() => {
-    let alive = true
-    // 先抽好题目用的词，例句只需加载这些词的；只考例句填空时多抽一些，优先用有例句的词
-    const onlyCloze = types.every((t) => t === 'cloze')
-    const candidates = shuffle(pickPool(src, getData(), all, book)).slice(0, onlyCloze ? count * 3 : count)
-    const distractors = book.length ? book : [...all.values()]
-    const build = (pool: Word[], examples?: Map<string, [string, string][]>) =>
-      alive && setQuestions(buildQuiz(pool, distractors, count, types, Math.random, examples))
-    if (!types.includes('cloze')) build(candidates)
-    else
-      getExtras(candidates.map((w) => w.w)).then(
-        (m) => {
-          const has = (w: Word) => (m.get(w.w)?.examples.length ?? 0) > 0
-          const pool = onlyCloze ? [...candidates.filter(has), ...candidates.filter((w) => !has(w))] : candidates
-          build(pool.slice(0, count), new Map([...m].map(([w, x]) => [w, x.examples])))
-        },
-        () => build(candidates.slice(0, count)),
-      )
-    return () => {
-      alive = false
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const questions = useQuizQuestions(props.src, props.count, props.types, props.all, props.book)
   if (!questions) return <div className="study center-box muted">出题中…</div>
   return <QuizPlay {...props} questions={questions} />
 }
 
 function QuizPlay({ src, count, types, questions }: RunProps & { questions: Question[] }) {
-  const settings = useAppData().settings
-  const [idx, setIdx] = useState(0)
-  const [answers, setAnswers] = useState<Answer[]>([])
-  const [picked, setPicked] = useState<number | null>(null)
-  const [spelling, setSpelling] = useState('')
-  const [hint, setHint] = useState(0)
   const [detail, setDetail] = useState<Word | null>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const advanceTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const spokeFirst = useRef(false)
-
-  const q = questions[idx]
-  const answered = answers.length > idx
-  const done = idx >= questions.length
-  const say = useCallback((w: string) => speak(w, settings), [settings])
-  const wantsAudio = (question: Question | undefined) =>
-    !!question && (question.type === 'listen' || ((question.type === 'en2zh' || question.type === 'spell') && settings.autoPlay))
-
-  useEffect(() => {
-    if (!spokeFirst.current && q) {
-      spokeFirst.current = true
-      if (wantsAudio(q)) say(q.word.w)
-    }
-  })
-
-  useEffect(() => () => clearTimeout(advanceTimer.current), [])
-
-  useEffect(() => {
-    if ((q?.type === 'spell' || q?.type === 'listen') && !answered) inputRef.current?.focus()
-  }, [q, answered])
-
-  const next = useCallback(() => {
-    clearTimeout(advanceTimer.current)
-    setIdx((i) => i + 1)
-    setPicked(null)
-    setSpelling('')
-    setHint(0)
-    const upcoming = questions[idx + 1]
-    if (wantsAudio(upcoming)) say(upcoming.word.w)
-  }, [idx, questions, say, settings.autoPlay])
-
-  const submit = useCallback(
-    (correct: boolean) => {
-      if (!q || answered) return
-      recordAnswer(q.word.w, correct)
-      setAnswers((a) => [...a, { word: q.word, correct }])
-      if (q.type === 'zh2en' || q.type === 'cloze') say(q.word.w)
-      if (correct) advanceTimer.current = setTimeout(next, q.type === 'spell' ? 900 : 700)
-    },
-    [q, answered, next, say],
-  )
-
-  const choose = (i: number) => {
-    if (!q || !('options' in q) || answered) return
-    setPicked(i)
-    submit(i === q.answer)
-  }
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.metaKey || e.ctrlKey || e.altKey || !q) return
-      if (e.key === 'Escape') return navigate('/quiz')
-      if (answered && e.key === 'Enter') {
-        e.preventDefault()
-        next()
-      } else if (!answered && 'options' in q && ['1', '2', '3', '4'].includes(e.key)) {
-        choose(Number(e.key) - 1)
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  })
+  const { q, idx, answers, answered, done, picked, choose, spelling, setSpelling, hint, addHint, submitSpelling, next, correctCount, lastCorrect, inputRef, say } =
+    useQuizPlay(questions, { autoPlay: true })
 
   if (questions.length === 0) {
     return (
@@ -259,8 +133,6 @@ function QuizPlay({ src, count, types, questions }: RunProps & { questions: Ques
       </div>
     )
   }
-
-  const correctCount = answers.filter((a) => a.correct).length
 
   if (done) {
     const wrongs = answers.filter((a) => !a.correct)
@@ -289,7 +161,7 @@ function QuizPlay({ src, count, types, questions }: RunProps & { questions: Ques
           )}
           <div className="row gap-sm wrap center">
             {wrongs.length > 0 && (
-              <button className="btn primary" onClick={() => navigate(`/quiz?run=1&src=wrong&n=${count}&t=${types.join(',')}`, true)}>
+              <button className="btn primary" onClick={() => navigate(quizUrl('wrong', count, types), true)}>
                 错题再练
               </button>
             )}
@@ -305,8 +177,6 @@ function QuizPlay({ src, count, types, questions }: RunProps & { questions: Ques
       </div>
     )
   }
-
-  const lastCorrect = answered ? answers[idx].correct : null
 
   return (
     <div className="study">
@@ -406,7 +276,7 @@ function QuizPlay({ src, count, types, questions }: RunProps & { questions: Ques
             onSubmit={(e) => {
               e.preventDefault()
               // 已作答时回车由全局快捷键处理“下一题”
-              if (!answered && spelling.trim()) submit(checkSpelling(spelling, q.word))
+              submitSpelling()
             }}
           >
             <div className="spell-hint" aria-label={`共 ${q.word.w.length} 个字母`}>
@@ -432,7 +302,7 @@ function QuizPlay({ src, count, types, questions }: RunProps & { questions: Ques
             />
             {!answered && (
               <div className="row gap-sm">
-                <button type="button" className="btn" disabled={hint >= q.word.w.length - 1} onClick={() => setHint((h) => h + 1)}>
+                <button type="button" className="btn" disabled={hint >= q.word.w.length - 1} onClick={addHint}>
                   提示一个字母
                 </button>
                 <button type="submit" className="btn primary grow" disabled={!spelling.trim()}>

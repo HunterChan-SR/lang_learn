@@ -7,3 +7,7 @@ dist
 # 桌面版打包输出
 release
 *.tsbuildinfo
+
+# VS Code 插件打包时复制进去的文件
+vscode/web
+vscode/LICENSE

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { desktop } from '../lib/desktop'
+import { appAuthCallback, confirmDialog } from '../lib/host'
 import { signInWithGitHub, signOut, syncNow, useSync } from '../lib/sync'
 import { Icon } from './Icon'
 
@@ -42,14 +42,14 @@ function LoginForm() {
     setBusy(true)
     setError(null)
     const err = await signInWithGitHub()
-    // 成功时页面会跳转到 GitHub（桌面版在系统浏览器里打开），失败才会走到这里
+    // 成功时页面会跳转到 GitHub（桌面版/插件版在系统浏览器里打开），失败才会走到这里
     if (err) {
       setError(err)
       setBusy(false)
     }
   }
 
-  // 桌面版：浏览器授权失败或被取消时恢复按钮
+  // 桌面版/插件版：浏览器授权失败或被取消时恢复按钮
   useEffect(() => {
     if (sync.error) setBusy(false)
   }, [sync.error])
@@ -60,14 +60,19 @@ function LoginForm() {
       {(error || sync.error) && <p className="error small">{error || sync.error}</p>}
       <button className="btn github block" disabled={busy} onClick={() => void login()}>
         <GitHubMark />
-        {busy ? (desktop ? '请在浏览器中完成授权…' : '正在跳转到 GitHub…') : '使用 GitHub 登录'}
+        {busy ? (appAuthCallback ? '请在浏览器中完成授权…' : '正在跳转到 GitHub…') : '使用 GitHub 登录'}
       </button>
-      {busy && desktop && (
+      {busy && appAuthCallback && (
         <p className="muted small">
-          已在浏览器中打开 GitHub 授权页面，授权后会自动回到应用。
+          已在浏览器中打开 GitHub 授权页面，授权后会自动回到这里。
           <button type="button" className="link" onClick={() => setBusy(false)}>
             重新登录
           </button>
+        </p>
+      )}
+      {busy && appAuthCallback && (
+        <p className="muted small">
+          如果授权后打开的是网页版而没有回到这里，需要在 Supabase 后台的 Redirect URLs 里加入 <code>{appAuthCallback}</code>
         </p>
       )}
       <p className="muted small">仅限已授权的 GitHub 账号使用。</p>
@@ -89,10 +94,10 @@ function SignedIn() {
   const [busy, setBusy] = useState(false)
 
   const logout = async () => {
-    if (!window.confirm('退出后，本机上的学习记录会被清除（云端已保存，重新登录即可恢复）。确定退出吗？')) return
+    if (!(await confirmDialog('退出后，本机上的学习记录会被清除（云端已保存，重新登录即可恢复）。确定退出吗？', '退出登录'))) return
     setBusy(true)
     let err = await signOut()
-    if (err && window.confirm(`同步失败：${err}\n现在退出会丢失尚未同步的进度，仍要退出吗？`)) err = await signOut(true)
+    if (err && (await confirmDialog(`同步失败：${err}\n现在退出会丢失尚未同步的进度，仍要退出吗？`, '仍要退出'))) err = await signOut(true)
     setBusy(false)
   }
 

@@ -12,6 +12,7 @@ import {
 import { useSettings } from '../../lib/store'
 import { Icon } from '../Icon'
 import { MCQItem, Paragraphs, RunHeader, ScoreBar, Tokens, useElapsed, useWordPopup } from './common'
+import { confirmDialog } from '../../lib/host'
 
 export interface RunProps<T> {
   set: T
@@ -22,15 +23,15 @@ export interface RunProps<T> {
   onNext?: () => void
 }
 
-function confirmSubmit(unanswered: number): boolean {
-  return unanswered === 0 || window.confirm(`还有 ${unanswered} 题没有作答，确定交卷吗？`)
+async function confirmSubmit(unanswered: number): Promise<boolean> {
+  return unanswered === 0 || confirmDialog(`还有 ${unanswered} 题没有作答，确定交卷吗？`, '交卷')
 }
 
 function useSubmit(total: number, onSubmit: RunProps<unknown>['onSubmit']) {
   const [result, setResult] = useState<boolean[] | null>(null)
   const secs = useElapsed(!!result)
-  const submit = (correct: boolean[], unanswered: number) => {
-    if (!confirmSubmit(unanswered)) return
+  const submit = async (correct: boolean[], unanswered: number) => {
+    if (!(await confirmSubmit(unanswered))) return
     setResult(correct)
     onSubmit(correct.filter(Boolean).length, total, secs)
     window.scrollTo({ top: 0, behavior: 'smooth' })

@@ -1,6 +1,6 @@
 import type { Session } from '@supabase/supabase-js'
 import { useSyncExternalStore } from 'react'
-import { desktop, DESKTOP_AUTH_CALLBACK } from './desktop'
+import { appAuthCallback, onAuthCallback, openExternal } from './host'
 import { mergeData, stableStringify } from './merge'
 import { clearLocalProgress, getData, normalize, replaceData, subscribeData } from './store'
 import { getSupabase } from './supabase'
@@ -80,10 +80,11 @@ function takeOAuthError(): string | null {
 }
 
 /**
- * 桌面版：GitHub 授权在系统浏览器里完成，Supabase 回调 cet-words://auth-callback?code=…，
- * 主进程把链接转过来，这里用 code 换取登录状态（PKCE 校验码在发起登录时已存在本机）。
+ * 桌面版/插件版：GitHub 授权在系统浏览器里完成，Supabase 回调 cet-words://auth-callback?code=…
+ * （插件版为 vscode://hunterchan.langlearn/auth-callback?code=…），宿主把链接转过来，
+ * 这里用 code 换取登录状态（PKCE 校验码在发起登录时已存在本机）。
  */
-async function handleDesktopCallback(link: string) {
+async function handleAppCallback(link: string) {
   let params: URLSearchParams
   try {
     const u = new URL(link)
@@ -138,7 +139,7 @@ export function initSync() {
     }
   })()
   subscribeData(onLocalChange)
-  desktop?.onAuthCallback((link) => void handleDesktopCallback(link))
+  onAuthCallback((link) => void handleAppCallback(link))
   window.addEventListener('online', () => void syncNow())
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') void syncNow()
@@ -240,19 +241,19 @@ async function syncOnce() {
   }
 }
 
-/** 跳转到 GitHub 授权页；成功时页面会离开（桌面版为打开系统浏览器），失败返回错误信息 */
+/** 跳转到 GitHub 授权页；成功时页面会离开（桌面版/插件版为打开系统浏览器），失败返回错误信息 */
 export async function signInWithGitHub(): Promise<string | null> {
   try {
     const sb = await getSupabase()
-    if (desktop) {
+    if (appAuthCallback) {
       const { data, error } = await sb.auth.signInWithOAuth({
         provider: 'github',
-        options: { redirectTo: DESKTOP_AUTH_CALLBACK, skipBrowserRedirect: true },
+        options: { redirectTo: appAuthCallback, skipBrowserRedirect: true },
       })
       if (error) return describeError(error)
       if (!data.url) return '无法获取登录地址'
       set({ error: null })
-      await desktop.openExternal(data.url)
+      await openExternal(data.url)
       return null
     }
     try {

@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { hostKind, netFetch } from './host'
 
 /**
  * Supabase 项目配置。
@@ -24,6 +25,8 @@ export function getSupabase(): Promise<SupabaseClient> {
         detectSessionInUrl: true,
         storageKey: 'cet-words:auth',
       },
+      // 插件版：webview 的请求受跨域限制，交给插件转发
+      ...(hostKind === 'vscode' ? { global: { fetch: netFetch } } : {}),
     }),
   )
   return client

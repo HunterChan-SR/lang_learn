@@ -5,6 +5,7 @@ import { gradeComposition, type CompositionGrade, type Progress } from '../../li
 import { navigate } from '../../lib/router'
 import { Icon } from '../Icon'
 import { fmtTime, Paragraphs, RunHeader, useElapsed } from './common'
+import { alertDialog, confirmDialog } from '../../lib/host'
 
 const draftKey = (id: string) => `cet-words:draft:${id}`
 
@@ -62,10 +63,10 @@ export function CompositionRun({ set, onSubmit, onRetry, onNext }: Props) {
 
   const grade = async () => {
     if (words < 10) {
-      window.alert('写得太少了，至少写几句再提交吧')
+      void alertDialog('写得太少了，至少写几句再提交吧')
       return
     }
-    if (isWriting && words < set.minWords && !window.confirm(`目前 ${words} 词，少于要求的 ${set.minWords} 词，会被扣分。仍然提交吗？`)) return
+    if (isWriting && words < set.minWords && !(await confirmDialog(`目前 ${words} 词，少于要求的 ${set.minWords} 词，会被扣分。仍然提交吗？`, '提交'))) return
     if (!ready) {
       setState({ kind: 'self' })
       onSubmit(null, secs)

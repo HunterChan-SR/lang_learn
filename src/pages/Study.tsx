@@ -1,109 +1,24 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
 import { AIButton, AIPanel } from '../components/AICoach'
 import { Icon } from '../components/Icon'
 import { StudyExtras } from '../components/WordExtras'
 import { Exchange, Meanings, Phonetic, SpeakButton, StarButton } from '../components/WordParts'
 import type { BookState } from '../lib/books'
-import { dayIndex, formatInterval, todayKey } from '../lib/date'
+import { formatInterval } from '../lib/date'
 import { navigate } from '../lib/router'
-import { buildQueue, dailyPlan, type QueueItem } from '../lib/session'
-import { speak } from '../lib/speech'
-import { nextIntervals } from '../lib/srs'
-import { getData, getDayLog, gradeWord, toggleStar, useAppData } from '../lib/store'
 import type { Grade } from '../lib/types'
+import { useStudySession } from '../lib/useStudy'
 
-interface Item extends QueueItem {
-  retry?: boolean
-}
-
-const GRADES: { grade: Grade; label: string; cls: string }[] = [
+export const GRADES: { grade: Grade; label: string; cls: string }[] = [
   { grade: 0, label: '忘记了', cls: 'again' },
   { grade: 1, label: '模糊', cls: 'hard' },
   { grade: 2, label: '认识', cls: 'good' },
   { grade: 3, label: '太简单', cls: 'easy' },
 ]
 
-/** 答“忘记了”的词在几张卡之后再出现一次 */
-const RETRY_GAP = 4
-
 export function Study({ book, extra }: { book: BookState; extra: number }) {
-  const data = useAppData()
-  const { settings } = data
-  const [queue, setQueue] = useState<Item[] | null>(null)
-  const [pos, setPos] = useState(0)
-  const [revealed, setRevealed] = useState(false)
-  const [tally, setTally] = useState([0, 0, 0, 0])
-  const [newCount, setNewCount] = useState(0)
-  const spokeFirst = useRef(false)
-
-  // 进入页面时一次性生成队列，学习过程中不再重新计算
-  useEffect(() => {
-    if (queue || book.words.length === 0) return
-    const d = getData()
-    const plan = dailyPlan(book.words, d, dayIndex(), getDayLog(d, todayKey()).learned, extra)
-    setQueue(buildQueue(plan))
-  }, [book.words, queue, extra])
-
-  const item = queue?.[pos]
-  const finished = !!queue && pos >= queue.length
-
-  const say = useCallback((text: string) => speak(text, settings), [settings])
-
-  useEffect(() => {
-    if (item && !spokeFirst.current) {
-      spokeFirst.current = true
-      if (settings.autoPlay) say(item.word.w)
-    }
-  }, [item, settings.autoPlay, say])
-
-  const reveal = useCallback(() => setRevealed(true), [])
-
-  const grade = useCallback(
-    (g: Grade) => {
-      if (!queue || !item) return
-      gradeWord(item.word.w, g)
-      setTally((t) => t.map((n, i) => (i === g ? n + 1 : n)))
-      if (item.isNew) setNewCount((n) => n + 1)
-      let next = queue
-      if (g === 0) {
-        next = queue.slice()
-        next.splice(Math.min(pos + 1 + RETRY_GAP, next.length), 0, { word: item.word, isNew: false, retry: true })
-        setQueue(next)
-      }
-      setRevealed(false)
-      setPos(pos + 1)
-      // 在点击事件里直接发音，iOS 才允许播放
-      const upcoming = next[pos + 1]
-      if (upcoming && settings.autoPlay) say(upcoming.word.w)
-    },
-    [queue, item, pos, settings.autoPlay, say],
-  )
-
-  // 键盘快捷键：空格/回车 显示释义，1-4 评分，R 朗读，S 收藏，Esc 退出
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.metaKey || e.ctrlKey || e.altKey) return
-      if (e.key === 'Escape') return navigate('/')
-      if (!item) return
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault()
-        if (!revealed) reveal()
-        else grade(2)
-      } else if (revealed && ['1', '2', '3', '4'].includes(e.key)) {
-        grade((Number(e.key) - 1) as Grade)
-      } else if (e.key === 'r' || e.key === 'R') {
-        say(item.word.w)
-      } else if (e.key === 's' || e.key === 'S') {
-        toggleStar(item.word.w)
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [item, revealed, reveal, grade, say])
-
-  const total = queue?.length ?? 0
-  const card = item ? data.cards[item.word.w] : undefined
-  const intervals = item ? nextIntervals(card) : null
+  const { queue, pos, item, finished, revealed, reveal, grade, tally, newCount, total, intervals } = useStudySession(book, extra, {
+    autoPlay: true,
+  })
 
   return (
     <div className="study">
@@ -145,7 +60,7 @@ export function Study({ book, extra }: { book: BookState; extra: number }) {
         </div>
       )}
 
-      {finished && queue.length > 0 && (
+      {finished && queue && queue.length > 0 && (
         <div className="center-box finish">
           <div className="finish-badge">
             <Icon name="check" size={36} />

@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { desktop } from '../lib/desktop'
+import { confirmDialog, hostKind } from '../lib/host'
 import { isReady, VISIBLE_PRESETS, listModels, presetOf, saveAIConfig, testAI, useAIConfig, type AIConfig } from '../lib/ai'
 import { Icon } from './Icon'
 
@@ -70,8 +70,8 @@ export function AISettings({ highlight = false }: { highlight?: boolean }) {
     if (r) setStatus({ kind: 'ok', text: `已保存，连接正常（${(r.ms / 1000).toFixed(1)} 秒，回复：${r.reply}）` })
   }
 
-  const clear = () => {
-    if (!window.confirm('清除本机保存的 AI 配置（包括 API Key）？')) return
+  const clear = async () => {
+    if (!(await confirmDialog('清除本机保存的 AI 配置（包括 API Key）？', '清除'))) return
     saveAIConfig(null)
     setForm(fromPreset('deepseek'))
     setModels([])
@@ -185,13 +185,15 @@ export function AISettings({ highlight = false }: { highlight?: boolean }) {
           {dirty ? '保存并测试' : '测试连接'}
         </button>
         {saved && (
-          <button type="button" className="btn ghost danger" onClick={clear}>
+          <button type="button" className="btn ghost danger" onClick={() => void clear()}>
             清除配置
           </button>
         )}
       </div>
       <p className="muted small">
-        {desktop
+        {hostKind === 'vscode'
+          ? '插件通过 VS Code 转发请求，所有服务都可以直接使用，包括内网和本机的接口。API Key 保存在系统钥匙串里。'
+          : hostKind === 'desktop'
           ? '桌面版通过应用转发请求，所有服务都可以直接使用。'
           : 'Kimi、智谱 GLM、Gemini 的官方接口不允许网页直接调用，可以通过 OpenRouter 或硅基流动使用；内网或 http:// 开头的自建网关在网页版也用不了。这些情况都可以改用桌面版。'}
       </p>

@@ -6,6 +6,7 @@ import { deleteAISet, KINDS, kindMeta, loadAISets, loadBank, type Level, type Pr
 import { navigate } from '../lib/router'
 import { useAppData } from '../lib/store'
 import type { PracticeRecord } from '../lib/types'
+import { confirmDialog } from '../lib/host'
 
 const KIND_ICON: Record<PracticeKind, IconName> = {
   listening: 'headphones',
@@ -216,8 +217,8 @@ export function Practice() {
                     type="button"
                     className="icon-btn sm"
                     aria-label="删除"
-                    onClick={() => {
-                      if (!window.confirm(`删除「${s.title}」？`)) return
+                    onClick={async () => {
+                      if (!(await confirmDialog(`删除「${s.title}」？`, '删除'))) return
                       deleteAISet(s.id)
                       setAISets(loadAISets())
                     }}

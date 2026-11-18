@@ -50,6 +50,12 @@ function speakYoudao(text: string, accent: Accent) {
   audio.play().catch(() => speakSystem(text, accent))
 }
 
+/** 停止正在播放的发音（插件的老板键会调用） */
+export function stopSpeaking() {
+  synth?.cancel()
+  audio?.pause()
+}
+
 export function speak(text: string, opts: { accent: Accent; voice: VoiceSource }) {
   if (opts.voice === 'youdao') speakYoudao(text, opts.accent)
   else speakSystem(text, opts.accent)

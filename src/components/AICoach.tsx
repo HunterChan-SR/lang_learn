@@ -1,5 +1,6 @@
 import { isReady, useAIConfig } from '../lib/ai'
 import { clearError, deleteNote, generateNote, stopNote, useAINote } from '../lib/aiNotes'
+import { confirmDialog } from '../lib/host'
 import { navigate } from '../lib/router'
 import { speak } from '../lib/speech'
 import { useSettings } from '../lib/store'
@@ -22,7 +23,7 @@ export function AIButton({ word, onActivate }: { word: Word; onActivate?: () => 
     onActivate?.()
     if (task) return stopNote(word.w)
     if (!ready) {
-      if (window.confirm('还没有配置 AI。现在去「我的 → AI 助手」填写 API Key 吗？')) navigate('/me?ai=1')
+      void confirmDialog('还没有配置 AI。现在去「我的 → AI 助手」填写 API Key 吗？', '去设置').then((ok) => ok && navigate('/me?ai=1'))
       return
     }
     void generateNote(word, settings.book)
@@ -64,7 +65,7 @@ export function AIPanel({ word }: { word: Word }) {
         ) : note ? (
           <span className="muted small ellipsis">
             {note.model}
-            <button type="button" className="link-btn" onClick={() => window.confirm('删除这条 AI 助记？') && deleteNote(word.w)}>
+            <button type="button" className="link-btn" onClick={() => void confirmDialog('删除这条 AI 助记？', '删除').then((ok) => ok && deleteNote(word.w))}>
               删除
             </button>
           </span>

@@ -1,64 +1,27 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+import { useDeferredValue, useEffect, useRef, useState } from 'react'
 import { Icon } from '../components/Icon'
 import { SpeakButton, StarButton } from '../components/WordParts'
 import { WordSheet } from '../components/WordSheet'
-import { bookMeta, orderWords, shortMeaning, useAllWords, type BookState } from '../lib/books'
+import { bookMeta, shortMeaning, useAllWords, type BookState } from '../lib/books'
 import { navigate } from '../lib/router'
-import { wordStatus, type WordStatus } from '../lib/srs'
+import { wordStatus } from '../lib/srs'
 import { useAppData } from '../lib/store'
 import type { Word } from '../lib/types'
-
-type Filter = 'all' | WordStatus | 'starred' | 'wrong'
-
-const FILTERS: { id: Filter; label: string }[] = [
-  { id: 'all', label: '全部' },
-  { id: 'new', label: '未学' },
-  { id: 'learning', label: '学习中' },
-  { id: 'mastered', label: '已掌握' },
-  { id: 'starred', label: '生词本' },
-  { id: 'wrong', label: '错题本' },
-]
+import { useWordList, WORD_FILTERS, wordFilterOf } from '../lib/useWords'
 
 const PAGE = 80
 
 export function Words({ book, query }: { book: BookState; query: URLSearchParams }) {
   const data = useAppData()
   const all = useAllWords()
-  const filter = (FILTERS.find((f) => f.id === query.get('f'))?.id ?? 'all') as Filter
+  const filter = wordFilterOf(query.get('f'))
   const [search, setSearch] = useState('')
   const q = useDeferredValue(search.trim().toLowerCase())
   const [limit, setLimit] = useState(PAGE)
   const [detail, setDetail] = useState<Word | null>(null)
   const sentinel = useRef<HTMLDivElement>(null)
 
-  const ordered = useMemo(() => orderWords(book.words, data.settings.order), [book.words, data.settings.order])
-
-  const counts = useMemo(() => {
-    const c: Record<Filter, number> = { all: ordered.length, new: 0, learning: 0, mastered: 0, starred: 0, wrong: 0 }
-    for (const w of ordered) c[wordStatus(data.cards[w.w])] += 1
-    c.starred = Object.keys(data.starred).length
-    c.wrong = Object.keys(data.wrong).length
-    return c
-  }, [ordered, data])
-
-  const list = useMemo(() => {
-    let base: Word[]
-    if (filter === 'starred' || filter === 'wrong') {
-      const src = filter === 'starred' ? data.starred : data.wrong
-      // 生词本/错题本按加入时间倒序，可能包含其他词库的词
-      base = Object.keys(src)
-        .sort((a, b) => (filter === 'starred' ? data.starred[b] - data.starred[a] : data.wrong[b].last - data.wrong[a].last))
-        .map((k) => all?.get(k))
-        .filter((w): w is Word => !!w)
-    } else if (filter === 'all') {
-      base = ordered
-    } else {
-      base = ordered.filter((w) => wordStatus(data.cards[w.w]) === filter)
-    }
-    if (!q) return base
-    const isEn = /^[a-z' -]+$/.test(q)
-    return base.filter((w) => (isEn ? w.w.toLowerCase().startsWith(q) : w.t.some((t) => t.includes(q))))
-  }, [filter, ordered, data, all, q])
+  const { counts, list } = useWordList(book.words, all, data, filter, q)
 
   useEffect(() => {
     setLimit(PAGE)
@@ -100,7 +63,7 @@ export function Words({ book, query }: { book: BookState; query: URLSearchParams
       </div>
 
       <div className="chips-scroll" role="tablist">
-        {FILTERS.map((f) => (
+        {WORD_FILTERS.map((f) => (
           <button
             key={f.id}
             role="tab"

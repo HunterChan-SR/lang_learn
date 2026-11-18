@@ -1,0 +1,107 @@
+{
+  "name": "langlearn",
+  "displayName": "langLearn",
+  "description": "在编辑器里背四六级单词：界面长得像在写代码，状态栏滚动单词，一键老板键",
+  "version": "0.2.1",
+  "publisher": "hunterchan",
+  "author": "HunterChan",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "homepage": "https://hunterchan-sr.github.io/lang_learn/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HunterChan-SR/lang_learn"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Education",
+    "Other"
+  ],
+  "keywords": [
+    "english",
+    "vocabulary",
+    "cet",
+    "四六级",
+    "背单词"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onUri",
+    "onWebviewPanel:langLearn.editor"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "langLearn.open",
+        "title": "打开",
+        "category": "langLearn"
+      },
+      {
+        "command": "langLearn.boss",
+        "title": "老板键：隐藏 / 恢复",
+        "category": "langLearn"
+      },
+      {
+        "command": "langLearn.toggleTicker",
+        "title": "显示 / 隐藏状态栏单词",
+        "category": "langLearn"
+      },
+      {
+        "command": "langLearn.nextWord",
+        "title": "状态栏换一个单词",
+        "category": "langLearn"
+      },
+      {
+        "command": "langLearn.openRoute",
+        "title": "打开页面",
+        "category": "langLearn"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "langLearn.openRoute",
+          "when": "false"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "langLearn.boss",
+        "key": "alt+q"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "langLearn.files",
+          "name": "langLearn"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "langLearn",
+      "properties": {
+        "langLearn.ticker.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "在状态栏轮流显示正在学习的单词"
+        },
+        "langLearn.ticker.interval": {
+          "type": "number",
+          "default": 30,
+          "minimum": 5,
+          "description": "状态栏单词切换间隔（秒）"
+        },
+        "langLearn.ticker.showMeaning": {
+          "type": "boolean",
+          "default": true,
+          "description": "状态栏同时显示中文释义；关闭后只显示英文，鼠标移上去才显示释义"
+        }
+      }
+    }
+  }
+}

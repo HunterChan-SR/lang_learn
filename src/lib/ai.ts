@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react'
-import { desktop, netFetch } from './desktop'
+import { netFetch, proxied } from './host'
 
 /**
  * 大模型接入：用户自己填写服务商、地址、API Key 和模型名，浏览器直接调用。
@@ -123,7 +123,7 @@ export const AI_PRESETS: AIPreset[] = [
     protocol: 'openai',
     baseUrl: 'http://localhost:11434/v1',
     models: [],
-    note: desktop ? '在本机运行 Ollama 即可' : '需先设置环境变量 OLLAMA_ORIGINS=* 再启动 Ollama；仅电脑上可用',
+    note: proxied ? '在本机运行 Ollama 即可' : '需先设置环境变量 OLLAMA_ORIGINS=* 再启动 Ollama；仅电脑上可用',
     modelHint: '如 qwen3:8b，需先用 ollama pull 下载',
   },
   {
@@ -137,7 +137,7 @@ export const AI_PRESETS: AIPreset[] = [
 ]
 
 /** 当前环境可用的预设 */
-export const VISIBLE_PRESETS = AI_PRESETS.filter((p) => !p.desktopOnly || desktop)
+export const VISIBLE_PRESETS = AI_PRESETS.filter((p) => !p.desktopOnly || proxied)
 
 export function presetOf(id: string): AIPreset {
   return AI_PRESETS.find((p) => p.id === id) ?? AI_PRESETS[AI_PRESETS.length - 1]
@@ -259,7 +259,7 @@ function stripThink(text: string): string {
 
 /** 网页版是 HTTPS 页面，浏览器会直接拦截对 http:// 地址的请求（本机 localhost 除外），提前给出明确的提示 */
 function blockedByBrowser(cfg: AIConfig): AIError | null {
-  if (desktop || typeof location === 'undefined' || location.protocol !== 'https:') return null
+  if (proxied || typeof location === 'undefined' || location.protocol !== 'https:') return null
   let host: string
   try {
     const u = new URL(normalizeBase(cfg.baseUrl))
@@ -435,7 +435,7 @@ async function toAIError(e: unknown, signal?: AbortSignal): Promise<AIError> {
   if (err?.name === 'APIUserAbortError') return new AIError('已停止', 'aborted')
   if (err?.name === 'APIConnectionError' || err?.name === 'APIConnectionTimeoutError' || e instanceof TypeError) {
     return new AIError(
-      desktop
+      proxied
         ? '无法连接到服务：请检查网络和接口地址'
         : '无法连接到服务：请检查网络和接口地址。网页版只能访问允许跨域的接口，Kimi、智谱、Gemini 官方接口和多数自建网关都不允许，可以改用桌面版',
       'network',

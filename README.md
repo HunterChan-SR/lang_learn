@@ -4,6 +4,8 @@
 
 - **网页版**：适配手机、iPad 和电脑，纯静态页面，部署在 GitHub Pages：<https://hunterchan-sr.github.io/lang_learn/>
 - **桌面版**：macOS / Windows，在 [Releases](https://github.com/HunterChan-SR/lang_learn/releases/latest) 下载
+- **VS Code 插件**：界面长得像在写代码，也在 Releases 下载（`.vsix`），Cursor、Trae 等基于 VS Code 的编辑器也能装
+- **代码皮肤**：网页版也可以切换成代码编辑器的样子，适合在 VS Code 内置浏览器里打开：<https://hunterchan-sr.github.io/lang_learn/?skin=code>
 
 ## 功能
 
@@ -29,6 +31,7 @@
 - **统计**：今日进度、连续打卡天数、最近 7 天学习量
 - **数据**：进度保存在浏览器 localStorage，登录后自动同步到云端；支持导出和导入 JSON
 - **体验**：响应式布局（手机底部导航，iPad/PC 侧边导航），深色模式，键盘快捷键，支持添加到主屏幕
+- **代码皮肤**：整个界面伪装成代码编辑器——首页是 `today.ts`，背单词是 `session.ts`（释义藏在 `meaning` 里，评分按钮是 CodeLens），测验是 `quiz.test.ts`（答对答错显示为测试通过/失败），词库是 `words.json`，练习是 Markdown 预览，设置页是 Settings。在「我的 → 界面」切换，或打开带 `?skin=code` 的网址；按设备记住，不随进度同步。代码皮肤下默认不自动发音
 
 ### 快捷键（电脑 / iPad 外接键盘）
 
@@ -76,7 +79,7 @@ npm version patch      # 或 minor / major：修改 package.json 版本并打上
 git push --follow-tags
 ```
 
-产物：`langLearn-<版本>-mac-arm64.dmg`（Apple 芯片）、`langLearn-<版本>-mac-x64.dmg`（Intel）、`langLearn-<版本>-win-x64-setup.exe`。
+产物：`langLearn-<版本>-mac-arm64.dmg`（Apple 芯片）、`langLearn-<版本>-mac-x64.dmg`（Intel）、`langLearn-<版本>-win-x64-setup.exe`，以及 VS Code 插件 `langLearn-<版本>-vscode.vsix`。
 
 ## 登录与多设备同步
 
@@ -120,6 +123,24 @@ npm run users -- del <GitHub用户名>    # 删除账号（云端进度一起删
 
 Supabase 免费项目连续 7 天无活动会被暂停。`.github/workflows/keepalive.yml` 每 3 天访问一次数据库保持活跃。公开仓库 60 天没有新提交时，GitHub 会停用定时任务，到 Actions 页面重新启用即可。
 
+## VS Code 插件
+
+`vscode/` 目录。插件在编辑器标签页（webview）里运行同一套网页，固定使用代码皮肤，另外：
+
+- 标签页标题和图标跟着页面变成 `today.ts`、`session.ts`、`words.json`……，界面使用当前编辑器的主题颜色和字体
+- 资源管理器里有一组 LangLearn “文件”，点击打开对应页面
+- 状态栏轮流显示正在学习的单词（设置 `langLearn.ticker.*`）
+- 老板键 `Alt+Q`：切到工作区里的代码文件（没有就打开一段示例代码），停止发音，隐藏状态栏单词；再按一次切回来
+- 学习进度保存在 VS Code 里，API Key 和登录凭据保存在系统钥匙串；AI 和同步请求由插件转发，不受跨域限制，内网和本机接口也能用
+- GitHub 登录在系统浏览器中完成，授权后回到编辑器。**需要在 Supabase 的 Redirect URLs 中添加** `vscode://hunterchan.langlearn/auth-callback`（Cursor、Trae 等编辑器把开头换成 `cursor://`、`trae://`）
+
+```bash
+npm run vscode:package   # 构建网页并打包插件到 release/langLearn-<版本>-vscode.vsix
+code --install-extension release/langLearn-<版本>-vscode.vsix
+```
+
+插件随桌面版一起在推送 `v*` 标签时自动打包发布；`npm version` 会同步 `vscode/package.json` 的版本号。
+
 ## 开发
 
 ```bash
@@ -148,9 +169,13 @@ src/
     practiceAI.ts AI 出题、批改、讲解
     listen.ts     听力朗读
     router.ts     hash 路由
+    host.ts       运行环境（网页 / 桌面版 / VS Code 插件）相关的能力
+    skin.ts       界面皮肤（默认 / 代码）
   components/   # 通用组件
   pages/        # 首页、学习、测验、练习、词库、我的
+  code/         # 代码皮肤：把首页、学习、测验、词库画成代码
 desktop/        # 桌面版（Electron）主进程和预加载脚本
+vscode/         # VS Code 插件
 build/          # 桌面版图标
 public/data/    # 词库 JSON；x/ 下是按首字母分片的单词增强资料；practice/ 下是内置练习题
 scripts/        # 数据生成脚本
@@ -200,6 +225,7 @@ npm run extras -- --ecdict ecdict.csv --roots wordroot.txt --resemble resemble.t
 - [x] 例句、词根、辨析等单词增强资料，AI 助记
 - [x] 听力、阅读、翻译、写作等专项练习
 - [x] 桌面版（macOS / Windows），推送标签自动发布
+- [x] 代码皮肤和 VS Code 插件
 - [ ] PWA 离线缓存
 
 ## 开源协议

@@ -2,7 +2,7 @@
   "name": "cet-words",
   "private": true,
   "version": "0.2.1",
-  "description": "四六级英语学习：背单词、题型练习、AI 助记与批改",
+  "description": "四六级英语学习：背单词、题型练习、AI 助记与批改（网页、桌面版、VS Code 插件）",
   "author": "HunterChan",
   "homepage": "https://hunterchan-sr.github.io/lang_learn/",
   "license": "MIT",
@@ -17,7 +17,9 @@
     "extras": "node scripts/build-extras.mjs",
     "users": "node scripts/users.mjs",
     "desktop": "npm run build && electron .",
-    "desktop:dist": "npm run build && electron-builder --publish never"
+    "desktop:dist": "npm run build && electron-builder --publish never",
+    "vscode:package": "npm run build && node scripts/package-vscode.mjs",
+    "version": "node scripts/sync-vscode-version.mjs && git add vscode/package.json"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^1.9.0",
@@ -25,6 +27,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.3.0",
+    "@vscode/vsce": "4.1.0",
     "electron": "^45.3.3",
     "electron-builder": "^26.18.0",
     "opencc-js": "^1.4.2",

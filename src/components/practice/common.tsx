@@ -8,6 +8,7 @@ import type { Word } from '../../lib/types'
 import { Icon } from '../Icon'
 import { Markdown } from '../Markdown'
 import { WordSheet } from '../WordSheet'
+import { confirmDialog } from '../../lib/host'
 
 /** 模拟考试进度：在考试中渲染各部分时提供 */
 export const ExamContext = createContext<{ step: number; total: number } | null>(null)
@@ -35,9 +36,11 @@ export function RunHeader({ set, secs }: { set: PracticeSet; secs: number }) {
       <button
         className="icon-btn"
         aria-label="退出练习"
-        onClick={() => {
-          if (exam ? window.confirm('退出模拟考试？已完成的部分会保留在练习记录里。') : secs < 20 || window.confirm('退出后本次作答不会保存，确定退出吗？'))
-            navigate('/practice')
+        onClick={async () => {
+          const ok = exam
+            ? await confirmDialog('退出模拟考试？已完成的部分会保留在练习记录里。', '退出')
+            : secs < 20 || (await confirmDialog('退出后本次作答不会保存，确定退出吗？', '退出'))
+          if (ok) navigate('/practice')
         }}
       >
         <Icon name="close" />

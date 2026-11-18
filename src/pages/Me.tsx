@@ -5,6 +5,8 @@ import { Icon } from '../components/Icon'
 import { BOOKS } from '../lib/books'
 import { todayKey } from '../lib/date'
 import { desktop } from '../lib/desktop'
+import { alertDialog, confirmDialog, hostLabel, saveTextFile } from '../lib/host'
+import { setSkin, skinLocked, useSkin } from '../lib/skin'
 import { speak, speechSupported } from '../lib/speech'
 import { exportData, importData, resetProgress, updateSettings, useAppData } from '../lib/store'
 import { useSync } from '../lib/sync'
@@ -41,27 +43,19 @@ export function Me({ query }: { query: URLSearchParams }) {
   const fileRef = useRef<HTMLInputElement>(null)
   const set = (patch: Partial<Settings>) => updateSettings(patch)
 
-  const doExport = () => {
-    const blob = new Blob([exportData()], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `langLearn-进度-${todayKey()}.json`
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
-    setTimeout(() => URL.revokeObjectURL(url), 1000)
-  }
+  const doExport = () => void saveTextFile(`langLearn-进度-${todayKey()}.json`, exportData())
 
   const doImport = async (file: File | undefined) => {
     if (!file) return
     const text = await file.text()
     const scope = signedIn ? '当前账号（包括云端）' : '当前设备上'
-    if (!window.confirm(`导入会覆盖${scope}的全部学习进度，确定继续吗？`)) return
-    window.alert(importData(text) ? '导入成功' : '文件格式不正确，导入失败')
+    if (!(await confirmDialog(`导入会覆盖${scope}的全部学习进度，确定继续吗？`, '导入'))) return
+    await alertDialog(importData(text) ? '导入成功' : '文件格式不正确，导入失败')
   }
 
   const learned = Object.keys(data.cards).length
+  const skin = useSkin()
+  const label = hostLabel()
 
   return (
     <div className="page">
@@ -96,6 +90,26 @@ export function Me({ query }: { query: URLSearchParams }) {
           />
         </Row>
       </section>
+
+      {!skinLocked && (
+        <section className="card">
+          <h3>界面</h3>
+          <Row label="皮肤" desc={skin === 'code' ? '界面伪装成代码编辑器，默认不自动发音' : '代码皮肤会把界面伪装成代码编辑器'}>
+            <Seg
+              value={skin}
+              options={[
+                { v: 'default', label: '默认' },
+                { v: 'code', label: '代码' },
+              ]}
+              onChange={setSkin}
+            />
+          </Row>
+          <p className="muted small">
+            也可以直接打开带 <code>?skin=code</code> 的网址，例如在 VS Code 的内置浏览器里打开{' '}
+            <code>hunterchan-sr.github.io/lang_learn/?skin=code</code>。
+          </p>
+        </section>
+      )}
 
       <section className="card">
         <h3>发音</h3>
@@ -158,9 +172,9 @@ export function Me({ query }: { query: URLSearchParams }) {
           />
           <button
             className="btn danger"
-            onClick={() => {
+            onClick={async () => {
               const scope = signedIn ? '（包括云端）' : ''
-              if (window.confirm(`确定清空所有学习记录、生词本和错题本${scope}吗？此操作无法撤销。`)) resetProgress()
+              if (await confirmDialog(`确定清空所有学习记录、生词本和错题本${scope}吗？此操作无法撤销。`, '重置')) resetProgress()
             }}
           >
             重置进度
@@ -185,17 +199,22 @@ export function Me({ query }: { query: URLSearchParams }) {
           整理。
         </p>
         <p>快捷键：空格 查看释义 · 1–4 评分 · R 朗读 · S 收藏 · Esc 退出</p>
-        {desktop ? (
+        {label ? (
           <p>
-            桌面版 {desktop.version} ·{' '}
-            <button type="button" className="link" onClick={() => void desktop?.checkUpdate()}>
-              检查更新
-            </button>
+            {label}
+            {desktop && (
+              <>
+                {' · '}
+                <button type="button" className="link" onClick={() => void desktop?.checkUpdate()}>
+                  检查更新
+                </button>
+              </>
+            )}
           </p>
         ) : (
           <p>
             <a href="https://github.com/HunterChan-SR/lang_learn/releases/latest" target="_blank" rel="noreferrer">
-              下载桌面版（macOS / Windows）
+              下载桌面版（macOS / Windows）和 VS Code 插件
             </a>
             ，离线可用，AI 服务不受浏览器跨域限制。
           </p>
