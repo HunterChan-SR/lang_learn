@@ -6,7 +6,7 @@ import { BOOKS } from '../lib/books'
 import { todayKey } from '../lib/date'
 import { desktop } from '../lib/desktop'
 import { alertDialog, confirmDialog, hostLabel, saveTextFile } from '../lib/host'
-import { setSkin, skinLocked, useSkin } from '../lib/skin'
+import { autoSkinValue, setSkinPref, skinLocked, useSkin, useSkinPref } from '../lib/skin'
 import { speak, speechSupported } from '../lib/speech'
 import { exportData, importData, resetProgress, updateSettings, useAppData } from '../lib/store'
 import { useSync } from '../lib/sync'
@@ -55,6 +55,7 @@ export function Me({ query }: { query: URLSearchParams }) {
 
   const learned = Object.keys(data.cards).length
   const skin = useSkin()
+  const skinPref = useSkinPref()
   const label = hostLabel()
 
   return (
@@ -94,19 +95,28 @@ export function Me({ query }: { query: URLSearchParams }) {
       {!skinLocked && (
         <section className="card">
           <h3>界面</h3>
-          <Row label="皮肤" desc={skin === 'code' ? '界面伪装成代码编辑器，默认不自动发音' : '代码皮肤会把界面伪装成代码编辑器'}>
+          <Row
+            label="皮肤"
+            desc={
+              skinPref === 'auto'
+                ? `自动：常用浏览器和手机上用默认界面，其他环境（如 VS Code 内置浏览器、桌面版）用代码界面。当前为${autoSkinValue() === 'code' ? '代码' : '默认'}界面`
+                : skin === 'code'
+                  ? '界面伪装成代码编辑器，默认不自动发音'
+                  : '常规界面'
+            }
+          >
             <Seg
-              value={skin}
+              value={skinPref}
               options={[
+                { v: 'auto', label: '自动' },
                 { v: 'default', label: '默认' },
                 { v: 'code', label: '代码' },
               ]}
-              onChange={setSkin}
+              onChange={setSkinPref}
             />
           </Row>
           <p className="muted small">
-            也可以直接打开带 <code>?skin=code</code> 的网址，例如在 VS Code 的内置浏览器里打开{' '}
-            <code>hunterchan-sr.github.io/lang_learn/?skin=code</code>。
+            也可以在网址后面加 <code>?skin=code</code>、<code>?skin=default</code> 或 <code>?skin=auto</code> 切换。
           </p>
         </section>
       )}

@@ -5,7 +5,7 @@
 - **网页版**：适配手机、iPad 和电脑，纯静态页面，部署在 GitHub Pages：<https://hunterchan-sr.github.io/lang_learn/>
 - **桌面版**：macOS / Windows，在 [Releases](https://github.com/HunterChan-SR/lang_learn/releases/latest) 下载
 - **VS Code 插件**：界面长得像在写代码，也在 Releases 下载（`.vsix`），Cursor、Trae 等基于 VS Code 的编辑器也能装
-- **代码皮肤**：网页版也可以切换成代码编辑器的样子，适合在 VS Code 内置浏览器里打开：<https://hunterchan-sr.github.io/lang_learn/?skin=code>
+- **代码皮肤**：界面默认伪装成代码编辑器，只有在常用浏览器（Chrome、Safari、Edge、Firefox 等）和手机上才自动换成常规界面，所以在 VS Code 的内置浏览器里直接打开网址就是代码界面
 
 ## 功能
 
@@ -31,7 +31,7 @@
 - **统计**：今日进度、连续打卡天数、最近 7 天学习量
 - **数据**：进度保存在浏览器 localStorage，登录后自动同步到云端；支持导出和导入 JSON
 - **体验**：响应式布局（手机底部导航，iPad/PC 侧边导航），深色模式，键盘快捷键，支持添加到主屏幕
-- **代码皮肤**：整个界面伪装成代码编辑器——首页是 `today.ts`，背单词是 `session.ts`（释义藏在 `meaning` 里，评分按钮是 CodeLens），测验是 `quiz.test.ts`（答对答错显示为测试通过/失败），词库是 `words.json`，练习是 Markdown 预览，设置页是 Settings。在「我的 → 界面」切换，或打开带 `?skin=code` 的网址；按设备记住，不随进度同步。代码皮肤下默认不自动发音
+- **代码皮肤**：整个界面伪装成代码编辑器——首页是 `today.ts`，背单词是 `session.ts`（释义藏在 `meaning` 里，评分按钮是 CodeLens），测验是 `quiz.test.ts`（答对答错显示为测试通过/失败），词库是 `words.json`，练习是 Markdown 预览，设置页是 Settings。默认自动选择：常用浏览器和手机上用常规界面，其他环境（VS Code / Cursor / Trae 的内置浏览器、桌面版等 Electron 环境）用代码界面；也可以在「我的 → 界面」手动指定，或在网址后加 `?skin=code` / `?skin=default` / `?skin=auto`。按设备记住，不随进度同步。代码皮肤下默认不自动发音
 
 ### 快捷键（电脑 / iPad 外接键盘）
 

@@ -21,7 +21,10 @@ export function Layout({ path, focus, children }: { path: string; focus: boolean
     <div className="shell">
       <nav className="nav" aria-label="主导航">
         <div className="nav-brand">
-          <span className="brand-mark">词</span>
+          <svg className="brand-mark" viewBox="0 0 512 512" aria-hidden="true">
+            <rect width="512" height="512" rx="104" fill="#7048e8" />
+            <path d="M148 204h68v180h76v68H148zM320 204h68v180h68v68H320z" fill="#fff" />
+          </svg>
           <span className="brand-text">langLearn</span>
         </div>
         {TABS.map((t) => (
