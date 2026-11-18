@@ -136,6 +136,6 @@ jobs:
             - **macOS**：把应用拖进“应用程序”后打开；如果提示无法打开，到 **系统设置 → 隐私与安全性**，在页面底部点 **仍要打开**。
               如果提示“已损坏”，在终端运行 `xattr -cr /Applications/langLearn.app` 后再打开。
             - **Windows**：如果出现“Windows 已保护你的电脑”，点 **更多信息 → 仍要运行**。
-            - **VS Code 插件**：在扩展视图右上角 `…` 菜单选择 **从 VSIX 安装…**，或者运行 `code --install-extension langLearn-${{ steps.ver.outputs.version }}-vscode.vsix`。之后在命令面板运行 **langLearn: 打开**，`Alt+Q` 是老板键。
+            - **VS Code 插件**：在扩展视图右上角 `…` 菜单选择 **从 VSIX 安装…**，或者运行 `code --install-extension langLearn-${{ steps.ver.outputs.version }}-vscode.vsix`。之后在命令面板运行 **langLearn: 打开**，老板键是 `Alt+Q`（Mac 上是 `⌥ Option + Q`）。
 
             桌面版和网页版功能相同，另外：离线可用；AI 服务不受浏览器跨域限制（Kimi、智谱、Gemini 也能直接用）；登录在系统浏览器中完成。

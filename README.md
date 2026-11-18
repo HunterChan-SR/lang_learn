@@ -130,7 +130,7 @@ Supabase 免费项目连续 7 天无活动会被暂停。`.github/workflows/keep
 - 标签页标题和图标跟着页面变成 `today.ts`、`session.ts`、`words.json`……，界面使用当前编辑器的主题颜色和字体
 - 资源管理器里有一组 LangLearn “文件”，点击打开对应页面
 - 状态栏轮流显示正在学习的单词（设置 `langLearn.ticker.*`）
-- 老板键 `Alt+Q`：切到工作区里的代码文件（没有就打开一段示例代码），停止发音，隐藏状态栏单词；再按一次切回来
+- 老板键 `Alt+Q`（Mac 上是 `⌥ Option + Q`）：切到工作区里的代码文件（没有就打开一段示例代码），停止发音，隐藏状态栏单词；再按一次切回来
 - 学习进度保存在 VS Code 里，API Key 和登录凭据保存在系统钥匙串；AI 和同步请求由插件转发，不受跨域限制，内网和本机接口也能用
 - GitHub 登录在系统浏览器中完成，授权后回到编辑器。**需要在 Supabase 的 Redirect URLs 中添加** `vscode://hunterchan.langlearn/auth-callback`（Cursor、Trae 等编辑器把开头换成 `cursor://`、`trae://`）
 
