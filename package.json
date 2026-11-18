@@ -1,7 +1,7 @@
 {
   "name": "cet-words",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "四六级英语学习：背单词、题型练习、AI 助记与批改",
   "author": "HunterChan",
   "homepage": "https://hunterchan-sr.github.io/lang_learn/",
