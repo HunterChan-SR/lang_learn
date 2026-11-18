@@ -193,7 +193,7 @@ export function AISettings({ highlight = false }: { highlight?: boolean }) {
       <p className="muted small">
         {desktop
           ? '桌面版通过应用转发请求，所有服务都可以直接使用。'
-          : 'Kimi、智谱 GLM、Gemini 的官方接口不允许网页直接调用，可以通过 OpenRouter 或硅基流动使用，或者改用桌面版。'}
+          : 'Kimi、智谱 GLM、Gemini 的官方接口不允许网页直接调用，可以通过 OpenRouter 或硅基流动使用；内网或 http:// 开头的自建网关在网页版也用不了。这些情况都可以改用桌面版。'}
       </p>
     </section>
   )

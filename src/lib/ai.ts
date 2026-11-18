@@ -257,9 +257,29 @@ function stripThink(text: string): string {
   return text.replace(/<think>[\s\S]*?(<\/think>\s*|$)/g, '').replace(/^\s+/, '')
 }
 
+/** 网页版是 HTTPS 页面，浏览器会直接拦截对 http:// 地址的请求（本机 localhost 除外），提前给出明确的提示 */
+function blockedByBrowser(cfg: AIConfig): AIError | null {
+  if (desktop || typeof location === 'undefined' || location.protocol !== 'https:') return null
+  let host: string
+  try {
+    const u = new URL(normalizeBase(cfg.baseUrl))
+    if (u.protocol !== 'http:') return null
+    host = u.hostname
+  } catch {
+    return null
+  }
+  if (host === 'localhost' || host === '[::1]' || /^127\.\d+\.\d+\.\d+$/.test(host)) return null
+  return new AIError(
+    '网页版是 HTTPS 页面，浏览器不允许它访问 http:// 开头的接口（本机 localhost 除外）。请改用桌面版，或者给接口配置 HTTPS 并允许跨域访问',
+    'network',
+  )
+}
+
 export async function chat(opts: ChatOptions): Promise<string> {
   const cfg = opts.config ?? config
   if (!isReady(cfg)) throw new AIError('还没有配置 AI，请先到「我的 → AI 助手」填写', 'config')
+  const blocked = blockedByBrowser(cfg)
+  if (blocked) throw blocked
   opts.onPhase?.('waiting')
   try {
     const text = cfg.protocol === 'anthropic' ? await chatAnthropic(cfg, opts) : await chatOpenAI(cfg, opts)
@@ -417,7 +437,7 @@ async function toAIError(e: unknown, signal?: AbortSignal): Promise<AIError> {
     return new AIError(
       desktop
         ? '无法连接到服务：请检查网络和接口地址'
-        : '无法连接到服务：请检查网络和接口地址；部分服务（如 Kimi、智谱、Gemini 官方接口）不允许网页直接调用，可以改用桌面版',
+        : '无法连接到服务：请检查网络和接口地址。网页版只能访问允许跨域的接口，Kimi、智谱、Gemini 官方接口和多数自建网关都不允许，可以改用桌面版',
       'network',
     )
   }
@@ -459,6 +479,8 @@ export async function chatJSON<T>(opts: ChatOptions, validate: (v: unknown) => T
 
 /** 获取服务商提供的模型列表 */
 export async function listModels(cfg: AIConfig, signal?: AbortSignal): Promise<string[]> {
+  const blocked = blockedByBrowser(cfg)
+  if (blocked) throw blocked
   try {
     if (cfg.protocol === 'anthropic') {
       const { default: Anthropic } = await import('@anthropic-ai/sdk')

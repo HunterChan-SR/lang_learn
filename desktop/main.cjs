@@ -22,8 +22,9 @@ const REPO = 'HunterChan-SR/lang_learn'
 const WEBSITE = 'https://hunterchan-sr.github.io/lang_learn/'
 const DIST = path.join(__dirname, '..', 'dist')
 
-// 数据目录固定沿用 0.2.0 的 cet-words（localStorage、窗口位置都在里面），改应用名不影响已有数据
-app.setPath('userData', path.join(app.getPath('appData'), 'cet-words'))
+// 数据目录固定沿用 0.2.0 的 cet-words（localStorage、窗口位置都在里面），改应用名不影响已有数据。
+// 开发测试时可以用 --user-data-dir=<目录> 换一个独立目录，不影响本机已安装应用的数据
+app.setPath('userData', app.commandLine.getSwitchValue('user-data-dir') || path.join(app.getPath('appData'), 'cet-words'))
 app.setName('langLearn')
 
 protocol.registerSchemesAsPrivileged([
