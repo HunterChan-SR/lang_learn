@@ -5,28 +5,29 @@ import type { Accent, VoiceSource } from './types'
  * - system：浏览器自带语音合成（离线可用，iOS/iPadOS/Chrome 均支持）
  * - youdao：有道词典在线真人发音，国内访问快；失败时自动退回系统语音
  */
-let voices: SpeechSynthesisVoice[] = []
 const synth = typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis : null
-
-function refreshVoices() {
-  if (synth) voices = synth.getVoices()
-}
-if (synth) {
-  refreshVoices()
-  synth.addEventListener?.('voiceschanged', refreshVoices)
-}
+// Chrome 首次调用才开始加载语音列表，提前触发一下
+synth?.getVoices()
 
 export const speechSupported = !!synth
 
-function pickVoice(lang: string): SpeechSynthesisVoice | undefined {
-  const exact = voices.filter((v) => v.lang.replace('_', '-').toLowerCase() === lang.toLowerCase())
-  // 优先使用质量更好的增强/高级语音
-  return (
-    exact.find((v) => /enhanced|premium|natural|google/i.test(v.name)) ??
-    exact.find((v) => v.localService) ??
-    exact[0] ??
-    voices.find((v) => v.lang.toLowerCase().startsWith('en'))
-  )
+/**
+ * macOS / iOS 自带一批“趣味”和老式机械音（Albert、Bubbles、Zarvox、Fred、Grandma……），
+ * 它们同样标着 en-US，而且按字母排在 Samantha 前面，随便取一个就会读得很怪
+ */
+const ODD_VOICE =
+  /^(albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|junior|kathy|ralph|eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley)\b/i
+/** 系统里另外下载的高质量语音、Edge 的神经网络语音 */
+const HQ_VOICE = /enhanced|premium|natural|neural/i
+
+/** 所有可用的英语语音（已去掉怪声音）：指定口音排前面，同口音里音质好的排前面 */
+export function englishVoices(lang: string): SpeechSynthesisVoice[] {
+  const want = lang.toLowerCase()
+  const rank = (v: SpeechSynthesisVoice) =>
+    (v.lang.replace('_', '-').toLowerCase() === want ? 0 : 3) + (HQ_VOICE.test(v.name) ? 0 : /google/i.test(v.name) ? 1 : 2)
+  return (synth?.getVoices() ?? [])
+    .filter((v) => v.lang.toLowerCase().startsWith('en') && !ODD_VOICE.test(v.name))
+    .sort((a, b) => rank(a) - rank(b))
 }
 
 function speakSystem(text: string, accent: Accent) {
@@ -34,7 +35,8 @@ function speakSystem(text: string, accent: Accent) {
   synth.cancel()
   const u = new SpeechSynthesisUtterance(text)
   u.lang = accent === 'uk' ? 'en-GB' : 'en-US'
-  const v = pickVoice(u.lang)
+  // 一个能用的都没有时不指定，交给系统按 lang 选默认语音
+  const v = englishVoices(u.lang)[0]
   if (v) u.voice = v
   u.rate = 0.9
   synth.speak(u)

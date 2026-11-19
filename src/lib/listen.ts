@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Speaker } from './practice'
+import { englishVoices } from './speech'
 import type { Accent } from './types'
 
 /**
@@ -10,18 +11,15 @@ import type { Accent } from './types'
 const synth = typeof window !== 'undefined' && 'speechSynthesis' in window ? window.speechSynthesis : null
 export const ttsSupported = !!synth
 
-const MALE = /male|daniel|alex|fred|tom|aaron|arthur|guy|david|mark|james|george|oliver|rishi|reed|eddy|ralph/i
-const FEMALE = /female|samantha|karen|victoria|zira|susan|moira|tessa|serena|kate|allison|ava|jenny|aria|libby|sonia|martha|flo|shelley|sandy|google us english|google uk english female/i
+const MALE = /male|daniel|alex|tom|aaron|arthur|guy|david|mark|james|george|oliver|rishi/i
+const FEMALE = /female|samantha|karen|victoria|zira|susan|moira|tessa|serena|kate|allison|ava|jenny|aria|libby|sonia|martha|google us english|google uk english female/i
 
 function voicesFor(accent: Accent) {
-  const all = synth?.getVoices() ?? []
-  const lang = accent === 'uk' ? 'en-gb' : 'en-us'
-  const local = all.filter((v) => v.lang.replace('_', '-').toLowerCase() === lang)
-  const en = local.length ? local : all.filter((v) => v.lang.toLowerCase().startsWith('en'))
+  // 当前口音排在前面；该口音缺男声或女声时，借用其他口音的真人声，比改音调自然
+  const en = englishVoices(accent === 'uk' ? 'en-GB' : 'en-US')
   const male = en.find((v) => MALE.test(v.name) && !/female/i.test(v.name))
   const female = en.find((v) => FEMALE.test(v.name))
-  const narrator = en.find((v) => /enhanced|premium|natural/i.test(v.name)) ?? female ?? en[0]
-  return { male, female, narrator }
+  return { male, female, narrator: en[0] }
 }
 
 export interface Segment {
