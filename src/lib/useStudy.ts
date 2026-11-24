@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { BookState } from './books'
 import { dayIndex, todayKey } from './date'
 import { navigate } from './router'
@@ -100,6 +100,8 @@ export function useStudySession(book: BookState, extra: number, opts: { autoPlay
   const total = queue?.length ?? 0
   const card = item ? data.cards[item.word.w] : undefined
   const intervals = item ? nextIntervals(card) : null
+  /** 词库里还没学过的词数，学完一组后“再学一组”用 */
+  const remainingNew = useMemo(() => book.words.reduce((n, w) => (data.cards[w.w] ? n : n + 1), 0), [book.words, data.cards])
 
-  return { data, queue, pos, item, finished, revealed, reveal, grade, tally, newCount, total, card, intervals, say }
+  return { data, queue, pos, item, finished, revealed, reveal, grade, tally, newCount, total, card, intervals, say, remainingNew }
 }

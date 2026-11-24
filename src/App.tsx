@@ -7,6 +7,7 @@ import { CodeWords } from './code/CodeWords'
 import { Layout } from './components/Layout'
 import { useBook } from './lib/books'
 import { useRoute } from './lib/router'
+import { clampCount, MAX_EXTRA } from './lib/session'
 import { useSkin } from './lib/skin'
 import { useSettings } from './lib/store'
 import { Home } from './pages/Home'
@@ -38,7 +39,7 @@ export function App() {
     let code
     switch (path) {
       case '/study':
-        code = <CodeStudy key={query.toString()} book={book} extra={Number(query.get('extra')) || 0} />
+        code = <CodeStudy key={query.toString()} book={book} extra={clampCount(query.get('extra'), MAX_EXTRA)} />
         break
       case '/quiz':
         code = <CodeQuiz book={book} query={query} />
@@ -73,7 +74,7 @@ export function App() {
   let page
   switch (path) {
     case '/study':
-      page = <Study key={query.toString()} book={book} extra={Number(query.get('extra')) || 0} />
+      page = <Study key={query.toString()} book={book} extra={clampCount(query.get('extra'), MAX_EXTRA)} />
       break
     case '/quiz':
       page = <Quiz book={book} query={query} />

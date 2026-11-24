@@ -5,7 +5,8 @@ import { navigate } from '../lib/router'
 import { bookStats, dailyPlan } from '../lib/session'
 import { MASTERED_IVL } from '../lib/srs'
 import { getDayLog, streakDays, updateSettings, useAppData } from '../lib/store'
-import { Act, C, Cm, Code, F, K, L, Lens, N, S, V } from './Code'
+import { useMoreWords } from '../lib/useMoreWords'
+import { Act, C, Cm, Code, F, K, L, Lens, N, NumInput, S, V } from './Code'
 
 const BARS = '▁▂▃▄▅▆▇█'
 const DAILY = [10, 20, 30, 50]
@@ -29,6 +30,9 @@ export function CodeHome({ book }: { book: BookState }) {
   const streak = streakDays(data, today)
   const todo = plan.reviews.length + plan.news.length
   const remainingNew = stats.total - stats.learned
+  const more = useMoreWords(remainingNew)
+  // 今日任务完成后，study() 多一个可以改的参数：再学几个新词
+  const extraMode = todo === 0 && more.max > 0
   const meta = bookMeta(settings.book)
 
   const week = Array.from({ length: 7 }, (_, i) => {
@@ -162,16 +166,36 @@ export function CodeHome({ book }: { book: BookState }) {
                   ]
                 : [
                     { label: '✓ all done today' },
-                    remainingNew > 0 && { label: 'Run study(+10)', onClick: () => navigate('/study?extra=10'), title: '再学 10 个新词' },
+                    extraMode && more.count > 0 && { label: `Run study(+${more.count})`, onClick: () => more.start(), title: `再学 ${more.count} 个新词` },
                   ]
             }
           />
           <L>
-            <C>export</C> <K>async</K> <K>function</K> <F>study</F>() {'{'}
+            <C>export</C> <K>async</K> <K>function</K> <F>study</F>(
+            {extraMode && (
+              <>
+                <V>extra</V> ={' '}
+                <NumInput
+                  value={more.value}
+                  onChange={more.setValue}
+                  onStep={more.step}
+                  onCommit={more.commit}
+                  onEnter={() => more.start()}
+                  label={`再学几个新词（1–${more.max}），回车开始`}
+                />
+              </>
+            )}
+            ) {'{'}
+            {extraMode && (
+              <>
+                {' '}
+                <Cm>// 再学几个新词：改数字，回车开始</Cm>
+              </>
+            )}
           </L>
           <L i={1}>
             <C>await</C> <V>session</V>.<F>start</F>({'{ '}
-            <V>news</V>: <N>{plan.news.length}</N>, <V>reviews</V>: <N>{plan.reviews.length}</N>
+            <V>news</V>: {extraMode ? <V>extra</V> : <N>{plan.news.length}</N>}, <V>reviews</V>: <N>{plan.reviews.length}</N>
             {' }'})
           </L>
           <L>{'}'}</L>

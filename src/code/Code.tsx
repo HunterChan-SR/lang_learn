@@ -137,6 +137,48 @@ export function Act({ children, onClick, title, className }: { children: ReactNo
   )
 }
 
+/** 代码里可以直接改的数字字面量：只能输入数字，回车提交，↑/↓ 加减 1 */
+export function NumInput({
+  value,
+  onChange,
+  onStep,
+  onCommit,
+  onEnter,
+  label,
+}: {
+  value: string
+  onChange: (v: string) => void
+  onStep: (delta: number) => void
+  onCommit: () => void
+  onEnter: () => void
+  label: string
+}) {
+  return (
+    <input
+      className="cx-input num"
+      style={{ width: `calc(${Math.max(value.length, 1)}ch + 2px)` }}
+      value={value}
+      inputMode="numeric"
+      onChange={(e) => onChange(e.target.value.replace(/\D/g, '').slice(0, 4))}
+      onBlur={onCommit}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          onEnter()
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+          e.preventDefault()
+          onStep(e.key === 'ArrowUp' ? 1 : -1)
+        }
+      }}
+      onClick={(e) => e.stopPropagation()}
+      aria-label={label}
+      title={label}
+      autoComplete="off"
+      spellCheck={false}
+    />
+  )
+}
+
 /** 灰色斜体的“建议文字”，类似 Copilot 的行内提示 */
 export function Ghost({ children }: { children: ReactNode }) {
   return <span className="cx-ghost">{children}</span>

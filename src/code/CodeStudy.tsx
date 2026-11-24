@@ -4,10 +4,11 @@ import { useWordExtra } from '../lib/extras'
 import { navigate } from '../lib/router'
 import { toggleStar, useAppData } from '../lib/store'
 import type { Grade, Word } from '../lib/types'
+import { useMoreWords, type MoreWords } from '../lib/useMoreWords'
 import { useStudySession } from '../lib/useStudy'
 import { AIComment, useAILens } from './CodeAI'
 import { bar } from './CodeHome'
-import { Act, C, Cm, Code, Ghost, K, L, Lens, N, S, T, V } from './Code'
+import { Act, C, Cm, Code, Ghost, K, L, Lens, N, NumInput, S, T, V } from './Code'
 
 const GRADE_LABELS = ['Forgot', 'Hard', 'Good', 'Easy']
 
@@ -28,6 +29,7 @@ export const ident = (w: string) => w.replace(/[^A-Za-z0-9_$]+/g, '_').replace(/
 export function CodeStudy({ book, extra }: { book: BookState; extra: number }) {
   const s = useStudySession(book, extra, { autoPlay: false })
   const { queue, pos, item, finished, total } = s
+  const more = useMoreWords(s.remainingNew)
 
   if (book.error) {
     return (
@@ -59,15 +61,14 @@ export function CodeStudy({ book, extra }: { book: BookState; extra: number }) {
         <L>
           <Cm>// 今天没有需要学习的单词：到期的单词都复习完了，新词也已达到每日目标</Cm>
         </L>
-        <Lens
-          items={[
-            { label: 'Run study(+10)', onClick: () => navigate('/study?extra=10', true), title: '再学 10 个新词' },
-            { label: 'today.ts', onClick: () => navigate('/') },
-          ]}
-        />
-        <L>
-          <C>export</C> {'{}'}
-        </L>
+        <Lens items={[runMore(more), { label: 'today.ts', onClick: () => navigate('/') }]} />
+        {more.max > 0 ? (
+          <MoreLine more={more} />
+        ) : (
+          <L>
+            <C>export</C> {'{}'}
+          </L>
+        )}
       </Code>
     )
   }
@@ -96,6 +97,13 @@ export function CodeStudy({ book, extra }: { book: BookState; extra: number }) {
           </L>
         ))}
         <L>{'}'}</L>
+        {more.max > 0 && (
+          <>
+            <L />
+            <Lens items={[runMore(more)]} />
+            <MoreLine more={more} />
+          </>
+        )}
       </Code>
     )
   }
@@ -131,6 +139,29 @@ export function CodeStudy({ book, extra }: { book: BookState; extra: number }) {
         <Cm>// Space 显示释义 · 1–4 评分 · R 朗读 · S 收藏 · Esc 退出</Cm>
       </L>
     </Code>
+  )
+}
+
+/** “再学一组”的 CodeLens 项（在学习页里，换一组不多留历史记录） */
+function runMore(more: MoreWords) {
+  return more.count > 0 && { label: `Run study(+${more.count})`, onClick: () => more.start(true), title: `再学 ${more.count} 个新词` }
+}
+
+/** export const extra = 20 // 再学几个新词：数字可以直接改 */
+function MoreLine({ more }: { more: MoreWords }) {
+  return (
+    <L>
+      <C>export</C> <K>const</K> <V className="t-const">extra</V> ={' '}
+      <NumInput
+        value={more.value}
+        onChange={more.setValue}
+        onStep={more.step}
+        onCommit={more.commit}
+        onEnter={() => more.start(true)}
+        label={`再学几个新词（1–${more.max}），回车开始`}
+      />{' '}
+      <Cm>// 再学几个新词：改数字，回车开始</Cm>
+    </L>
   )
 }
 

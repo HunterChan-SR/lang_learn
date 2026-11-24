@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { dayIndex, dayKey, formatInterval } from './date'
 import { buildQuiz, checkSpelling } from './quiz'
-import { buildQueue, dailyPlan } from './session'
+import { buildQueue, clampCount, dailyPlan, stepCount } from './session'
 import { MASTERED_IVL, nextIntervals, schedule, wordStatus } from './srs'
 import type { AppData, CardState, Word } from './types'
 
@@ -107,6 +107,28 @@ describe('session', () => {
     const plan = dailyPlan(words, data({ word1: c(T + 1), word2: c(T), word3: c(T - 5) }), T, 0)
     expect(plan.reviews.map((w) => w.w)).toEqual(['word3', 'word2'])
     expect(plan.news.map((w) => w.w)).not.toContain('word1')
+  })
+
+  it('再学一组：填写的数量规整成 1..max 的整数', () => {
+    expect(clampCount('20', 100)).toBe(20)
+    expect(clampCount('12.7', 100)).toBe(12)
+    expect(clampCount('300', 100)).toBe(100)
+    expect(clampCount('', 100)).toBe(0)
+    expect(clampCount('0', 100)).toBe(0)
+    expect(clampCount('-5', 100)).toBe(0)
+    expect(clampCount('abc', 100)).toBe(0)
+    expect(clampCount(null, 100)).toBe(0)
+  })
+
+  it('再学一组：步进到步长的整数倍，不超出 1..max', () => {
+    expect(stepCount(20, 5, 100)).toBe(25)
+    expect(stepCount(20, -5, 100)).toBe(15)
+    expect(stepCount(7, 5, 100)).toBe(10)
+    expect(stepCount(7, -5, 100)).toBe(5)
+    expect(stepCount(5, -5, 100)).toBe(1)
+    expect(stepCount(0, 5, 100)).toBe(5)
+    expect(stepCount(98, 5, 100)).toBe(100)
+    expect(stepCount(3, 1, 100)).toBe(4)
   })
 
   it('复习和新词 2:1 交替', () => {

@@ -657,6 +657,11 @@
   font-style: italic;
 }
 
+.cx-input.num {
+  color: var(--t-n);
+  font-variant-numeric: tabular-nums;
+}
+
 .cx-input.bad {
   text-decoration: underline wavy var(--cx-err);
   text-underline-offset: 3px;

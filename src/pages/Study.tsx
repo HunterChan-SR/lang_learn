@@ -1,5 +1,6 @@
 import { AIButton, AIPanel } from '../components/AICoach'
 import { Icon } from '../components/Icon'
+import { MoreWords } from '../components/MoreWords'
 import { StudyExtras } from '../components/WordExtras'
 import { Exchange, Meanings, Phonetic, SpeakButton, StarButton } from '../components/WordParts'
 import type { BookState } from '../lib/books'
@@ -16,7 +17,7 @@ export const GRADES: { grade: Grade; label: string; cls: string }[] = [
 ]
 
 export function Study({ book, extra }: { book: BookState; extra: number }) {
-  const { queue, pos, item, finished, revealed, reveal, grade, tally, newCount, total, intervals } = useStudySession(book, extra, {
+  const { queue, pos, item, finished, revealed, reveal, grade, tally, newCount, total, intervals, remainingNew } = useStudySession(book, extra, {
     autoPlay: true,
   })
 
@@ -50,9 +51,7 @@ export function Study({ book, extra }: { book: BookState; extra: number }) {
           <h2>今天没有需要学习的单词</h2>
           <p className="muted">所有到期的单词都复习完了，新词也已达到每日目标。</p>
           <div className="row gap-sm wrap center">
-            <button className="btn primary" onClick={() => navigate('/study?extra=10', true)}>
-              再学 10 个新词
-            </button>
+            <MoreWords remaining={remainingNew} replace />
             <button className="btn" onClick={() => navigate('/')}>
               返回首页
             </button>
@@ -85,6 +84,12 @@ export function Study({ book, extra }: { book: BookState; extra: number }) {
               返回首页
             </button>
           </div>
+          {remainingNew > 0 && (
+            <div className="finish-more">
+              <span className="muted small">还没学够？</span>
+              <MoreWords remaining={remainingNew} primary={false} replace />
+            </div>
+          )}
         </div>
       )}
 

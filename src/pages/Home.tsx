@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Icon } from '../components/Icon'
+import { MoreWords } from '../components/MoreWords'
 import { ProgressRing } from '../components/ProgressRing'
 import { BOOKS, bookMeta, type BookState } from '../lib/books'
 import { dayIndex, dayKey, weekdayLabel } from '../lib/date'
@@ -136,11 +137,7 @@ export function Home({ book }: { book: BookState }) {
                       <Icon name="check" size={18} /> 今日任务已完成
                     </p>
                     <div className="row gap-sm wrap">
-                      {remainingNew > 0 && (
-                        <button className="btn primary" onClick={() => navigate('/study?extra=10')}>
-                          再学 10 个
-                        </button>
-                      )}
+                      <MoreWords remaining={remainingNew} />
                       <button className="btn" onClick={() => navigate('/quiz')}>
                         做个小测验
                       </button>
